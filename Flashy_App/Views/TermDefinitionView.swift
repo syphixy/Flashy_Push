@@ -12,7 +12,8 @@ import Combine
 
 struct TermDefinitionView: View {
     @ObservedObject private var viewModel = TermDefinitionViewModel()
-
+    @Binding var showNew: Bool
+    
     var body: some View {
         ZStack {
             NavigationView {
@@ -29,7 +30,12 @@ struct TermDefinitionView: View {
                     .navigationBarItems(trailing: Button(action: {
                         viewModel.save()
                     }) {
-                        Text("Done")
+                        Button(action: {
+                            showNew.toggle()
+                            viewModel.save()
+                        }) {
+                            Text("Done")
+                        }
                     })
                     Spacer()
 
@@ -54,7 +60,7 @@ struct TermDefinitionView: View {
 
 struct TermDefinitionView_Previews: PreviewProvider {
     static var previews: some View {
-        TermDefinitionView()
+        TermDefinitionView(showNew: .constant(true))
     }
 }
 

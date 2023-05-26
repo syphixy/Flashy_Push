@@ -4,7 +4,6 @@
 //
 //  Created by Artem on 2023-04-30.
 //
-
 import SwiftUI
 
 struct NewHomeView: View {
@@ -15,7 +14,7 @@ struct NewHomeView: View {
     @State var search = false
     @Binding var showIcon: Bool
     @State var view = CGSize.zero
-    @State var showNew: Bool
+    @State var showNew = false
     var body: some View {
         ZStack {
             UpNavView(showProfile: $showProfile)
@@ -53,7 +52,7 @@ struct NewHomeView: View {
                 }
                 
                 .sheet(isPresented: $showNew) {
-                    TermDefinitionView()
+                    TermDefinitionView(showNew: $showNew)
                     //   .offset(y: viewState.height)
                         .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0.1))
                 }
@@ -87,7 +86,7 @@ struct NewSetView: View {
                 
                 }
                 .frame(width: 250, height: 180)
-                .background(Color(.gray))
+                .background(Color("newgray"))
                 .cornerRadius(20)
                 .shadow(radius: 2)
             }

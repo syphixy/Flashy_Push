@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A645E0402A2047D500AE39EA /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A645E03E2A2047D500AE39EA /* CoreData.xcdatamodeld */; };
 		A6581E3C29FE2184004D03B6 /* Flashy_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6581E3B29FE2184004D03B6 /* Flashy_AppApp.swift */; };
 		A6581E3E29FE2184004D03B6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6581E3D29FE2184004D03B6 /* ContentView.swift */; };
 		A6581E4029FE2186004D03B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A6581E3F29FE2186004D03B6 /* Assets.xcassets */; };
@@ -49,6 +50,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A645E03F2A2047D500AE39EA /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 		A6581E3829FE2184004D03B6 /* Flashy_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flashy_App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6581E3B29FE2184004D03B6 /* Flashy_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flashy_AppApp.swift; sourceTree = "<group>"; };
 		A6581E3D29FE2184004D03B6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				A6581E7229FE224C004D03B6 /* Card */,
 				A6581E6B29FE21F3004D03B6 /* HomeView */,
 				A6581E8629FE23AE004D03B6 /* TermDefinitionView.swift */,
+				A645E03E2A2047D500AE39EA /* CoreData.xcdatamodeld */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -354,6 +357,7 @@
 			files = (
 				A6581E3E29FE2184004D03B6 /* ContentView.swift in Sources */,
 				A6581E8329FE2370004D03B6 /* SearchbarView.swift in Sources */,
+				A645E0402A2047D500AE39EA /* CoreData.xcdatamodeld in Sources */,
 				A6581E6F29FE221B004D03B6 /* HomeView.swift in Sources */,
 				A6581F062A130093004D03B6 /* FlashCardView.swift in Sources */,
 				A6581E3C29FE2184004D03B6 /* Flashy_AppApp.swift in Sources */,
@@ -720,6 +724,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		A645E03E2A2047D500AE39EA /* CoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A645E03F2A2047D500AE39EA /* CoreData.xcdatamodel */,
+			);
+			currentVersion = A645E03F2A2047D500AE39EA /* CoreData.xcdatamodel */;
+			path = CoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = A6581E3029FE2184004D03B6 /* Project object */;
 }

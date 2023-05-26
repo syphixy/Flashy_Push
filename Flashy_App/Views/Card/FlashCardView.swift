@@ -39,8 +39,6 @@ struct FlashCardView: View {
         .frame(width: 330, height: 550)
         .rotationEffect(.degrees(Double(offset.width / 5)))
        
-        
-        
         // makes an effect when swiping the card and it gets back if swipped not too much
         .offset(x: offset.width * 5, y: offsetY.height * 5) // changes the position of the card by x - direction
         .opacity(2 - Double(abs(offset.width / 50))) //adds an opacity for width / 50
@@ -53,11 +51,11 @@ struct FlashCardView: View {
             offsetY = value.translation
             }
                 .onEnded { _ in
-                    if abs(offset.width) > 100 {
+                    if abs(offset.width) > 50 {
                         //remove the card
                         removal?()
                     }
-                    else if abs(offsetY.height) > 100 {
+                    else if abs(offsetY.height) > 50 {
                         removal?()
                     }
                     else {
