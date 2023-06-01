@@ -79,7 +79,9 @@ struct RandomSetView: View {
     var body: some View {
         VStack {
             HStack {
-                Text("Recommended")
+                VStack {
+                    Image(systemName: "plus")
+                }
             }
             
         }

@@ -15,6 +15,7 @@ struct NewHomeView: View {
     @Binding var showIcon: Bool
     @State var view = CGSize.zero
     @State var showNew = false
+    @State var readySet = false
     var body: some View {
         ZStack {
             UpNavView(showProfile: $showProfile)
@@ -40,20 +41,20 @@ struct NewHomeView: View {
                
                 HStack(spacing: 20) {
                     
-                        NewSetView(showNew: $showNew)
-                            .padding(.top, 80)
+                    NewSetView(showNew: $showNew)
                             .padding(.leading, 20)
-                                    .offset(x: viewState.width, y: viewState.height)
                                     .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0))
+                    ReadySetView(showNew: .constant(false), readySet: $readySet)
+                        
                             
                     }
                 .onTapGesture {
                     self.show.toggle()
                 }
-                
                 .sheet(isPresented: $showNew) {
                     TermDefinitionView(showNew: $showNew)
                     //   .offset(y: viewState.height)
+                        
                         .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0.1))
                 }
                 }
@@ -69,6 +70,7 @@ struct NewHomeView_Previews: PreviewProvider {
 
 struct NewSetView: View {
 @Binding var showNew: Bool
+    
     var body: some View {
         ZStack {
            
@@ -77,6 +79,34 @@ struct NewSetView: View {
                 VStack {
                     
                     Button(action: {self.showNew.toggle()}) {
+                        Image(systemName: "plus")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .foregroundColor(.black)
+                            .frame(width: 50, height: 30)
+                    }
+                
+                }
+                .frame(width: 250, height: 180)
+                .background(Color("newgray"))
+                .cornerRadius(20)
+                .shadow(radius: 2)
+            }
+        }
+        
+    }
+}
+struct ReadySetView: View {
+@Binding var showNew: Bool
+    @Binding var readySet: Bool
+    var body: some View {
+        ZStack {
+           
+            HStack {
+            
+                VStack {
+                    
+                    Button(action: {self.readySet.toggle()}) {
                         Image(systemName: "plus")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)

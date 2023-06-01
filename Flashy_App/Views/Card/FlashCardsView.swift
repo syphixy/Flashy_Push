@@ -10,6 +10,7 @@ import SwiftUI
 struct FlashCardsView: View {
     @StateObject private var viewModel = FlashcardsViewModel()
     @State private var newCards = false
+    
     var body: some View {
         NavigationView {
             ZStack {

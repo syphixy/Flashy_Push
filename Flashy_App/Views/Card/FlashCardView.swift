@@ -42,27 +42,32 @@ struct FlashCardView: View {
         // makes an effect when swiping the card and it gets back if swipped not too much
         .offset(x: offset.width * 5, y: offsetY.height * 5) // changes the position of the card by x - direction
         .opacity(2 - Double(abs(offset.width / 50))) //adds an opacity for width / 50
+        .opacity(2 - Double(abs(offset.height / 50)))
             .onTapGesture {
                 isShown.toggle()
             }
         .gesture(
             DragGesture().onChanged { value in
-            offset = value.translation
-            offsetY = value.translation
+                offset = value.translation
+                offsetY = value.translation
             }
-                .onEnded { _ in
-                    if abs(offset.width) > 50 {
-                        //remove the card
+            .onEnded { value in
+                if abs(offset.width) > 100 {
+                    withAnimation {
+                        offset.width = value.translation.width > 0 ? 1000 : -1000
                         removal?()
                     }
-                    else if abs(offsetY.height) > 50 {
+                } else if abs(offsetY.height) > 100 {
+                    withAnimation {
+                        offsetY.height = value.translation.height > 0 ? 1000 : -1000
                         removal?()
                     }
-                    else {
-                        offset = .zero
-                        offsetY = .zero
-                    }
+                } else {
+                    offset = .zero
+                    offsetY = .zero
                 }
+            }
+
                 
         )
         
