@@ -9,14 +9,17 @@ import SwiftUI
 import Combine
 
 final class TermDefinitionViewModel: ObservableObject {
-    @Published var termdefpairs: [TermAndDefinition] = [TermAndDefinition(term: "", definition: "")]
+    @Published var termdefpairs: [TermAndDefinition] = [TermAndDefinition(term: "", definition: "", name: "")]
+    
+    private var dataController = DataController()
 
     func addNew() {
-        termdefpairs.append(TermAndDefinition(term: "", definition: ""))
+        termdefpairs.append(TermAndDefinition(term: "", definition: "", name: ""))
     }
     
-    // Add your save functionality here, for example:
     func save() {
-        // Save the flashcards to UserDefaults, CoreData, or another storage system
+        for pair in termdefpairs {
+            dataController.add(name: pair.name, term: pair.term, definition: pair.definition, context: dataController.container.viewContext)
+        }
     }
 }

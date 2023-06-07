@@ -7,6 +7,7 @@
 import SwiftUI
 
 struct NewHomeView: View {
+    @ObservedObject var dataController = DataController()
     @State var show = false
     @State var showProfile = false
     @State var viewState = CGSize.zero
@@ -44,7 +45,10 @@ struct NewHomeView: View {
                     NewSetView(showNew: $showNew)
                             .padding(.leading, 20)
                                     .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0))
-                    ReadySetView(showNew: .constant(false), readySet: $readySet)
+                    ForEach(dataController.savedFlash, id: \.self) { flashCard in
+                                     //   ReadySetView(flashCard: flashCard)
+                                    }
+                 //   ReadySetView(showNew: .constant(false), readySet: $readySet)
                         
                             
                     }
@@ -99,6 +103,7 @@ struct NewSetView: View {
 struct ReadySetView: View {
 @Binding var showNew: Bool
     @Binding var readySet: Bool
+    var flashCard: FlashCardData
     var body: some View {
         ZStack {
            

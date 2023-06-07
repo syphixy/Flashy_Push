@@ -1,8 +1,8 @@
 //
-//  Flashy_AppApp.swift
-//  Flashy_App
+//  FlashyApp.swift
+//  Flashy
 //
-//  Created by Artem on 2023-04-30.
+//  Created by Artem on 2023-06-07.
 //
 
 import SwiftUI

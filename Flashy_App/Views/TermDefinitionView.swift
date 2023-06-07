@@ -20,7 +20,7 @@ struct TermDefinitionView: View {
                 VStack {
                     List {
                         ForEach(viewModel.termdefpairs.indices, id: \.self) { index in
-                            TermView(term: $viewModel.termdefpairs[index].term, definition: $viewModel.termdefpairs[index].definition)
+                            TermView(term: $viewModel.termdefpairs[index].term, definition: $viewModel.termdefpairs[index].definition, name: $viewModel.termdefpairs[index].name)
                         }
                         .onDelete { index in
                             self.viewModel.termdefpairs.remove(at: index.first!)
@@ -28,11 +28,12 @@ struct TermDefinitionView: View {
                         
                     }
                     .navigationBarItems(trailing: Button(action: {
-                        viewModel.save()
+                    //    viewModel.save()
                     }) {
                         Button(action: {
                             showNew.toggle()
                             viewModel.save()
+                            
                         }) {
                             Text("Done")
                         }
@@ -67,9 +68,20 @@ struct TermDefinitionView_Previews: PreviewProvider {
 struct TermView: View {
     @Binding var term: String
     @Binding var definition: String
+    @Binding var name: String
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             VStack(alignment: .leading, spacing: 8) {
+                
+                Text("Name")
+                    .font(.headline)
+                
+                TextField("Enter name", text: $name)
+                    .padding()
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray, lineWidth: 1))
+            }
+            VStack(alignment: .leading, spacing: 8) {
+                
                 Text("Term")
                     .font(.headline)
                 
@@ -96,4 +108,5 @@ struct TermAndDefinition: Identifiable {
     var id = UUID()
     var term: String
     var definition: String
+    var name: String 
 }
