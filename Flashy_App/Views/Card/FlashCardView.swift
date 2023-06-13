@@ -13,11 +13,22 @@ struct FlashCardView: View {
     @State private var offset = CGSize.zero
     @State private var offsetY = CGSize.zero
     @State private var slide = false
+    @Environment(\.accessibilityDifferentiateWithoutColor) var differentiateWithoutColor
 
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 25, style: .continuous)
-                .fill(Color.white)
+                .fill(
+                    differentiateWithoutColor ?
+                        .white :
+                            .white.opacity(1 - Double(abs(offset.width / 200)))
+                )
+                .background(
+                    differentiateWithoutColor ?
+                    nil :
+                    RoundedRectangle(cornerRadius: 25, style: .continuous)
+                        .fill(offset.width > 0 ? .green : .red)
+                )
                 .shadow(radius: 3)
             
             VStack {
@@ -36,13 +47,13 @@ struct FlashCardView: View {
             .padding()
             .multilineTextAlignment(.center)
         }
-        .frame(width: 330, height: 550)
-        .rotationEffect(.degrees(Double(offset.width / 5)))
+        .frame(width: 300, height: 550)
+        .rotationEffect(.degrees(Double(offset.width / 10)))
        
         // makes an effect when swiping the card and it gets back if swipped not too much
-        .offset(x: offset.width * 5, y: offsetY.height * 5) // changes the position of the card by x - direction
-        .opacity(2 - Double(abs(offset.width / 50))) //adds an opacity for width / 50
-        .opacity(2 - Double(abs(offset.height / 50)))
+        .offset(x: offset.width, y: offsetY.height) // changes the position of the card by x - direction
+        .opacity(2 - Double(abs(offset.width / 200))) //adds an opacity for width / 50
+        .opacity(2 - Double(abs(offset.height / 200)))
             .onTapGesture {
                 isShown.toggle()
             }

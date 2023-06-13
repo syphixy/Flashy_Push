@@ -19,7 +19,6 @@ struct FlashCardsView: View {
                 }
             }
             .padding()
-            .navigationTitle("Flashcards")
             .navigationBarItems(trailing:
                 Button(action: {
                     Task {
