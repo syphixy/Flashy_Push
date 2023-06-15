@@ -35,7 +35,7 @@ struct TermDefinitionView: View {
                             viewModel.save()
                             
                         }) {
-                            Text("Done")
+                            Text("Save")
                         }
                     })
                     Spacer()

@@ -8,8 +8,19 @@
 import Foundation
 import SwiftUI
 
+enum SwipeDirection {
+    case left
+    case right
+    case up
+    case down
+}
 class FlashcardsViewModel: ObservableObject {
+    
     @Published var flashcards = [Flashcard]()
+    @Published var unlearnedCards = [Flashcard]()
+    @Published var learnedCards = [Flashcard]()
+    @Published var wellLearnedCards = [Flashcard]()
+    @Published var hardToLearnCards = [Flashcard]()
     
     
     func fetchFlashcards() async {
@@ -32,4 +43,20 @@ class FlashcardsViewModel: ObservableObject {
             print("Failed to fetch data: \(error)")
         }
     }
-}
+    func updateLearningStatus(for card: Flashcard, direction: SwipeDirection) {
+            switch direction {
+            case .left:
+                unlearnedCards.append(card)
+            case .right:
+                learnedCards.append(card)
+            case .up:
+                wellLearnedCards.append(card)
+            case .down:
+                hardToLearnCards.append(card)
+            }
+            if let index = flashcards.firstIndex(where: { $0.id == card.id }) {
+                flashcards.remove(at: index)
+            }
+        }
+    }
+

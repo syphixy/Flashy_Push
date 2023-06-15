@@ -19,6 +19,7 @@ struct FlashCardsView: View {
                 }
             }
             .padding()
+            
             .navigationBarItems(trailing:
                 Button(action: {
                     Task {

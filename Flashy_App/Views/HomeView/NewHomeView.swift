@@ -59,7 +59,7 @@ struct NewHomeView: View {
                     TermDefinitionView(showNew: $showNew)
                     //   .offset(y: viewState.height)
                         
-                        .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0.1))
+                //       .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0.1)) - was depreciated in IOS 15
                 }
                 }
             }
