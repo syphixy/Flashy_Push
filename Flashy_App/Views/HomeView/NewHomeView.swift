@@ -5,8 +5,12 @@
 //  Created by Artem on 2023-04-30.
 //
 import SwiftUI
+import CoreData
 
 struct NewHomeView: View {
+    @Environment (\.managedObjectContext) var managedObjectContext
+   
+    
     @ObservedObject var dataController = DataController()
     @State var show = false
     @State var showProfile = false
@@ -17,6 +21,8 @@ struct NewHomeView: View {
     @State var view = CGSize.zero
     @State var showNew = false
     @State var readySet = false
+    
+    
     var body: some View {
         ZStack {
             UpNavView(showProfile: $showProfile)

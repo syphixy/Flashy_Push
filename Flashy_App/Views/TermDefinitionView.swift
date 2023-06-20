@@ -5,15 +5,23 @@
 //  Created by Artem on 2023-04-30.
 //
 
+
+
 import SwiftUI
 import Combine
+import CoreData
 
 // ViewModel for managing flashcards
 
 struct TermDefinitionView: View {
     @ObservedObject private var viewModel = TermDefinitionViewModel()
     @Binding var showNew: Bool
-    
+    @State var term = ""
+    @State var definition = ""
+    @State var name = ""
+    @Environment (\.managedObjectContext) var managedObject
+    @Environment (\.dismiss) var dismiss
+
     var body: some View {
         ZStack {
             NavigationView {
@@ -27,7 +35,7 @@ struct TermDefinitionView: View {
                         }
                         
                     }
-                    .navigationBarItems(trailing: Button(action: {
+                    /*.navigationBarItems(trailing: Button(action: {
                     //    viewModel.save()
                     }) {
                         Button(action: {
@@ -37,6 +45,10 @@ struct TermDefinitionView: View {
                         }) {
                             Text("Save")
                         }
+                    })*/
+                    .navigationBarItems(trailing: Button("Save") {
+                        DataController().add(name: name, term: term, definition: definition, context: managedObject)
+                        dismiss()
                     })
                     Spacer()
 
@@ -108,5 +120,5 @@ struct TermAndDefinition: Identifiable {
     var id = UUID()
     var term: String
     var definition: String
-    var name: String 
+    var name: String
 }

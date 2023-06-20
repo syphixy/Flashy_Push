@@ -10,8 +10,8 @@ import SwiftUI
 
 enum Tab: String, CaseIterable {
     case dice
-    case house
     case plus
+    case house
 }
 struct CustomTabBar: View {
     @Binding var selectedTab: Tab
