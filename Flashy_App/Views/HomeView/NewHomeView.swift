@@ -8,9 +8,8 @@ import SwiftUI
 import CoreData
 
 struct NewHomeView: View {
-    @Environment (\.managedObjectContext) var managedObjectContext
-   
     
+    @Environment (\.managedObjectContext) var managedObjectContext
     @ObservedObject var dataController = DataController()
     @State var show = false
     @State var showProfile = false

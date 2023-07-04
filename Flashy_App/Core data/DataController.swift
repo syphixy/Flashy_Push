@@ -5,6 +5,13 @@
 //  Created by Artem on 2023-06-06.
 //
 
+//
+//  DataController.swift
+//  Flashy_App
+//
+//  Created by Artem on 2023-06-06.
+//
+
 import Foundation
 import CoreData
 

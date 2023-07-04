@@ -7,6 +7,56 @@
 
 
 
+//
+//  TermDefinitionView.swift
+//  Flashy_App
+//
+//  Created by Artem on 2023-04-30.
+//
+
+
+
+//
+//  TermDefinitionView.swift
+//  Flashy_App
+//
+//  Created by Artem on 2023-04-30.
+//
+
+
+
+//
+//  TermDefinitionView.swift
+//  Flashy_App
+//
+//  Created by Artem on 2023-04-30.
+//
+
+
+
+
+// ViewModel for managing flashcards
+
+
+    
+//
+//  TermDefinitionView.swift
+//  Flashy_App
+//
+//  Created by Artem on 2023-04-30.
+//
+
+
+
+//
+//  TermDefinitionView.swift
+//  Flashy_App
+//
+//  Created by Artem on 2023-04-30.
+//
+
+
+
 import SwiftUI
 import Combine
 import CoreData
@@ -19,9 +69,10 @@ struct TermDefinitionView: View {
     @State var term = ""
     @State var definition = ""
     @State var name = ""
-    @Environment (\.managedObjectContext) var managedObject
-    @Environment (\.dismiss) var dismiss
-
+    @EnvironmentObject var dataController: DataController
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.dismiss) var dismiss
+    
     var body: some View {
         ZStack {
             NavigationView {
@@ -35,19 +86,8 @@ struct TermDefinitionView: View {
                         }
                         
                     }
-                    /*.navigationBarItems(trailing: Button(action: {
-                    //    viewModel.save()
-                    }) {
-                        Button(action: {
-                            showNew.toggle()
-                            viewModel.save()
-                            
-                        }) {
-                            Text("Save")
-                        }
-                    })*/
                     .navigationBarItems(trailing: Button("Save") {
-                        DataController().add(name: name, term: term, definition: definition, context: managedObject)
+                        dataController.add(name: name, term: term, definition: definition, context: managedObjectContext)
                         dismiss()
                     })
                     Spacer()
@@ -70,6 +110,7 @@ struct TermDefinitionView: View {
         }
     }
 }
+
 
 struct TermDefinitionView_Previews: PreviewProvider {
     static var previews: some View {
@@ -118,7 +159,8 @@ struct TermView: View {
 
 struct TermAndDefinition: Identifiable {
     var id = UUID()
+    var name: String
     var term: String
     var definition: String
-    var name: String
+    
 }
