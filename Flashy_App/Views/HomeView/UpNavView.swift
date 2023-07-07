@@ -23,7 +23,7 @@ struct UpNavView: View {
                 
             }
             .frame(width: 370, height: 30)
-            Spacer()
+            
         }
         
         /*

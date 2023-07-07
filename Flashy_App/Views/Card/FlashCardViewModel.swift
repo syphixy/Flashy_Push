@@ -23,6 +23,7 @@ class FlashcardsViewModel: ObservableObject {
     @Published var hardToLearnCards = [Flashcard]()
     
     
+    
     func fetchFlashcards() async {
         // Create URL
         guard let url = URL(string: "https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple") else {
