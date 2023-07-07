@@ -4,6 +4,7 @@
         <attribute name="definition" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="tag" optional="YES" attributeType="String"/>
         <attribute name="term" optional="YES" attributeType="String"/>
     </entity>
 </model>

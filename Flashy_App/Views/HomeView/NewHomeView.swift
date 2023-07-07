@@ -35,7 +35,7 @@ struct NewHomeView: View {
                 .onTapGesture {
                     self.show.toggle()
                 }
-                
+    
                 .sheet(isPresented: $showProfile) {
                     ProfileView()
                     

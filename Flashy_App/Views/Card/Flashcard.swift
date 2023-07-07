@@ -24,10 +24,4 @@ struct TriviaQuestion: Codable {
     let correct_answer: String
 }
 
-enum FlashcardDifficulty: String {
-    case hard = "Hard"
-    case easy = "Easy"
-    case good = "Good"
-    case fine = "Fine"
-}
 
