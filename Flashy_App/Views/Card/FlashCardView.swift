@@ -18,6 +18,7 @@ import SwiftUI
      @State private var showMiddleIndicator = false
      @State private var showEasyIndicator = false
      
+     
   
      var body: some View {
          ZStack {

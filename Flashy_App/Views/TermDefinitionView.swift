@@ -190,4 +190,8 @@ struct TermAndDefinition: Identifiable {
     var term: String
     var definition: String
     var tag: String
+    
+    var flashcard: Flashcard {
+            return Flashcard(question: term, answer: definition)
+        }
 }

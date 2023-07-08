@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var selectedTab: Tab = .house
-    
+    @State var showNew = false
     
     init() {
         UITabBar.appearance().isHidden = true
@@ -22,6 +22,11 @@ struct ContentView: View {
             }
             if selectedTab == .dice {
                 DiceView()
+            }
+            if selectedTab == .plus {
+                
+                TermDefinitionView(showNew: $showNew)
+                
             }
             Spacer()
             CustomTabBar(selectedTab: $selectedTab)

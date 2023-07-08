@@ -54,9 +54,10 @@ struct NewHomeView: View {
                     
                     HStack(spacing: 20) {
                         
-                        NewSetView(showNew: $showNew)
+                      /*  NewSetView(showNew: $showNew)
                             .padding(.leading, 20)
                             .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0))
+                       */
                         ForEach(dataController.savedFlash, id: \.self) { flashCard in
                             //   ReadySetView(flashCard: flashCard)
                         }
