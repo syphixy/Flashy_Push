@@ -8,7 +8,6 @@
 //
 //  TermDefinitionViewModel.swift
 //  Flashy_App
-//
 //  Created by Artem on 2023-04-30.
 //
 

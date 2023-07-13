@@ -26,7 +26,7 @@ struct NewHomeView: View {
     @State var view = CGSize.zero
     @State var showNew = false
     @State var readySet = false
-    
+    @State private var showFlashcardStack = false
     
     var body: some View {
         ZStack {
@@ -48,7 +48,7 @@ struct NewHomeView: View {
                     .font(.system(size: 30, weight: .bold))
                     .padding(.bottom, 30)
                     Spacer()
-            
+                  
                 
                 ScrollView(.horizontal, showsIndicators: false) {
                     
@@ -60,6 +60,7 @@ struct NewHomeView: View {
                        */
                         ForEach(dataController.savedFlash, id: \.self) { flashCard in
                             //   ReadySetView(flashCard: flashCard)
+                            SetView()
                         }
                         //   ReadySetView(showNew: .constant(false), readySet: $readySet)
                         
@@ -143,6 +144,7 @@ struct ReadySetView: View {
         
     }
 }
+ 
 struct AvatarView: View {
     @Binding var showProfile: Bool
     @State var viewState = CGSize.zero

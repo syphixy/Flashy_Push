@@ -73,6 +73,8 @@ struct TermDefinitionView: View {
     @EnvironmentObject var dataController: DataController
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.dismiss) var dismiss
+    @State var showSet = false
+    
     
     var body: some View {
         ZStack {
@@ -89,6 +91,7 @@ struct TermDefinitionView: View {
                     }
                     .navigationBarItems(trailing: Button("Save") {
                         dataController.add(name: name, term: term, definition: definition, tag: tag, context: managedObjectContext)
+                        
                         dismiss()
                     })
                     Spacer()
@@ -191,7 +194,5 @@ struct TermAndDefinition: Identifiable {
     var definition: String
     var tag: String
     
-    var flashcard: Flashcard {
-            return Flashcard(question: term, answer: definition)
-        }
+    
 }

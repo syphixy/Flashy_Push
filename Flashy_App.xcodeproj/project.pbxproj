@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		A62F66FE2A2F9F9D002CFB99 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A62F66FC2A2F9F9D002CFB99 /* CoreData.xcdatamodeld */; };
 		A62F67002A2FA004002CFB99 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62F66FF2A2FA004002CFB99 /* DataController.swift */; };
-		A62F67562A5A2318002CFB99 /* FlashCardSetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62F67552A5A2318002CFB99 /* FlashCardSetsView.swift */; };
+		A62F67622A5F0130002CFB99 /* SetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62F67612A5F0130002CFB99 /* SetView.swift */; };
 		A6581E3C29FE2184004D03B6 /* Flashy_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6581E3B29FE2184004D03B6 /* Flashy_AppApp.swift */; };
 		A6581E3E29FE2184004D03B6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6581E3D29FE2184004D03B6 /* ContentView.swift */; };
 		A6581E4029FE2186004D03B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A6581E3F29FE2186004D03B6 /* Assets.xcassets */; };
@@ -52,7 +52,7 @@
 /* Begin PBXFileReference section */
 		A62F66FD2A2F9F9D002CFB99 /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 		A62F66FF2A2FA004002CFB99 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
-		A62F67552A5A2318002CFB99 /* FlashCardSetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardSetsView.swift; sourceTree = "<group>"; };
+		A62F67612A5F0130002CFB99 /* SetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetView.swift; sourceTree = "<group>"; };
 		A6581E3829FE2184004D03B6 /* Flashy_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flashy_App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6581E3B29FE2184004D03B6 /* Flashy_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flashy_AppApp.swift; sourceTree = "<group>"; };
 		A6581E3D29FE2184004D03B6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -212,7 +212,7 @@
 				A6581F052A130093004D03B6 /* FlashCardView.swift */,
 				A6581F092A1304E3004D03B6 /* FlashCardViewModel.swift */,
 				A6581F0B2A144EED004D03B6 /* FlashCardsView.swift */,
-				A62F67552A5A2318002CFB99 /* FlashCardSetsView.swift */,
+				A62F67612A5F0130002CFB99 /* SetView.swift */,
 			);
 			path = Card;
 			sourceTree = "<group>";
@@ -367,8 +367,8 @@
 				A6581F0A2A1304E3004D03B6 /* FlashCardViewModel.swift in Sources */,
 				A6581F042A13007D004D03B6 /* Flashcard.swift in Sources */,
 				A6581E7C29FE22C8004D03B6 /* CustomTabBar.swift in Sources */,
-				A62F67562A5A2318002CFB99 /* FlashCardSetsView.swift in Sources */,
 				A6581E6D29FE2207004D03B6 /* NewHomeView.swift in Sources */,
+				A62F67622A5F0130002CFB99 /* SetView.swift in Sources */,
 				A6581E7829FE228C004D03B6 /* BundleExtension.swift in Sources */,
 				A6581E8729FE23AE004D03B6 /* TermDefinitionView.swift in Sources */,
 				A6581E8529FE2383004D03B6 /* ProfileView.swift in Sources */,
