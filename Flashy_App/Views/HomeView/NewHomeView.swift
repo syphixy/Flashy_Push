@@ -14,7 +14,7 @@ import SwiftUI
 import CoreData
 
 struct NewHomeView: View {
-    
+    @FetchRequest(entity: FlashCardData.entity(), sortDescriptors: []) var flashcard: FetchedResults<FlashCardData>
     @Environment (\.managedObjectContext) var managedObjectContext
     @ObservedObject var dataController = DataController()
     @State var show = false
@@ -27,7 +27,11 @@ struct NewHomeView: View {
     @State var showNew = false
     @State var readySet = false
     @State private var showFlashcardStack = false
-    
+   /* @FetchRequest(
+        entity: FlashCardData.entity(), sortDescriptors: [], // Specify the entity for the fetch request,
+            animation: .default)
+    */
+       // private var tasks: FetchedResults<Task>
     var body: some View {
         ZStack {
             VStack {
@@ -53,6 +57,7 @@ struct NewHomeView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     
                     HStack(spacing: 20) {
+                       
                         
                       /*  NewSetView(showNew: $showNew)
                             .padding(.leading, 20)
@@ -70,20 +75,21 @@ struct NewHomeView: View {
                     .onTapGesture {
                         self.show.toggle()
                     }
-                    .sheet(isPresented: $showNew) {
-                        TermDefinitionView(showNew: $showNew)
+                    
                         //   .offset(y: viewState.height)
                         
                         //       .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0.1)) - was depreciated in IOS 15
                     }
                 }
+            }.onAppear {
+                print("Data = \(flashcard)")
             }
         }
     }
-}
+
 struct NewHomeView_Previews: PreviewProvider {
     static var previews: some View {
-        NewHomeView(showIcon: .constant(false), showNew: false)
+        NewHomeView(showIcon: .constant(false))
     }
 }
 

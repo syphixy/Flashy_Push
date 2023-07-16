@@ -9,8 +9,10 @@ import SwiftUI
 import CoreData
 
 struct SetView: View {
+    
+    
     @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest(entity: FlashCardData.entity(), sortDescriptors: []) private var flashcards: FetchedResults<FlashCardData>
+    @FetchRequest(entity: FlashCardData.entity(), sortDescriptors: []) private var flashcard: FetchedResults<FlashCardData>
     var removal: (() -> Void)? = nil
     var onRemove: ((SwipeDirection) -> Void)? = nil
     @State private var isShown = false
@@ -20,7 +22,7 @@ struct SetView: View {
     @State private var showNegativeIndicator = false
     @State private var showMiddleIndicator = false
     @State private var showEasyIndicator = false
-    
+    @EnvironmentObject var dataController: DataController
     
     var body: some View {
         ZStack {
@@ -29,51 +31,13 @@ struct SetView: View {
                 .overlay(RoundedRectangle(cornerRadius: 25).stroke(getColor(), lineWidth: 2))  // Here we change the border color based on the swipe direction
                 .shadow(radius: 3)
 
-            VStack {
-                ForEach(flashcards) { flashcard in
-                    Text(flashcard.name ?? "")
-                    Text(flashcard.term ?? "")
-                }
-
-                // Making the answer invisible until tapped
-                if isShown {
-                    ForEach(flashcards) { flashcard in
-                        
-                        Text(flashcard.definition ?? "")
-                            .foregroundColor(.black)
-                            .font(.title3)
-                            .offset(y: 100)
+           ScrollView {
+                LazyVStack {
+                    ForEach(flashcard) { flashcard in
+                                    FlashcardView(flashcard: flashcard)
                     }
                 }
-                
-                if showNegativeIndicator {
-                    Text(label) // Display the label
-                        .foregroundColor(.gray)
-                        .font(.title2)
-                    .padding(.top, 20)
-                }
-                else if showPositiveIndicator{
-                    Text("Learnt") // Display the label
-                        .foregroundColor(.gray)
-                        .font(.title2)
-                    .padding(.top, 20)
-                }
-                else if showMiddleIndicator{
-                    Text("Good, repeat once more") // Display the label
-                        .foregroundColor(.gray)
-                        .font(.title2)
-                    .padding(.top, 20)
-                }
-                else if showEasyIndicator{
-                    Text("Easy") // Display the label
-                        .foregroundColor(.gray)
-                        .font(.title2)
-                    .padding(.top, 20)
-                }
-            }
-            .padding()
-            .multilineTextAlignment(.center)
-
+                        }
             // Display positive indicator
             if showPositiveIndicator {
                 VStack {
@@ -205,5 +169,20 @@ struct SetView: View {
 struct SetView_Previews: PreviewProvider {
     static var previews: some View {
         SetView()
+    }
+}
+
+struct FlashcardView: View {
+    var flashcard: FlashCardData
+    /*let term: String
+    let definition: String
+    let name: String
+    */
+    var body: some View {
+        VStack {
+            Text(flashcard.name ?? "")
+            Text(flashcard.term ?? "")
+            Text(flashcard.definition ?? "")
+        }
     }
 }

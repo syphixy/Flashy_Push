@@ -44,18 +44,17 @@ class DataController: ObservableObject {
             print("We could not save the data...")
         }
     }
-    func add(name: String, term: String, definition: String, tag: String, context: NSManagedObjectContext) {
+    func add(term: String, name: String, definition: String, tag: String, context: NSManagedObjectContext) {
         let data = FlashCardData(context: context)
+        data.name = name 
         data.id = UUID()
         data.definition = definition
-        data.name = name
         data.term = term
         data.tag = tag
         save(context: context)
     }
     
-    func edit(data: FlashCardData ,name: String, term: String, defintion: String, tag: String, context: NSManagedObjectContext) {
-        data.name = name
+    func edit(data: FlashCardData ,term: String, defintion: String, tag: String, context: NSManagedObjectContext) {
         data.term = term
         data.definition = defintion
         data.tag = tag

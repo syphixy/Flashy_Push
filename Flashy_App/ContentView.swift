@@ -9,7 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var selectedTab: Tab = .house
-    @State var showNew = false
+    @State var saveSet = false
+    
     
     init() {
         UITabBar.appearance().isHidden = true
@@ -24,26 +25,17 @@ struct ContentView: View {
                 DiceView()
             }
             if selectedTab == .plus {
+                    
+                TermDefinitionView(saveSet: $saveSet)
                 
-                TermDefinitionView(showNew: $showNew)
-                
+                if saveSet == true {
+                    
+                }
             }
             Spacer()
             CustomTabBar(selectedTab: $selectedTab)
-            
         }
-        
-        
-        //creating nav bar
-        /*VStack {
-            TabView(selection: $selectedTab) {
-                
-            }
         }
-         */
-        
-        }
-        
     }
 
 
