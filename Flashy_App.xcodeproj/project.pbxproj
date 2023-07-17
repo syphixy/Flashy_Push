@@ -10,6 +10,9 @@
 		A62F66FE2A2F9F9D002CFB99 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A62F66FC2A2F9F9D002CFB99 /* CoreData.xcdatamodeld */; };
 		A62F67002A2FA004002CFB99 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62F66FF2A2FA004002CFB99 /* DataController.swift */; };
 		A62F67622A5F0130002CFB99 /* SetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62F67612A5F0130002CFB99 /* SetView.swift */; };
+		A6578E7B2A6587980095F89B /* FlashCardData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6578E792A6587980095F89B /* FlashCardData+CoreDataClass.swift */; };
+		A6578E7C2A6587980095F89B /* FlashCardData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6578E7A2A6587980095F89B /* FlashCardData+CoreDataProperties.swift */; };
+		A6578E7F2A65F70C0095F89B /* Sign Up.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6578E7E2A65F70C0095F89B /* Sign Up.swift */; };
 		A6581E3C29FE2184004D03B6 /* Flashy_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6581E3B29FE2184004D03B6 /* Flashy_AppApp.swift */; };
 		A6581E3E29FE2184004D03B6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6581E3D29FE2184004D03B6 /* ContentView.swift */; };
 		A6581E4029FE2186004D03B6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A6581E3F29FE2186004D03B6 /* Assets.xcassets */; };
@@ -53,6 +56,9 @@
 		A62F66FD2A2F9F9D002CFB99 /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 		A62F66FF2A2FA004002CFB99 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		A62F67612A5F0130002CFB99 /* SetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetView.swift; sourceTree = "<group>"; };
+		A6578E792A6587980095F89B /* FlashCardData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FlashCardData+CoreDataClass.swift"; path = "Flashy_App/Core data/FlashCardData+CoreDataClass.swift"; sourceTree = "<group>"; };
+		A6578E7A2A6587980095F89B /* FlashCardData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FlashCardData+CoreDataProperties.swift"; path = "Flashy_App/Core data/FlashCardData+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		A6578E7E2A65F70C0095F89B /* Sign Up.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sign Up.swift"; sourceTree = "<group>"; };
 		A6581E3829FE2184004D03B6 /* Flashy_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flashy_App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6581E3B29FE2184004D03B6 /* Flashy_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flashy_AppApp.swift; sourceTree = "<group>"; };
 		A6581E3D29FE2184004D03B6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -113,9 +119,19 @@
 			path = "Core data";
 			sourceTree = "<group>";
 		};
+		A6578E7D2A65F7010095F89B /* Sign up */ = {
+			isa = PBXGroup;
+			children = (
+				A6578E7E2A65F70C0095F89B /* Sign Up.swift */,
+			);
+			path = "Sign up";
+			sourceTree = "<group>";
+		};
 		A6581E2F29FE2184004D03B6 = {
 			isa = PBXGroup;
 			children = (
+				A6578E792A6587980095F89B /* FlashCardData+CoreDataClass.swift */,
+				A6578E7A2A6587980095F89B /* FlashCardData+CoreDataProperties.swift */,
 				A6581E3A29FE2184004D03B6 /* Flashy_App */,
 				A6581E4C29FE2186004D03B6 /* Flashy_AppTests */,
 				A6581E5629FE2186004D03B6 /* Flashy_AppUITests */,
@@ -176,6 +192,7 @@
 		A6581E6629FE2198004D03B6 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A6578E7D2A65F7010095F89B /* Sign up */,
 				A6581E7F29FE22F8004D03B6 /* Dice */,
 				A6581E7229FE224C004D03B6 /* Card */,
 				A6581E6B29FE21F3004D03B6 /* HomeView */,
@@ -357,7 +374,9 @@
 			files = (
 				A6581E3E29FE2184004D03B6 /* ContentView.swift in Sources */,
 				A6581E8329FE2370004D03B6 /* SearchbarView.swift in Sources */,
+				A6578E7C2A6587980095F89B /* FlashCardData+CoreDataProperties.swift in Sources */,
 				A62F66FE2A2F9F9D002CFB99 /* CoreData.xcdatamodeld in Sources */,
+				A6578E7F2A65F70C0095F89B /* Sign Up.swift in Sources */,
 				A6581F062A130093004D03B6 /* FlashCardView.swift in Sources */,
 				A6581E3C29FE2184004D03B6 /* Flashy_AppApp.swift in Sources */,
 				A6581E7E29FE22EA004D03B6 /* DiceView.swift in Sources */,
@@ -370,6 +389,7 @@
 				A6581E6D29FE2207004D03B6 /* NewHomeView.swift in Sources */,
 				A62F67622A5F0130002CFB99 /* SetView.swift in Sources */,
 				A6581E7829FE228C004D03B6 /* BundleExtension.swift in Sources */,
+				A6578E7B2A6587980095F89B /* FlashCardData+CoreDataClass.swift in Sources */,
 				A6581E8729FE23AE004D03B6 /* TermDefinitionView.swift in Sources */,
 				A6581E8529FE2383004D03B6 /* ProfileView.swift in Sources */,
 				A6581E8129FE2350004D03B6 /* UpNavView.swift in Sources */,

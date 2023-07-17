@@ -12,9 +12,7 @@ struct ContentView: View {
     @State var saveSet = false
     
     
-    init() {
-        UITabBar.appearance().isHidden = true
-    }
+    
     var body: some View {
         
         VStack {

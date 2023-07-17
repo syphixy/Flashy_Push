@@ -14,7 +14,7 @@ import SwiftUI
 import CoreData
 
 struct NewHomeView: View {
-    @FetchRequest(entity: FlashCardData.entity(), sortDescriptors: []) var flashcard: FetchedResults<FlashCardData>
+   // @FetchRequest(entity: FlashCardData.entity(), sortDescriptors: []) var flashcard: FetchedResults<FlashCardData>
     @Environment (\.managedObjectContext) var managedObjectContext
     @ObservedObject var dataController = DataController()
     @State var show = false
@@ -27,6 +27,7 @@ struct NewHomeView: View {
     @State var showNew = false
     @State var readySet = false
     @State private var showFlashcardStack = false
+   // @FetchRequest(entity: FlashCardData.entity(), sortDescriptors: []) private var flashCards: FetchedResults<FlashCardData>
    /* @FetchRequest(
         entity: FlashCardData.entity(), sortDescriptors: [], // Specify the entity for the fetch request,
             animation: .default)
@@ -52,6 +53,11 @@ struct NewHomeView: View {
                     .font(.system(size: 30, weight: .bold))
                     .padding(.bottom, 30)
                     Spacer()
+                List {
+//                    ForEach(flashCards) { flashcard in
+//                       // Text("\(flashcard.)")
+//                    }
+                }
                   
                 
                 ScrollView(.horizontal, showsIndicators: false) {
@@ -65,7 +71,7 @@ struct NewHomeView: View {
                        */
                         ForEach(dataController.savedFlash, id: \.self) { flashCard in
                             //   ReadySetView(flashCard: flashCard)
-                            SetView()
+                         //   SetView(redirectToSet: .constant(false))
                         }
                         //   ReadySetView(showNew: .constant(false), readySet: $readySet)
                         
@@ -82,7 +88,7 @@ struct NewHomeView: View {
                     }
                 }
             }.onAppear {
-                print("Data = \(flashcard)")
+                //print("Data = \(flashcard)")
             }
         }
     }
@@ -331,3 +337,4 @@ struct AvatarView: View {
      }
  }
 */
+

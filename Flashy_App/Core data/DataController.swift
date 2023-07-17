@@ -27,14 +27,14 @@ class DataController: ObservableObject {
         }
        
     }
-    func fetchRequest() {
-            let request = NSFetchRequest<FlashCardData>(entityName: "FlashCardData")
-            do {
-                savedFlash = try container.viewContext.fetch(request)
-            } catch let error {
-                print("Error fetching... \(error)")
-            }
-        }
+//    func fetchRequest() {
+//            let request = NSFetchRequest<FlashCardData>(entityName: "FlashCardData")
+//            do {
+//                savedFlash = try container.viewContext.fetch(request)
+//            } catch let error {
+//                print("Error fetching... \(error)")
+//            }
+//        }
     
     func save(context: NSManagedObjectContext) {
         do {
@@ -46,7 +46,7 @@ class DataController: ObservableObject {
     }
     func add(term: String, name: String, definition: String, tag: String, context: NSManagedObjectContext) {
         let data = FlashCardData(context: context)
-        data.name = name 
+        data.name = name
         data.id = UUID()
         data.definition = definition
         data.term = term

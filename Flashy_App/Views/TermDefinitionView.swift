@@ -57,6 +57,65 @@
 
 
 
+//
+//  TermDefinitionView.swift
+//  Flashy_App
+//
+//  Created by Artem on 2023-04-30.
+//
+
+
+
+//
+//  TermDefinitionView.swift
+//  Flashy_App
+//
+//  Created by Artem on 2023-04-30.
+//
+
+
+
+//
+//  TermDefinitionView.swift
+//  Flashy_App
+//
+//  Created by Artem on 2023-04-30.
+//
+
+
+
+//
+//  TermDefinitionView.swift
+//  Flashy_App
+//
+//  Created by Artem on 2023-04-30.
+//
+
+
+
+
+// ViewModel for managing flashcards
+
+
+    
+//
+//  TermDefinitionView.swift
+//  Flashy_App
+//
+//  Created by Artem on 2023-04-30.
+//
+
+
+
+//
+//  TermDefinitionView.swift
+//  Flashy_App
+//
+//  Created by Artem on 2023-04-30.
+//
+
+
+
 import SwiftUI
 import Combine
 import CoreData
@@ -64,6 +123,7 @@ import CoreData
 // ViewModel for managing flashcards
 
 struct TermDefinitionView: View {
+    
     @ObservedObject private var viewModel = TermDefinitionViewModel()
     @State var name = "" // Separate state for the name
     @EnvironmentObject var dataController: DataController
@@ -92,6 +152,7 @@ struct TermDefinitionView: View {
                         }
                     }
                     .navigationBarItems(trailing: Button(action: {
+                      //  guard !name.isEmpty else { return }
                         saveSet.toggle()
                         for testForm in viewModel.termdefpairs {
                             dataController.add(term: testForm.term, name: name, definition: testForm.definition, tag: testForm.tag, context: managedObjectContext)
@@ -118,6 +179,7 @@ struct TermDefinitionView: View {
                 }
             }
         }
+         
         
     }
 }
