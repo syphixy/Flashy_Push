@@ -14,9 +14,7 @@ import SwiftUI
 import CoreData
 
 struct NewHomeView: View {
-   // @FetchRequest(entity: FlashCardData.entity(), sortDescriptors: []) var flashcard: FetchedResults<FlashCardData>
     @Environment (\.managedObjectContext) var managedObjectContext
-    @ObservedObject var dataController = DataController()
     @State var show = false
     @State var showProfile = false
     @State var viewState = CGSize.zero
@@ -27,12 +25,11 @@ struct NewHomeView: View {
     @State var showNew = false
     @State var readySet = false
     @State private var showFlashcardStack = false
-   // @FetchRequest(entity: FlashCardData.entity(), sortDescriptors: []) private var flashCards: FetchedResults<FlashCardData>
-   /* @FetchRequest(
-        entity: FlashCardData.entity(), sortDescriptors: [], // Specify the entity for the fetch request,
-            animation: .default)
-    */
-       // private var tasks: FetchedResults<Task>
+    @FetchRequest(
+        entity: FlashCardData.entity(),
+      sortDescriptors: [
+      ])
+      private var flahCardData: FetchedResults<FlashCardData>
     var body: some View {
         ZStack {
             VStack {
@@ -54,9 +51,11 @@ struct NewHomeView: View {
                     .padding(.bottom, 30)
                     Spacer()
                 List {
-//                    ForEach(flashCards) { flashcard in
-//                       // Text("\(flashcard.)")
-//                    }
+                    ForEach(flahCardData) { flashcard in
+                        Text(flashcard.name ?? "")
+                        Text(flashcard.term ?? "")
+                       // Text(flaschard.definition ?? "")
+                    }
                 }
                   
                 
@@ -69,12 +68,6 @@ struct NewHomeView: View {
                             .padding(.leading, 20)
                             .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0))
                        */
-                        ForEach(dataController.savedFlash, id: \.self) { flashCard in
-                            //   ReadySetView(flashCard: flashCard)
-                         //   SetView(redirectToSet: .constant(false))
-                        }
-                        //   ReadySetView(showNew: .constant(false), readySet: $readySet)
-                        
                         
                     }
                     Spacer()
@@ -337,4 +330,3 @@ struct AvatarView: View {
      }
  }
 */
-

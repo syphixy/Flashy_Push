@@ -22,7 +22,6 @@ struct SetView: View {
     @State private var showNegativeIndicator = false
     @State private var showMiddleIndicator = false
     @State private var showEasyIndicator = false
-    @EnvironmentObject var dataController: DataController
     @State var redirectToSet = false
     var body: some View {
         ZStack {
@@ -189,6 +188,7 @@ struct FlashcardView: View {
         }
     }
 }
+
 /*import SwiftUI
  import Combine
  import CoreData

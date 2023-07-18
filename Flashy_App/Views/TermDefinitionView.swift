@@ -123,14 +123,14 @@ import CoreData
 // ViewModel for managing flashcards
 
 struct TermDefinitionView: View {
-    
     @ObservedObject private var viewModel = TermDefinitionViewModel()
     @State var name = "" // Separate state for the name
-    @EnvironmentObject var dataController: DataController
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.dismiss) var dismiss
+    let dataController = DataController.shared
     @State var showSet = false
     @Binding var saveSet: Bool
+    //@Binding var redirectToSet: Bool
     
     var body: some View {
         ZStack {
@@ -152,17 +152,22 @@ struct TermDefinitionView: View {
                         }
                     }
                     .navigationBarItems(trailing: Button(action: {
-                      //  guard !name.isEmpty else { return }
-                        saveSet.toggle()
+                      //  redirectToSet.toggle()
                         for testForm in viewModel.termdefpairs {
                             dataController.add(term: testForm.term, name: name, definition: testForm.definition, tag: testForm.tag, context: managedObjectContext)
                         }
+                        showSet = true
                         dismiss()
                     }) {
                         Text("Save")
                     })
-                    Spacer()
                     
+                    Spacer()
+                    ForEach(dataController.savedFlash) { x in
+                        Text(x.term ?? "nothing")
+                        Text(x.definition ?? "nothing")
+                        Text(x.tag ?? "nothing")
+                    }
                     Button(action: {
                         viewModel.addNew()
                     }) {
@@ -177,10 +182,10 @@ struct TermDefinitionView: View {
                     .clipShape(Circle())
                     .padding()
                 }
+                
             }
         }
-         
-        
+    
     }
 }
 
@@ -257,3 +262,4 @@ struct TermAndDefinition: Identifiable {
     
     
 }
+
