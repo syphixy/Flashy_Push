@@ -19,7 +19,7 @@ class DataController: ObservableObject {
     static let shared = DataController()
     @Published var savedFlash: [FlashCardData] = []
     let container: NSPersistentContainer
-
+    let fetchRequest: NSFetchRequest<FlashCardData> = FlashCardData.fetchRequest()
     init(inMemory: Bool = false) {
         container = NSPersistentContainer(name: "CoreData")
         if inMemory {
@@ -52,13 +52,14 @@ class DataController: ObservableObject {
             print("We could not save the data...")
         }
     }
-    func add(term: String, name: String, definition: String, tag: String, context: NSManagedObjectContext) {
+    func add(term: String, name: String, definition: String, tag: String, date: Date, context: NSManagedObjectContext) {
         let data = FlashCardData(context: context)
         data.name = name
         data.id = UUID()
         data.definition = definition
         data.term = term
         data.tag = tag
+        data.date = date
         save(context: context)
     }
     

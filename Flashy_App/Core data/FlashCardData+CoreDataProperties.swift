@@ -21,6 +21,8 @@ extension FlashCardData {
     @NSManaged public var name: String?
     @NSManaged public var tag: String?
     @NSManaged public var term: String?
+    @NSManaged public var date: Date?
+    
 
 }
 

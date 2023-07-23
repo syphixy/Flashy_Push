@@ -12,7 +12,15 @@ struct SetView: View {
     
     
     @Environment(\.managedObjectContext) private var viewContext
-    @FetchRequest(entity: FlashCardData.entity(), sortDescriptors: []) private var flashcard: FetchedResults<FlashCardData>
+   // @FetchRequest(entity: FlashCardData.entity(), sortDescriptors: NSSortDescriptor[key: ])
+    @FetchRequest(
+        entity: FlashCardData.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: false)],
+        predicate: NSPredicate(format: "date > %@", Date().addingTimeInterval(-5*60) as NSDate)
+    ) var flashCardData: FetchedResults<FlashCardData>
+
+     
+    let dataController = DataController.shared
     var removal: (() -> Void)? = nil
     var onRemove: ((SwipeDirection) -> Void)? = nil
     @State private var isShown = false
@@ -30,13 +38,23 @@ struct SetView: View {
                 .overlay(RoundedRectangle(cornerRadius: 25).stroke(getColor(), lineWidth: 2))  // Here we change the border color based on the swipe direction
                 .shadow(radius: 3)
 
-           
-                LazyVStack {
-                    ForEach(flashcard) { flashcards in
+           //rest of the code...
+                VStack {
+                    ForEach(flashCardData, id: \.self) { flashcards in
                                  //   FlashcardView(flashcard: flashcard)
-                        Text(flashcards.name ?? "nothing")
-                        Text(flashcards.term ?? "nothing")
-                        Text(flashcards.definition ?? "nothing")
+                      //  Text(flashcards.name ?? "nothing") - have to create a code where it's above
+                        VStack {
+                            Text(flashcards.term ?? "nothing")
+                                .font(.largeTitle)
+                                .bold()
+                            
+                            
+                            if isShown {
+                                Text(flashcards.definition ?? "nothing")
+                                    .font(.largeTitle)
+                                    .bold()
+                            }
+                        }
                     }
                 }
                         
@@ -91,7 +109,8 @@ struct SetView: View {
         .frame(width: 300, height: 550)
         .rotationEffect(.degrees(Double(offset.width / 10)))
         // makes an effect when swiping the card and it gets back if swipped not too much
-        .offset(x: offset.width, y: offset.height) // changes the position of the card by x - direction
+        .offset(x: offset.width, y: offset.height)
+        .navigationBarBackButtonHidden(true)// changes the position of the card by x - direction
         .onTapGesture {
             isShown.toggle()
         }

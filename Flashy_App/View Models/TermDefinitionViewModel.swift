@@ -18,7 +18,7 @@ import CoreData
 final class TermDefinitionViewModel: ObservableObject {
     @Published var termdefpairs: [TermAndDefinition] = [TermAndDefinition(term: "", definition: "", tag: "")]
     
-    private var dataController = DataController()
+    let dataController = DataController.shared
 
     func addNew() {
         termdefpairs.append(TermAndDefinition(term: "", definition: "", tag: ""))

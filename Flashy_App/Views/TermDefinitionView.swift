@@ -114,7 +114,7 @@
 //  Created by Artem on 2023-04-30.
 //
 
-
+ 
 
 import SwiftUI
 import Combine
@@ -123,6 +123,13 @@ import CoreData
 // ViewModel for managing flashcards
 
 struct TermDefinitionView: View {
+    // let set: SetView
+    @FetchRequest(
+        entity: FlashCardData.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: false)],
+        predicate: NSPredicate(format: "date > %@", Date().addingTimeInterval(-5) as NSDate)
+    ) var flashCardData: FetchedResults<FlashCardData>
+    
     @ObservedObject private var viewModel = TermDefinitionViewModel()
     @State var name = "" // Separate state for the name
     @Environment(\.managedObjectContext) var managedObjectContext
@@ -130,11 +137,12 @@ struct TermDefinitionView: View {
     let dataController = DataController.shared
     @State var showSet = false
     @Binding var saveSet: Bool
+    @State var isShowingSet = false
     //@Binding var redirectToSet: Bool
     
     var body: some View {
         ZStack {
-            NavigationView {
+            NavigationStack {
                 VStack {
                     Text("Name")
                         .padding(.trailing, 220)
@@ -144,22 +152,30 @@ struct TermDefinitionView: View {
                         .padding()
                         .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray, lineWidth: 1))
                     List {
+                        
                         ForEach(viewModel.termdefpairs.indices, id: \.self) { index in
                             TermView(term: $viewModel.termdefpairs[index].term, definition: $viewModel.termdefpairs[index].definition, tag: $viewModel.termdefpairs[index].tag)
+                        
                         }
                         .onDelete { index in
                             self.viewModel.termdefpairs.remove(at: index.first!)
                         }
                     }
                     .navigationBarItems(trailing: Button(action: {
+                        
                       //  redirectToSet.toggle()
                         for testForm in viewModel.termdefpairs {
-                            dataController.add(term: testForm.term, name: name, definition: testForm.definition, tag: testForm.tag, context: managedObjectContext)
+                            dataController.add(term: testForm.term, name: name, definition: testForm.definition, tag: testForm.tag, date: Date(), context: managedObjectContext)
+                           
                         }
-                        showSet = true
+                        isShowingSet = true
                         dismiss()
                     }) {
                         Text("Save")
+                        NavigationLink(destination: SetView(flashCardData: _flashCardData), isActive: $isShowingSet) {
+                            EmptyView()
+                            }
+                        
                     })
                     
                     Spacer()

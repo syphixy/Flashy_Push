@@ -25,11 +25,12 @@ struct NewHomeView: View {
     @State var showNew = false
     @State var readySet = false
     @State private var showFlashcardStack = false
-    @FetchRequest(
+   /* @FetchRequest(
         entity: FlashCardData.entity(),
       sortDescriptors: [
       ])
       private var flahCardData: FetchedResults<FlashCardData>
+    */
     var body: some View {
         ZStack {
             VStack {
@@ -42,7 +43,6 @@ struct NewHomeView: View {
                     }
                     .sheet(isPresented: $showProfile) {
                         ProfileView()
-                        
                         //   .offset(y: viewState.height)
                             .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0.1))
                     }
@@ -50,13 +50,14 @@ struct NewHomeView: View {
                     .font(.system(size: 30, weight: .bold))
                     .padding(.bottom, 30)
                     Spacer()
-                List {
+               /*List {
                     ForEach(flahCardData) { flashcard in
                         Text(flashcard.name ?? "")
                         Text(flashcard.term ?? "")
-                       // Text(flaschard.definition ?? "")
+                        Text(flashcard.definition ?? "")
+                        Text(flashcard.tag ?? "")
                     }
-                }
+                }*/
                   
                 
                 ScrollView(.horizontal, showsIndicators: false) {
