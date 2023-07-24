@@ -33,6 +33,7 @@
 		A6581F062A130093004D03B6 /* FlashCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6581F052A130093004D03B6 /* FlashCardView.swift */; };
 		A6581F0A2A1304E3004D03B6 /* FlashCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6581F092A1304E3004D03B6 /* FlashCardViewModel.swift */; };
 		A6581F0C2A144EED004D03B6 /* FlashCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6581F0B2A144EED004D03B6 /* FlashCardsView.swift */; };
+		A69168F92A6EFB3B003F9599 /* SingleFlashCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69168F82A6EFB3B003F9599 /* SingleFlashCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,7 @@
 		A6581F052A130093004D03B6 /* FlashCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardView.swift; sourceTree = "<group>"; };
 		A6581F092A1304E3004D03B6 /* FlashCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardViewModel.swift; sourceTree = "<group>"; };
 		A6581F0B2A144EED004D03B6 /* FlashCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardsView.swift; sourceTree = "<group>"; };
+		A69168F82A6EFB3B003F9599 /* SingleFlashCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleFlashCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,6 +219,7 @@
 				A6581E8029FE2350004D03B6 /* UpNavView.swift */,
 				A6581E8229FE2370004D03B6 /* SearchbarView.swift */,
 				A6581E8429FE2383004D03B6 /* ProfileView.swift */,
+				A69168F82A6EFB3B003F9599 /* SingleFlashCard.swift */,
 			);
 			path = HomeView;
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A69168F92A6EFB3B003F9599 /* SingleFlashCard.swift in Sources */,
 				A6581E3E29FE2184004D03B6 /* ContentView.swift in Sources */,
 				A6581E8329FE2370004D03B6 /* SearchbarView.swift in Sources */,
 				A6578E7C2A6587980095F89B /* FlashCardData+CoreDataProperties.swift in Sources */,

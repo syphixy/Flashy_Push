@@ -127,7 +127,7 @@ struct TermDefinitionView: View {
     @FetchRequest(
         entity: FlashCardData.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: false)],
-        predicate: NSPredicate(format: "date > %@", Date().addingTimeInterval(-5) as NSDate)
+        predicate: NSPredicate(format: "date > %@", Date().addingTimeInterval(1) as NSDate)
     ) var flashCardData: FetchedResults<FlashCardData>
     
     @ObservedObject private var viewModel = TermDefinitionViewModel()
