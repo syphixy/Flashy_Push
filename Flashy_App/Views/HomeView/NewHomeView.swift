@@ -15,10 +15,10 @@ import CoreData
 
 struct NewHomeView: View {
 
-    @FetchRequest(
-        entity: FlashCardData.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: true)])
-        var flashCardData: FetchedResults<FlashCardData>
+//    @FetchRequest(
+//        entity: FlashCardData.entity(),
+//        sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: true)])
+//        var flashCardData: FetchedResults<FlashCardData>
     
 //    @FetchRequest(
 //            entity: FlashCardData.entity(),
@@ -65,7 +65,7 @@ struct NewHomeView: View {
                     Spacer()
                 
                 
-                ScrollView(.horizontal) {
+                ScrollView(.vertical) {
                     ForEach(dataController.savedFlash, id: \.self) { flaschard in
                                 Text(flaschard.name ?? "")
                                     .padding()

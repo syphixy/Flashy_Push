@@ -24,12 +24,12 @@ struct CustomTabBar: View {
 //
 //            }
     
-    let dataController = DataController.shared
-    @FetchRequest(
-        entity: FlashCardData.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.name, ascending: true)]
-     //  predicate: NSPredicate(format: "date > %@", Date().addingTimeInterval(0) as NSDate)
-    ) var flashCardData: FetchedResults<FlashCardData>
+    @ObservedObject var dataController = DataController.shared
+//    @FetchRequest(
+//        entity: FlashCardData.entity(),
+//        sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.name, ascending: false)]
+//     //  predicate: NSPredicate(format: "date > %@", Date().addingTimeInterval(0) as NSDate)
+//    ) var flashCardData: FetchedResults<FlashCardData>
     
     var body: some View {
         VStack {
@@ -37,18 +37,18 @@ struct CustomTabBar: View {
                 TabView(selection: $selectedTab) {
                     
                     
-                    TermDefinitionView(flashCardData: _flashCardData)
+                    TermDefinitionView()
                         .tabItem {
                             Image(systemName: "plus")
                         }.tag(0)
 //
 //
-                    CardsView(flashCardData: _flashCardData)
-                        .tabItem {
-                            Image(systemName: "menucard")
-                        }.tag(1)
+//                    CardsView(flashCardData: _flashCardData)
+//                        .tabItem {
+//                            Image(systemName: "menucard")
+//                        }.tag(1)
 
-                    NewHomeView(flashCardData: _flashCardData, showIcon: .constant(false))
+                    NewHomeView(showIcon: .constant(false))
                         .tabItem {
                             Image(systemName: "house")
                         }.tag(2)

@@ -17,11 +17,11 @@ struct CardsView: View {
 //        sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: false)],
 //        predicate: NSPredicate(format: "date > %@", Date().addingTimeInterval(1) as NSDate)
 //    ) var flashCardData: FetchedResults<FlashCardData>
-    @FetchRequest(
-        entity: FlashCardData.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.name, ascending: true)]
-        //predicate: NSPredicate(format: "date > %@", Date().addingTimeInterval(1) as NSDate)
-    ) var flashCardData: FetchedResults<FlashCardData>
+//    @FetchRequest(
+//        entity: FlashCardData.entity(),
+//        sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.name, ascending: true)]
+//        //predicate: NSPredicate(format: "date > %@", Date().addingTimeInterval(1) as NSDate)
+//    ) var flashCardData: FetchedResults<FlashCardData>
     
   //  @State private var remainingFlashCards: FetchedResults<FlashCardData>?
     
@@ -29,30 +29,30 @@ struct CardsView: View {
         NavigationStack {
             ZStack {
                 
-                ForEach(flashCardData, id: \.self) { flashcard in
-                        //   FlashcardView(flashcard: flashcard)
-//                        Text(flashcard.term ?? "")
-//
-//                        Text(flashcard.definition ?? "")\\test
-                    SingleCard(card: flashcard)
-                        
-                       // dataController.save(context: viewContext)
-                        //SingleFlashCard(card: flashcards)
-                        //  Text(flashcards.name ?? "nothing") - have to create a code where it's above
-                        /*VStack {
-                         Text(flashcards.term ?? "nothing")
-                         .font(.largeTitle)
-                         .bold()
-                         
-                         
-                         if isShown {
-                         Text(flashcards.definition ?? "nothing")
-                         .font(.largeTitle)
-                         .bold()
-                         }
-                         }
-                         */
-                    }
+//                ForEach(flashCardData, id: \.self) { flashcard in
+//                        //   FlashcardView(flashcard: flashcard)
+////                        Text(flashcard.term ?? "")
+////
+////                        Text(flashcard.definition ?? "")\\test
+//                    SingleCard(card: flashcard)
+//                        
+//                       // dataController.save(context: viewContext)
+//                        //SingleFlashCard(card: flashcards)
+//                        //  Text(flashcards.name ?? "nothing") - have to create a code where it's above
+//                        /*VStack {
+//                         Text(flashcards.term ?? "nothing")
+//                         .font(.largeTitle)
+//                         .bold()
+//                         
+//                         
+//                         if isShown {
+//                         Text(flashcards.definition ?? "nothing")
+//                         .font(.largeTitle)
+//                         .bold()
+//                         }
+//                         }
+//                         */
+//                    }
        
                    
             }

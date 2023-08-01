@@ -7,11 +7,11 @@ import CoreData
 struct TermDefinitionView: View {
     // let set: SetView
 
-    @FetchRequest(
-        entity: FlashCardData.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: false)]
-       // predicate: NSPredicate(format: "date > %@", Date().addingTimeInterval(0) as NSDate)
-    ) var flashCardData: FetchedResults<FlashCardData>
+//    @FetchRequest(
+//        entity: FlashCardData.entity(),
+//        sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.name, ascending: false)]
+//       // predicate: NSPredicate(format: "date > %@", Date().addingTimeInterval(0) as NSDate)
+//    ) var flashCardData: FetchedResults<FlashCardData>
   //  @State var setNew: SetEntity?
     /*@FetchRequest(entity: FlashSets.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \FlashSets.name , ascending: false)]) var flashSets: FetchedResults<FlashSets>*/
     
@@ -55,15 +55,15 @@ struct TermDefinitionView: View {
                         
                         
                         for testForm in viewModel.termdefpairs {
-                            dataController.add(term: testForm.term, definition: testForm.definition, tag: testForm.tag, date: Date(), name: name, context: managedObjectContext)
+                            dataController.add(term: testForm.term, definition: testForm.definition, tag: testForm.tag, date: Date(), name: name)
 
                                 // The addToCards method expects a set of FlashCardData, so  create an NSSet from the array of FlashCardData
                              //   setNew.addToCards(NSSet(object: newCard))
                             }
                         
                         
-                        dataController.save(context: managedObjectContext)
-                        
+                        dataController.save()
+                        name = ""
 //                        let new = FlashCardData(context: managedObjectContext)
 //                        new.term = "test term 45"
 //                        new.definition = "test def"
