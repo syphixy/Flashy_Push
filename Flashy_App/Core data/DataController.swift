@@ -15,35 +15,55 @@
 import Foundation
 import CoreData
 
-class DataController: ObservableObject {
+class DataController: NSObject, ObservableObject, NSFetchedResultsControllerDelegate {
     static let shared = DataController()
+    private var fetchedResultsController: NSFetchedResultsController<FlashCardData>?
     @Published var savedFlash: [FlashCardData] = []
     let container: NSPersistentContainer
-    let fetchRequest: NSFetchRequest<FlashCardData> = FlashCardData.fetchRequest()
+
     init(inMemory: Bool = false) {
         container = NSPersistentContainer(name: "CoreData")
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         }
+        super.init()
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-
-                /*
-                 Typical reasons for an error here include:
-                 * The parent directory does not exist, cannot be created, or disallows writing.
-                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-                 * The device is out of space.
-                 * The store could not be migrated to the current model version.
-                 Check the error message to determine what the actual problem was.
-                 */
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
         container.viewContext.automaticallyMergesChangesFromParent = true
+        initializeFetchedResultsController(container: container)
     }
-    
+
+    func initializeFetchedResultsController(container: NSPersistentContainer) {
+        let request: NSFetchRequest<FlashCardData> = FlashCardData.fetchRequest()
+        let sort = NSSortDescriptor(keyPath: \FlashCardData.name, ascending: true)
+        request.sortDescriptors = [sort]
+
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: container.viewContext, sectionNameKeyPath: nil, cacheName: nil)
+        fetchedResultsController?.delegate = self
+
+        do {
+            try fetchedResultsController?.performFetch()
+        } catch {
+            fatalError("Failed to initialize FetchedResultsController: \(error)")
+        }
+    }
+
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        // Prepare for changes
+    }
+
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        // Respond to changes
+        savedFlash = getAllFlashCards()
+    }
+
+    func getAllFlashCards() -> [FlashCardData] {
+        return fetchedResultsController?.fetchedObjects ?? []
+    }
+
     func save(context: NSManagedObjectContext) {
         do {
             try context.save()
@@ -52,18 +72,31 @@ class DataController: ObservableObject {
             print("We could not save the data...")
         }
     }
-    func add(term: String, name: String, definition: String, tag: String, date: Date, context: NSManagedObjectContext) {
-        let data = FlashCardData(context: context)
-        data.name = name
+
+    func add(term: String, definition: String, tag: String, date: Date, name: String, context: NSManagedObjectContext) {
+        let data = FlashCardData(context: self.container.viewContext)
         data.id = UUID()
         data.definition = definition
         data.term = term
         data.tag = tag
         data.date = date
+        data.name = name
+        
+        do {
+            try self.container.viewContext.save()
+        } catch {
+            print("Error saving data: \(error)")
+        }
+    }
+
+    func addName(name: String, date: Date, context: NSManagedObjectContext) {
+        let data = SetEntity(context: context)
+        data.name = name
+        data.date = date
         save(context: context)
     }
-    
-    func edit(data: FlashCardData ,term: String, defintion: String, tag: String, context: NSManagedObjectContext) {
+
+    func edit(data: FlashCardData, term: String, defintion: String, tag: String, context: NSManagedObjectContext) {
         data.term = term
         data.definition = defintion
         data.tag = tag
@@ -71,13 +104,6 @@ class DataController: ObservableObject {
     }
 }
 
-/*func fetchRequest() {
-    let request = NSFetchRequest<FlashCardData>(entityName: "FlashCardData")
-    do {
-       savedFlash = try container.viewContext.fetch(request)
-    } catch let error {
-        print("Error fetching... \(error)")
-    }
-    
-}
- */
+
+
+ 

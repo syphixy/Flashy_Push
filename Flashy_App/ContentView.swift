@@ -8,31 +8,32 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var selectedTab: Tab = .house
+//    @State private var selectedTab: Tab = .house
+    @State private var selectedTab = 2
     @State var saveSet = false
     
     
     
     var body: some View {
-        
-        VStack {
-            if selectedTab == .house {
-                NewHomeView( showIcon: .constant(false), showNew: false)
-            }
-            if selectedTab == .dice {
-                DiceView()
-            }
-            if selectedTab == .plus {
-                    
-                TermDefinitionView(saveSet: $saveSet)
-                
-                if saveSet == true {
-                    
-                }
-            }
-            Spacer()
-            CustomTabBar(selectedTab: $selectedTab)
-        }
+        CustomTabBar(selectedTab: $selectedTab)
+//        VStack {
+//            if selectedTab == .house {
+//                NewHomeView( showIcon: .constant(false), showNew: false)
+//            }
+//            if selectedTab == .dice {
+//                DiceView()
+//            }
+//            if selectedTab == .plus {
+//
+//                TermDefinitionView(saveSet: $saveSet)
+//
+//                if saveSet == true {
+//
+//                }
+//            }
+//            Spacer()
+//            CustomTabBar(selectedTab: $selectedTab)
+//        }
         }
     }
 

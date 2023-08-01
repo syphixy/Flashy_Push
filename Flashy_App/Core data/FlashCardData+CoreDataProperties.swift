@@ -18,11 +18,23 @@ extension FlashCardData {
 
     @NSManaged public var definition: String?
     @NSManaged public var id: UUID?
-    @NSManaged public var name: String?
     @NSManaged public var tag: String?
     @NSManaged public var term: String?
     @NSManaged public var date: Date?
+    @NSManaged public var name: String?
+  //  @NSManaged public var flashSet: FlashSet?
+    @NSManaged public var set: SetEntity?
     
+    
+//    public var unwrappedDefinition: String {
+//        definition ?? ""
+//    }
+//    public var unwrappedTag: String {
+//        tag ?? ""
+//    }
+//    public var unwrappedTerm: String {
+//        term ?? ""
+//    }
 
 }
 

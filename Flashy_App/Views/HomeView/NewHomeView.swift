@@ -14,7 +14,19 @@ import SwiftUI
 import CoreData
 
 struct NewHomeView: View {
-    @Environment (\.managedObjectContext) var managedObjectContext
+
+    @FetchRequest(
+        entity: FlashCardData.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: true)])
+        var flashCardData: FetchedResults<FlashCardData>
+    
+//    @FetchRequest(
+//            entity: FlashCardData.entity(),
+//            sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: false)]
+////            predicate: NSPredicate(format: "date > %@", Date().addingTimeInterval(1) as NSDate)
+//        ) var flashCardData: FetchedResults<FlashCardData>
+    @ObservedObject var dataController = DataController.shared
+    @Environment(\.managedObjectContext) var managedObjectContext
     @State var show = false
     @State var showProfile = false
     @State var viewState = CGSize.zero
@@ -25,6 +37,7 @@ struct NewHomeView: View {
     @State var showNew = false
     @State var readySet = false
     @State private var showFlashcardStack = false
+    @State var showSet = false
    /* @FetchRequest(
         entity: FlashCardData.entity(),
       sortDescriptors: [
@@ -48,8 +61,30 @@ struct NewHomeView: View {
                     }
                 Text("Your sets")
                     .font(.system(size: 30, weight: .bold))
-                    .padding(.bottom, 30)
+                    .padding(.bottom, 40)
                     Spacer()
+                
+                
+                ScrollView(.horizontal) {
+                    ForEach(dataController.savedFlash, id: \.self) { flaschard in
+                                Text(flaschard.name ?? "")
+                                    .padding()
+                                Text(flaschard.term ?? "")
+                                    .padding()
+                                Text(flaschard.definition ?? "")
+                                    .padding()
+                                
+                    }
+                }
+                        
+                        
+                    
+//                }
+//                ForEach(sets) { data in
+//                    Text(data.term ?? "")
+//                        .padding()
+//                    Text(data.definition ?? "" )
+//                }
                /*List {
                     ForEach(flahCardData) { flashcard in
                         Text(flashcard.name ?? "")
@@ -60,26 +95,25 @@ struct NewHomeView: View {
                 }*/
                   
                 
-                ScrollView(.horizontal, showsIndicators: false) {
-                    
+                /*ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 20) {
-                       
-                        
-                      /*  NewSetView(showNew: $showNew)
-                            .padding(.leading, 20)
-                            .animation(.spring(response: 0.3, dampingFraction: 0.6, blendDuration: 0))
-                       */
-                        
+                        ForEach(flashSets, id: \.self) { flashcardSet in
+                            NavigationLink(destination: SetView(flashSet: flashcardSet)) {
+                                SetBoxView(card: flashcardSet)
+                            }
+                        }
                     }
-                    Spacer()
-                    .onTapGesture {
-                        self.show.toggle()
+                }*/
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 20) {
+                        /*ForEach(flashSets, id: \.self) { flashcardSet in
+                            NavigationLink(destination: SetView(flashSet: flashcardSet)) {
+                                SetBoxView(card: flashcardSet)
+                            }
+                        }
+                         */
                     }
-                    
-                        //   .offset(y: viewState.height)
-                        
-                        //       .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0.1)) - was depreciated in IOS 15
-                    }
+                }
                 }
             }.onAppear {
                 //print("Data = \(flashcard)")
@@ -90,6 +124,28 @@ struct NewHomeView: View {
 struct NewHomeView_Previews: PreviewProvider {
     static var previews: some View {
         NewHomeView(showIcon: .constant(false))
+    }
+}
+
+struct SetBoxView: View {
+  //  var card: FlashCardData
+    @Binding var showSet: Bool
+    var body: some View {
+        ZStack() {
+            RoundedRectangle(cornerRadius: 25, style: .continuous)
+                .fill(
+                    LinearGradient(
+                        gradient: Gradient(colors: [Color.blue, Color.purple]),
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    )
+                )
+                .frame(width: 300, height: 200)
+                .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 10)
+                .padding(.leading, 20)
+        }
+        
+        
     }
 }
 
@@ -121,35 +177,7 @@ struct NewSetView: View {
         
     }
 }
-struct ReadySetView: View {
-@Binding var showNew: Bool
-    @Binding var readySet: Bool
-    var flashCard: FlashCardData
-    var body: some View {
-        ZStack {
-           
-            HStack {
-            
-                VStack {
-                    
-                    Button(action: {self.readySet.toggle()}) {
-                        Image(systemName: "plus")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .foregroundColor(.black)
-                            .frame(width: 50, height: 30)
-                    }
-                
-                }
-                .frame(width: 250, height: 180)
-                .background(Color("newgray"))
-                .cornerRadius(20)
-                .shadow(radius: 2)
-            }
-        }
-        
-    }
-}
+
  
 struct AvatarView: View {
     @Binding var showProfile: Bool
@@ -331,3 +359,4 @@ struct AvatarView: View {
      }
  }
 */
+

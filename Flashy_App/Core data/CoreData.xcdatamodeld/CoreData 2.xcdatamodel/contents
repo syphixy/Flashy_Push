@@ -4,14 +4,13 @@
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="definition" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="tag" optional="YES" attributeType="String"/>
         <attribute name="term" optional="YES" attributeType="String"/>
-        <relationship name="set" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SetEntity" inverseName="cards" inverseEntity="SetEntity"/>
+        <relationship name="flashSet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FlashSets" inverseName="flashCards" inverseEntity="FlashSets"/>
     </entity>
-    <entity name="SetEntity" representedClassName="SetEntity" syncable="YES">
+    <entity name="FlashSets" representedClassName="FlashSets" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
-        <relationship name="cards" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FlashCardData" inverseName="set" inverseEntity="FlashCardData"/>
+        <relationship name="flashCards" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FlashCardData" inverseName="flashSet" inverseEntity="FlashCardData"/>
     </entity>
 </model>

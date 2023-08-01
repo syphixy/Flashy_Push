@@ -8,11 +8,10 @@
 import SwiftUI
 
 @main
-
-
 struct Flashy_AppApp: App {
     
-    @StateObject private var dataController = DataController()
+    @StateObject var dataController = DataController()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()

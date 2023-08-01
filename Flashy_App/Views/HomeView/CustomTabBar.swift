@@ -14,38 +14,63 @@ enum Tab: String, CaseIterable {
     case house
 }
 struct CustomTabBar: View {
-    @Binding var selectedTab: Tab
-    private var fillImage: String {
-            if selectedTab == .plus {
-                return "plus"
-            } else {
-                return selectedTab.rawValue + ".fill"
-            }
-        
-            }
-        
+    @Binding var selectedTab: Int
+//    private var fillImage: String {
+//            if selectedTab == .plus {
+//                return "plus"
+//            } else {
+//                return selectedTab.rawValue + ".fill"
+//            }
+//
+//            }
+    
+    let dataController = DataController.shared
+    @FetchRequest(
+        entity: FlashCardData.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.name, ascending: true)]
+     //  predicate: NSPredicate(format: "date > %@", Date().addingTimeInterval(0) as NSDate)
+    ) var flashCardData: FetchedResults<FlashCardData>
     
     var body: some View {
         VStack {
             HStack {
-                ForEach(Tab.allCases, id: \.rawValue) { tab in
-                    Spacer()
-                    Image(systemName: selectedTab == tab ? fillImage : tab.rawValue)
-                        .scaleEffect(selectedTab == tab ? 1.25 : 1)
-                        .foregroundColor(selectedTab == tab ? .blue : .gray)
-                        .font(.system(size: 22))
-                        .onTapGesture {
-                            withAnimation(.easeIn(duration: 0.1)) { selectedTab = tab
-                            }
-                        }
-                    Spacer()
+                TabView(selection: $selectedTab) {
+                    
+                    
+                    TermDefinitionView(flashCardData: _flashCardData)
+                        .tabItem {
+                            Image(systemName: "plus")
+                        }.tag(0)
+//
+//
+                    CardsView(flashCardData: _flashCardData)
+                        .tabItem {
+                            Image(systemName: "menucard")
+                        }.tag(1)
+
+                    NewHomeView(flashCardData: _flashCardData, showIcon: .constant(false))
+                        .tabItem {
+                            Image(systemName: "house")
+                        }.tag(2)
                 }
+//                ForEach(Tab.allCases, id: \.rawValue) { tab in
+//                    Spacer()
+//                    Image(systemName: selectedTab == tab ? fillImage : tab.rawValue)
+//                        .scaleEffect(selectedTab == tab ? 1.25 : 1)
+//                        .foregroundColor(selectedTab == tab ? .blue : .gray)
+//                        .font(.system(size: 22))
+//                        .onTapGesture {
+//                            withAnimation(.easeIn(duration: 0.1)) { selectedTab = tab
+//                            }
+//                        }
+//                    Spacer()
+//                }
             }
-            .frame(width: nil, height: 60)
-            .background(.thinMaterial)
-            .foregroundColor(Color("newgray"))
-            .cornerRadius(15)
-            .padding()
+//            .frame(width: nil, height: 60)
+//            .background(.thinMaterial)
+//            .foregroundColor(Color("newgray"))
+//            .cornerRadius(15)
+//            .padding()
             
         }
     }
@@ -53,6 +78,6 @@ struct CustomTabBar: View {
 
 struct CustomTabBar_Previews: PreviewProvider {
     static var previews: some View {
-        CustomTabBar(selectedTab: .constant(.house))
+        CustomTabBar(selectedTab: .constant(2))
     }
 }
