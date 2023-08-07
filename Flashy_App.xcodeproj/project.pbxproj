@@ -10,8 +10,12 @@
 		A62F66FE2A2F9F9D002CFB99 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A62F66FC2A2F9F9D002CFB99 /* CoreData.xcdatamodeld */; };
 		A62F67002A2FA004002CFB99 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62F66FF2A2FA004002CFB99 /* DataController.swift */; };
 		A62F67622A5F0130002CFB99 /* SetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62F67612A5F0130002CFB99 /* SetView.swift */; };
-		A6578E7B2A6587980095F89B /* FlashCardData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6578E792A6587980095F89B /* FlashCardData+CoreDataClass.swift */; };
-		A6578E7C2A6587980095F89B /* FlashCardData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6578E7A2A6587980095F89B /* FlashCardData+CoreDataProperties.swift */; };
+		A636098F2A8007C8001C865B /* FlashCardData+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A636098B2A8007C8001C865B /* FlashCardData+CoreDataClass.swift */; };
+		A63609902A8007C8001C865B /* FlashCardData+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A636098C2A8007C8001C865B /* FlashCardData+CoreDataProperties.swift */; };
+		A63609912A8007C8001C865B /* SetEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A636098D2A8007C8001C865B /* SetEntity+CoreDataClass.swift */; };
+		A63609922A8007C8001C865B /* SetEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A636098E2A8007C8001C865B /* SetEntity+CoreDataProperties.swift */; };
+		A63609952A801F83001C865B /* FlashSets+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63609932A801F83001C865B /* FlashSets+CoreDataClass.swift */; };
+		A63609962A801F83001C865B /* FlashSets+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63609942A801F83001C865B /* FlashSets+CoreDataProperties.swift */; };
 		A6578E7F2A65F70C0095F89B /* Sign Up.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6578E7E2A65F70C0095F89B /* Sign Up.swift */; };
 		A6581E3C29FE2184004D03B6 /* Flashy_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6581E3B29FE2184004D03B6 /* Flashy_AppApp.swift */; };
 		A6581E3E29FE2184004D03B6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6581E3D29FE2184004D03B6 /* ContentView.swift */; };
@@ -34,9 +38,8 @@
 		A6581F0A2A1304E3004D03B6 /* FlashCardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6581F092A1304E3004D03B6 /* FlashCardViewModel.swift */; };
 		A6581F0C2A144EED004D03B6 /* FlashCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6581F0B2A144EED004D03B6 /* FlashCardsView.swift */; };
 		A69168F92A6EFB3B003F9599 /* SingleFlashCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A69168F82A6EFB3B003F9599 /* SingleFlashCard.swift */; };
-		A6E798D12A75D463009D6F7F /* SetEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E798CF2A75D463009D6F7F /* SetEntity+CoreDataClass.swift */; };
 		A6E798D42A76C12A009D6F7F /* CardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E798D32A76C12A009D6F7F /* CardsView.swift */; };
-		A6E798D82A76CCE4009D6F7F /* SetEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E798D72A76CCE4009D6F7F /* SetEntity+CoreDataProperties.swift */; };
+		A6E799422A7FE3D6009D6F7F /* AddSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6E799412A7FE3D6009D6F7F /* AddSetView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,8 +64,12 @@
 		A62F66FD2A2F9F9D002CFB99 /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 		A62F66FF2A2FA004002CFB99 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		A62F67612A5F0130002CFB99 /* SetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetView.swift; sourceTree = "<group>"; };
-		A6578E792A6587980095F89B /* FlashCardData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FlashCardData+CoreDataClass.swift"; path = "Flashy_App/Core data/FlashCardData+CoreDataClass.swift"; sourceTree = "<group>"; };
-		A6578E7A2A6587980095F89B /* FlashCardData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FlashCardData+CoreDataProperties.swift"; path = "Flashy_App/Core data/FlashCardData+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		A636098B2A8007C8001C865B /* FlashCardData+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlashCardData+CoreDataClass.swift"; sourceTree = "<group>"; };
+		A636098C2A8007C8001C865B /* FlashCardData+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlashCardData+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		A636098D2A8007C8001C865B /* SetEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SetEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		A636098E2A8007C8001C865B /* SetEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SetEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		A63609932A801F83001C865B /* FlashSets+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlashSets+CoreDataClass.swift"; sourceTree = "<group>"; };
+		A63609942A801F83001C865B /* FlashSets+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FlashSets+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		A6578E7E2A65F70C0095F89B /* Sign Up.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Sign Up.swift"; sourceTree = "<group>"; };
 		A6581E3829FE2184004D03B6 /* Flashy_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flashy_App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6581E3B29FE2184004D03B6 /* Flashy_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flashy_AppApp.swift; sourceTree = "<group>"; };
@@ -89,9 +96,8 @@
 		A6581F092A1304E3004D03B6 /* FlashCardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardViewModel.swift; sourceTree = "<group>"; };
 		A6581F0B2A144EED004D03B6 /* FlashCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashCardsView.swift; sourceTree = "<group>"; };
 		A69168F82A6EFB3B003F9599 /* SingleFlashCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleFlashCard.swift; sourceTree = "<group>"; };
-		A6E798CF2A75D463009D6F7F /* SetEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SetEntity+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
 		A6E798D32A76C12A009D6F7F /* CardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsView.swift; sourceTree = "<group>"; };
-		A6E798D72A76CCE4009D6F7F /* SetEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SetEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		A6E799412A7FE3D6009D6F7F /* AddSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSetView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,10 +145,12 @@
 		A6581E2F29FE2184004D03B6 = {
 			isa = PBXGroup;
 			children = (
-				A6E798CF2A75D463009D6F7F /* SetEntity+CoreDataClass.swift */,
-				A6E798D72A76CCE4009D6F7F /* SetEntity+CoreDataProperties.swift */,
-				A6578E792A6587980095F89B /* FlashCardData+CoreDataClass.swift */,
-				A6578E7A2A6587980095F89B /* FlashCardData+CoreDataProperties.swift */,
+				A63609932A801F83001C865B /* FlashSets+CoreDataClass.swift */,
+				A63609942A801F83001C865B /* FlashSets+CoreDataProperties.swift */,
+				A636098B2A8007C8001C865B /* FlashCardData+CoreDataClass.swift */,
+				A636098C2A8007C8001C865B /* FlashCardData+CoreDataProperties.swift */,
+				A636098D2A8007C8001C865B /* SetEntity+CoreDataClass.swift */,
+				A636098E2A8007C8001C865B /* SetEntity+CoreDataProperties.swift */,
 				A6581E3A29FE2184004D03B6 /* Flashy_App */,
 				A6581E4C29FE2186004D03B6 /* Flashy_AppTests */,
 				A6581E5629FE2186004D03B6 /* Flashy_AppUITests */,
@@ -229,6 +237,7 @@
 				A6581E8229FE2370004D03B6 /* SearchbarView.swift */,
 				A6581E8429FE2383004D03B6 /* ProfileView.swift */,
 				A69168F82A6EFB3B003F9599 /* SingleFlashCard.swift */,
+				A6E799412A7FE3D6009D6F7F /* AddSetView.swift */,
 			);
 			path = HomeView;
 			sourceTree = "<group>";
@@ -385,28 +394,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A63609912A8007C8001C865B /* SetEntity+CoreDataClass.swift in Sources */,
+				A636098F2A8007C8001C865B /* FlashCardData+CoreDataClass.swift in Sources */,
 				A69168F92A6EFB3B003F9599 /* SingleFlashCard.swift in Sources */,
 				A6581E3E29FE2184004D03B6 /* ContentView.swift in Sources */,
 				A6581E8329FE2370004D03B6 /* SearchbarView.swift in Sources */,
-				A6578E7C2A6587980095F89B /* FlashCardData+CoreDataProperties.swift in Sources */,
+				A63609962A801F83001C865B /* FlashSets+CoreDataProperties.swift in Sources */,
+				A6E799422A7FE3D6009D6F7F /* AddSetView.swift in Sources */,
 				A62F66FE2A2F9F9D002CFB99 /* CoreData.xcdatamodeld in Sources */,
+				A63609952A801F83001C865B /* FlashSets+CoreDataClass.swift in Sources */,
 				A6578E7F2A65F70C0095F89B /* Sign Up.swift in Sources */,
 				A6581F062A130093004D03B6 /* FlashCardView.swift in Sources */,
 				A6581E3C29FE2184004D03B6 /* Flashy_AppApp.swift in Sources */,
-				A6E798D82A76CCE4009D6F7F /* SetEntity+CoreDataProperties.swift in Sources */,
 				A6581E7E29FE22EA004D03B6 /* DiceView.swift in Sources */,
 				A6581F0C2A144EED004D03B6 /* FlashCardsView.swift in Sources */,
 				A6581E7129FE2237004D03B6 /* TermDefinitionViewModel.swift in Sources */,
 				A6E798D42A76C12A009D6F7F /* CardsView.swift in Sources */,
 				A62F67002A2FA004002CFB99 /* DataController.swift in Sources */,
+				A63609902A8007C8001C865B /* FlashCardData+CoreDataProperties.swift in Sources */,
 				A6581F0A2A1304E3004D03B6 /* FlashCardViewModel.swift in Sources */,
+				A63609922A8007C8001C865B /* SetEntity+CoreDataProperties.swift in Sources */,
 				A6581F042A13007D004D03B6 /* Flashcard.swift in Sources */,
 				A6581E7C29FE22C8004D03B6 /* CustomTabBar.swift in Sources */,
 				A6581E6D29FE2207004D03B6 /* NewHomeView.swift in Sources */,
 				A62F67622A5F0130002CFB99 /* SetView.swift in Sources */,
 				A6581E7829FE228C004D03B6 /* BundleExtension.swift in Sources */,
-				A6E798D12A75D463009D6F7F /* SetEntity+CoreDataClass.swift in Sources */,
-				A6578E7B2A6587980095F89B /* FlashCardData+CoreDataClass.swift in Sources */,
 				A6581E8729FE23AE004D03B6 /* TermDefinitionView.swift in Sources */,
 				A6581E8529FE2383004D03B6 /* ProfileView.swift in Sources */,
 				A6581E8129FE2350004D03B6 /* UpNavView.swift in Sources */,

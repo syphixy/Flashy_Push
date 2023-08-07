@@ -14,17 +14,18 @@ import SwiftUI
 import CoreData
 
 struct NewHomeView: View {
-
-//    @FetchRequest(
-//        entity: FlashCardData.entity(),
-//        sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: true)])
-//        var flashCardData: FetchedResults<FlashCardData>
     
-//    @FetchRequest(
-//            entity: FlashCardData.entity(),
-//            sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: false)]
-////            predicate: NSPredicate(format: "date > %@", Date().addingTimeInterval(1) as NSDate)
-//        ) var flashCardData: FetchedResults<FlashCardData>
+    @FetchRequest(
+        entity: FlashSets.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \FlashSets.date, ascending: false)])
+    var sets: FetchedResults<FlashSets>
+    //  let sets: NSFetchRequest<FlashSets> = FlashSets.fetchRequest()
+    
+    //    @FetchRequest(
+    //            entity: FlashCardData.entity(),
+    //            sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: false)]
+    ////            predicate: NSPredicate(format: "date > %@", Date().addingTimeInterval(1) as NSDate)
+    //        ) var flashCardData: FetchedResults<FlashCardData>
     @ObservedObject var dataController = DataController.shared
     @Environment(\.managedObjectContext) var managedObjectContext
     @State var show = false
@@ -38,165 +39,177 @@ struct NewHomeView: View {
     @State var readySet = false
     @State private var showFlashcardStack = false
     @State var showSet = false
-   /* @FetchRequest(
-        entity: FlashCardData.entity(),
-      sortDescriptors: [
-      ])
-      private var flahCardData: FetchedResults<FlashCardData>
-    */
+    @State var redirectToCards = false
+    @ObservedObject var refresh = Refresh()
+    /* @FetchRequest(
+     entity: FlashCardData.entity(),
+     sortDescriptors: [
+     ]
+     private var flahCardData: FetchedResults<FlashCardData>
+     */
     var body: some View {
         ZStack {
-            VStack {
-                UpNavView(showProfile: $showProfile)
-                    .padding(.bottom, 30)
+            NavigationStack {
+                
+                HStack() {
+                    EditButton()
+                        .padding(.leading, 20)
+                    Spacer()
+                    Button(action: {
+                        redirectToCards = true
+                    }) {
+                        Text("+")
+                    }
+                    .padding(.trailing, 20)
+                    .sheet(isPresented: $redirectToCards) {
+                        AddSetView()
+                    }
+                    
+                }
                 SearchbarView()
                     .padding(.bottom, 50)
                     .onTapGesture {
                         self.show.toggle()
                     }
-                    .sheet(isPresented: $showProfile) {
-                        ProfileView()
-                        //   .offset(y: viewState.height)
-                            .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0.1))
-                    }
+                Spacer()
+                //                    .sheet(isPresented: $showProfile) {
+                //                        ProfileView()
+                //                        //   .offset(y: viewState.height)
+                //                            .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0.1))
+                //                    }
                 Text("Your sets")
                     .font(.system(size: 30, weight: .bold))
                     .padding(.bottom, 40)
-                    Spacer()
                 
                 
-                ScrollView(.vertical) {
-                    ForEach(dataController.savedFlash, id: \.self) { flaschard in
-                                Text(flaschard.name ?? "")
-                                    .padding()
-                                Text(flaschard.term ?? "")
-                                    .padding()
-                                Text(flaschard.definition ?? "")
-                                    .padding()
-                                
-                    }
-                }
-                        
-                        
-                    
-//                }
-//                ForEach(sets) { data in
-//                    Text(data.term ?? "")
-//                        .padding()
-//                    Text(data.definition ?? "" )
-//                }
-               /*List {
-                    ForEach(flahCardData) { flashcard in
-                        Text(flashcard.name ?? "")
-                        Text(flashcard.term ?? "")
-                        Text(flashcard.definition ?? "")
-                        Text(flashcard.tag ?? "")
-                    }
-                }*/
-                  
                 
-                /*ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 20) {
-                        ForEach(flashSets, id: \.self) { flashcardSet in
-                            NavigationLink(destination: SetView(flashSet: flashcardSet)) {
-                                SetBoxView(card: flashcardSet)
-                            }
-                        }
-                    }
-                }*/
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 20) {
-                        /*ForEach(flashSets, id: \.self) { flashcardSet in
-                            NavigationLink(destination: SetView(flashSet: flashcardSet)) {
-                                SetBoxView(card: flashcardSet)
+                        ForEach(sets) { set in
+                            NavigationLink(destination: FlashcardSetView(sets: set).environmentObject(dataController)) {
+                                VStack(spacing: 20) {
+                                    RoundedRectangle(cornerRadius: 25)
+                                        .fill(Color.blue)
+                                        .frame(width: 300, height: 200)
+                                    
+                                    Text("\(set.name ?? "")")
+                                        .frame(minWidth: 0)
+                                        .padding()
+                                        .foregroundColor(.black)
+                                        
+                                }
+                                .padding([.top, .leading, .trailing])
                             }
                         }
-                         */
                     }
+                    .padding(.leading, 10)
+                    Spacer()// Additional padding to start
                 }
+                .onChange(of: dataController.dataUpdated) { updated in
+                    // Handle any specific actions if needed, or simply leave it to update the view
                 }
-            }.onAppear {
-                //print("Data = \(flashcard)")
+                
             }
-        }
-    }
-
-struct NewHomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        NewHomeView(showIcon: .constant(false))
-    }
-}
-
-struct SetBoxView: View {
-  //  var card: FlashCardData
-    @Binding var showSet: Bool
-    var body: some View {
-        ZStack() {
-            RoundedRectangle(cornerRadius: 25, style: .continuous)
-                .fill(
-                    LinearGradient(
-                        gradient: Gradient(colors: [Color.blue, Color.purple]),
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
-                    )
-                )
-                .frame(width: 300, height: 200)
-                .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 10)
-                .padding(.leading, 20)
-        }
-        
-        
-    }
-}
-
-struct NewSetView: View {
-@Binding var showNew: Bool
-    
-    var body: some View {
-        ZStack {
-           
-            HStack {
             
-                VStack {
+            //    func addSet() {
+            //        let newSet = SetEntity(context: managedObjectContext)
+            //        newSet.name = "new set name"
+            //        newSet.id = UUID()
+            //        newSet.date = .now
+            //
+            //        dataController.save()
+            //    }
+        }
+    }
+}
+    
+    struct NewHomeView_Previews: PreviewProvider {
+        static var previews: some View {
+            NewHomeView(showIcon: .constant(false))
+        }
+    }
+    
+    struct SetBoxView: View {
+        //  var card: FlashCardData
+        @Binding var showSet: Bool
+        var body: some View {
+            ZStack() {
+                RoundedRectangle(cornerRadius: 25, style: .continuous)
+                    .fill(
+                        LinearGradient(
+                            gradient: Gradient(colors: [Color.blue, Color.purple]),
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+                    .frame(width: 300, height: 200)
+                    .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 10)
+                    .padding(.leading, 20)
+            }
+            
+            
+        }
+    }
+    
+    struct NewSetView: View {
+        @Binding var showNew: Bool
+        
+        var body: some View {
+            ZStack {
+                
+                HStack {
                     
-                    Button(action: {self.showNew.toggle()}) {
-                        Image(systemName: "plus")
+                    VStack {
+                        
+                        Button(action: {self.showNew.toggle()}) {
+                            Image(systemName: "plus")
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
                                 .foregroundColor(.black)
-                            .frame(width: 50, height: 30)
+                                .frame(width: 50, height: 30)
+                        }
+                        
                     }
-                
+                    .frame(width: 250, height: 180)
+                    .background(Color("newgray"))
+                    .cornerRadius(20)
+                    .shadow(radius: 2)
                 }
-                .frame(width: 250, height: 180)
-                .background(Color("newgray"))
-                .cornerRadius(20)
-                .shadow(radius: 2)
+            }
+            
+        }
+    }
+    
+    
+    struct AvatarView: View {
+        @Binding var showProfile: Bool
+        @State var viewState = CGSize.zero
+        var body: some View {
+            Button(action: {self.showProfile.toggle()}) {
+                Image(systemName: "person.crop.circle")
+                    .renderingMode(.original)
+                    .resizable()
+                    .frame(width: 30, height: 30)
+                    .foregroundColor(.black)
             }
         }
-        
     }
-}
-
- 
-struct AvatarView: View {
-    @Binding var showProfile: Bool
-    @State var viewState = CGSize.zero
-    var body: some View {
-        Button(action: {self.showProfile.toggle()}) {
-            Image(systemName: "person.crop.circle")
-                .renderingMode(.original)
-                .resizable()
-                .frame(width: 30, height: 30)
-                .foregroundColor(.black)
+    struct FlashcardSetView: View {
+        let sets: FlashSets
+        @EnvironmentObject var dataController: DataController
+        var body: some View {
+            ScrollView(.vertical) {
+                ForEach(sets.cards?.allObjects as? [FlashCardData] ?? [], id: \.self) { card in
+                    Text(card.term ?? "Unnamed Card")
+                }
+            }
+            .navigationTitle(sets.name ?? "Unnamed Set")
         }
     }
-}
-
-/*import SwiftUI
- import CoreData
-
- struct NewHomeView: View {
+    /*import SwiftUI
+     import CoreData
+     
+     struct NewHomeView: View {
      
      @Environment (\.managedObjectContext) var managedObjectContext
      @ObservedObject var dataController = DataController()
@@ -213,150 +226,151 @@ struct AvatarView: View {
      
      
      var body: some View {
-         ZStack {
-             VStack {
-                 UpNavView(showProfile: $showProfile)
-                     .padding(.bottom, 30)
-                 SearchbarView()
-                     .padding(.bottom, 50)
-                     .onTapGesture {
-                         self.show.toggle()
-                     }
-                     .sheet(isPresented: $showProfile) {
-                         ProfileView()
-                         
-                         //   .offset(y: viewState.height)
-                             .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0.1))
-                     }
-                 Text("Your sets")
-                     .font(.system(size: 30, weight: .bold))
-                     Spacer()
-             
-                 
-             
-         
-                 ScrollView(.horizontal, showsIndicators: false) {
-                     HStack(spacing: 20) {
-                         
-                         
-                         
-                         ForEach(dataController.savedFlash, id: \.self) { flashCard in
-                             //   ReadySetView(flashCard: flashCard)
-                         }
-                         //   ReadySetView(showNew: .constant(false), readySet: $readySet)
-                         
-                         
-                     }
-                     
-                     .onTapGesture {
-                         self.show.toggle()
-                     }
-                     .sheet(isPresented: $showNew) {
-                         TermDefinitionView(showNew: $showNew)
-                         //   .offset(y: viewState.height)
-                         
-                         //       .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0.1)) - was depreciated in IOS 15
-                     }
-                 }
-                 VStack {
-                                 // Content of each tab
-                                 switch selectedTab {
-                                 case .dice:
-                                     Text("Your sets")
-                                         .font(.system(size: 30, weight: .bold))
-                                         .offset(y: -120)
-                                 case .plus:
-                                     NewSetView(showNew: $showNew)
-                                         .padding(.leading, 20)
-                                 case .house:
-                                     ForEach(dataController.savedFlash, id: \.self) { flashCard in
-                                         // ReadySetView(flashCard: flashCard)
-                                     }
-                                 }
-                                 
-                                 // Tab bar
-                                 CustomTabBar(selectedTab: $selectedTab)
-                             }
-                 }
-             }
-         }
+     ZStack {
+     VStack {
+     UpNavView(showProfile: $showProfile)
+     .padding(.bottom, 30)
+     SearchbarView()
+     .padding(.bottom, 50)
+     .onTapGesture {
+     self.show.toggle()
      }
-
- struct NewHomeView_Previews: PreviewProvider {
+     .sheet(isPresented: $showProfile) {
+     ProfileView()
+     
+     //   .offset(y: viewState.height)
+     .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0.1))
+     }
+     Text("Your sets")
+     .font(.system(size: 30, weight: .bold))
+     Spacer()
+     
+     
+     
+     
+     ScrollView(.horizontal, showsIndicators: false) {
+     HStack(spacing: 20) {
+     
+     
+     
+     ForEach(dataController.savedFlash, id: \.self) { flashCard in
+     //   ReadySetView(flashCard: flashCard)
+     }
+     //   ReadySetView(showNew: .constant(false), readySet: $readySet)
+     
+     
+     }
+     
+     .onTapGesture {
+     self.show.toggle()
+     }
+     .sheet(isPresented: $showNew) {
+     TermDefinitionView(showNew: $showNew)
+     //   .offset(y: viewState.height)
+     
+     //       .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0.1)) - was depreciated in IOS 15
+     }
+     }
+     VStack {
+     // Content of each tab
+     switch selectedTab {
+     case .dice:
+     Text("Your sets")
+     .font(.system(size: 30, weight: .bold))
+     .offset(y: -120)
+     case .plus:
+     NewSetView(showNew: $showNew)
+     .padding(.leading, 20)
+     case .house:
+     ForEach(dataController.savedFlash, id: \.self) { flashCard in
+     // ReadySetView(flashCard: flashCard)
+     }
+     }
+     
+     // Tab bar
+     CustomTabBar(selectedTab: $selectedTab)
+     }
+     }
+     }
+     }
+     }
+     
+     struct NewHomeView_Previews: PreviewProvider {
      static var previews: some View {
-         NewHomeView(showIcon: .constant(false), showNew: false)
+     NewHomeView(showIcon: .constant(false), showNew: false)
      }
- }
-
- struct NewSetView: View {
- @Binding var showNew: Bool
+     }
+     
+     struct NewSetView: View {
+     @Binding var showNew: Bool
      
      var body: some View {
-         ZStack {
-            
-             HStack {
-             
-                 VStack {
-                     
-                     Button(action: {self.showNew.toggle()}) {
-                         Image(systemName: "plus")
-                                 .resizable()
-                                 .aspectRatio(contentMode: .fit)
-                                 .foregroundColor(.black)
-                             .frame(width: 50, height: 30)
-                     }
-                 
-                 }
-                 .frame(width: 250, height: 180)
-                 .background(Color("newgray"))
-                 .cornerRadius(20)
-                 .shadow(radius: 2)
-             }
-         }
-         
+     ZStack {
+     
+     HStack {
+     
+     VStack {
+     
+     Button(action: {self.showNew.toggle()}) {
+     Image(systemName: "plus")
+     .resizable()
+     .aspectRatio(contentMode: .fit)
+     .foregroundColor(.black)
+     .frame(width: 50, height: 30)
      }
- }
- struct ReadySetView: View {
- @Binding var showNew: Bool
+     
+     }
+     .frame(width: 250, height: 180)
+     .background(Color("newgray"))
+     .cornerRadius(20)
+     .shadow(radius: 2)
+     }
+     }
+     
+     }
+     }
+     struct ReadySetView: View {
+     @Binding var showNew: Bool
      @Binding var readySet: Bool
      var flashCard: FlashCardData
      var body: some View {
-         ZStack {
-            
-             HStack {
-             
-                 VStack {
-                     
-                     Button(action: {self.readySet.toggle()}) {
-                         Image(systemName: "plus")
-                                 .resizable()
-                                 .aspectRatio(contentMode: .fit)
-                                 .foregroundColor(.black)
-                             .frame(width: 50, height: 30)
-                     }
-                 
-                 }
-                 .frame(width: 250, height: 180)
-                 .background(Color("newgray"))
-                 .cornerRadius(20)
-                 .shadow(radius: 2)
-             }
-         }
-         
+     ZStack {
+     
+     HStack {
+     
+     VStack {
+     
+     Button(action: {self.readySet.toggle()}) {
+     Image(systemName: "plus")
+     .resizable()
+     .aspectRatio(contentMode: .fit)
+     .foregroundColor(.black)
+     .frame(width: 50, height: 30)
      }
- }
- struct AvatarView: View {
+     
+     }
+     .frame(width: 250, height: 180)
+     .background(Color("newgray"))
+     .cornerRadius(20)
+     .shadow(radius: 2)
+     }
+     }
+     
+     }
+     }
+     struct AvatarView: View {
      @Binding var showProfile: Bool
      @State var viewState = CGSize.zero
      var body: some View {
-         Button(action: {self.showProfile.toggle()}) {
-             Image(systemName: "person.crop.circle")
-                 .renderingMode(.original)
-                 .resizable()
-                 .frame(width: 30, height: 30)
-                 .foregroundColor(.black)
-         }
+     Button(action: {self.showProfile.toggle()}) {
+     Image(systemName: "person.crop.circle")
+     .renderingMode(.original)
+     .resizable()
+     .frame(width: 30, height: 30)
+     .foregroundColor(.black)
      }
- }
-*/
+     }
+     }
+     */
+    
 

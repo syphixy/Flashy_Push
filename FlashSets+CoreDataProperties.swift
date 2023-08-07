@@ -1,5 +1,5 @@
 //
-//  SetEntity+CoreDataProperties.swift
+//  FlashSets+CoreDataProperties.swift
 //  Flashy_App
 //
 //  Created by Artem on 2023-08-06.
@@ -10,10 +10,10 @@ import Foundation
 import CoreData
 
 
-extension SetEntity {
+extension FlashSets {
 
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<SetEntity> {
-        return NSFetchRequest<SetEntity>(entityName: "SetEntity")
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<FlashSets> {
+        return NSFetchRequest<FlashSets>(entityName: "FlashSets")
     }
 
     @NSManaged public var date: Date?
@@ -25,7 +25,7 @@ extension SetEntity {
 }
 
 // MARK: Generated accessors for cards
-extension SetEntity {
+extension FlashSets {
 
     @objc(addCardsObject:)
     @NSManaged public func addToCards(_ value: FlashCardData)
@@ -41,6 +41,6 @@ extension SetEntity {
 
 }
 
-extension SetEntity : Identifiable {
+extension FlashSets : Identifiable {
 
 }

@@ -16,13 +16,13 @@ import Combine
 import CoreData
 
 final class TermDefinitionViewModel: ObservableObject {
-    @Published var termdefpairs: [TermAndDefinition] = [TermAndDefinition(term: "", definition: "", tag: "")]
+    //@Published var termdefpairs: [TermAndDefinition] = []
     
-    let dataController = DataController.shared
+     let dataController = DataController.shared
 
-    func addNew() {
-        termdefpairs.append(TermAndDefinition(term: "", definition: "", tag: ""))
-    }
+//    func addNew() {
+//        termdefpairs.append(TermAndDefinition(term: "", definition: "", tag: ""))
+//    }
     
         /*func save() {
         for pair in termdefpairs {

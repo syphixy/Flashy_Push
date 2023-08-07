@@ -2,7 +2,7 @@
 //  FlashCardData+CoreDataProperties.swift
 //  Flashy_App
 //
-//  Created by Artem on 2023-07-17.
+//  Created by Artem on 2023-08-06.
 //
 //
 
@@ -16,25 +16,12 @@ extension FlashCardData {
         return NSFetchRequest<FlashCardData>(entityName: "FlashCardData")
     }
 
+    @NSManaged public var date: Date?
     @NSManaged public var definition: String?
     @NSManaged public var id: UUID?
-    @NSManaged public var tag: String?
-    @NSManaged public var term: String?
-    @NSManaged public var date: Date?
     @NSManaged public var name: String?
-  //  @NSManaged public var flashSet: FlashSet?
+    @NSManaged public var term: String?
     @NSManaged public var set: SetEntity?
-    
-    
-//    public var unwrappedDefinition: String {
-//        definition ?? ""
-//    }
-//    public var unwrappedTag: String {
-//        tag ?? ""
-//    }
-//    public var unwrappedTerm: String {
-//        term ?? ""
-//    }
 
 }
 

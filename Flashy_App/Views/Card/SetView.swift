@@ -5,62 +5,61 @@
 //  Created by Artem on 2023-07-12.
 //
 
-//import SwiftUI
-//import CoreData
-//
-//struct SetView: View {
-//    
-//   // var sets: SetEntity
-//    @Environment(\.managedObjectContext) private var viewContext
-//   // @FetchRequest(entity: FlashCardData.entity(), sortDescriptors: NSSortDescriptor[key: ])
+import SwiftUI
+import CoreData
+
+struct SetView: View {
+    let set: SetEntity
+   // var sets: SetEntity
+    @Environment(\.managedObjectContext) private var viewContext
+   // @FetchRequest(entity: FlashCardData.entity(), sortDescriptors: NSSortDescriptor[key: ])
 //    @FetchRequest(
 //        entity: FlashCardData.entity(),
 //        sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: false)],
 //        predicate: NSPredicate(format: "date > %@", Date().addingTimeInterval(1) as NSDate)
 //    ) var flashCardData: FetchedResults<FlashCardData>
-//    
-//    let dataController = DataController.shared
-//    var removal: (() -> Void)? = nil
-//    var onRemove: ((SwipeDirection) -> Void)? = nil
-//    @State private var isShown = false
-//    @State private var offset = CGSize.zero
-//    @State private var label: String = "Still Learning"  // Define a label string
-//    @State private var showPositiveIndicator = false
-//    @State private var showNegativeIndicator = false
-//    @State private var showMiddleIndicator = false
-//    @State private var showEasyIndicator = false
-//    @State var redirectToSet = false
-//    var body: some View {
-//        
-//        
-//        /* if let cards = flashSet.cards?.allObjects as? [FlashCardData] {
-//         ForEach(cards) { card in
-//         Text(card.term ?? "")
-//         }
-//         
-//         // Now flashcards is an array of FlashCardData
-//         }
-//         */
-//        //rest of the code...
-//        NavigationStack {
-//                    ZStack {
-//                            ForEach(flashCardData, id: \.self) { flashcards in
-//                                //   FlashcardView(flashcard: flashcard)
-//                                SingleFlashCard(card: flashcards)
-//                            }
-//                    }
-//                    .padding()
-//                }
-//        
-//                .navigationBarBackButtonHidden(true)
-//                
-//                    // Display positive indicator
-//                }
-//        }
-//
-//
-//
-//
+    
+    let dataController = DataController.shared
+    var removal: (() -> Void)? = nil
+    var onRemove: ((SwipeDirection) -> Void)? = nil
+    @State private var isShown = false
+    @State private var offset = CGSize.zero
+    @State private var label: String = "Still Learning"  // Define a label string
+    @State private var showPositiveIndicator = false
+    @State private var showNegativeIndicator = false
+    @State private var showMiddleIndicator = false
+    @State private var showEasyIndicator = false
+    @State var redirectToSet = false
+    var body: some View {
+        
+        
+        /* if let cards = flashSet.cards?.allObjects as? [FlashCardData] {
+         ForEach(cards) { card in
+         Text(card.term ?? "")
+         }
+         
+         // Now flashcards is an array of FlashCardData
+         }
+         */
+        //rest of the code...
+        List {
+                    ForEach(set.cards?.allObjects as? [FlashCardData] ?? []) { card in
+                        VStack(alignment: .leading) {
+                            Text(card.term ?? "")
+                                .font(.headline)
+                            Text(card.definition ?? "")
+                        }
+                    }
+                }
+                .navigationBarTitle(Text(set.name ?? ""), displayMode: .inline)
+                
+                    // Display positive indicator
+                }
+        }
+
+
+
+
 //struct SingleCard: View {
 //    let card: FlashCardData
 //    var removal: (() -> Void)? = nil

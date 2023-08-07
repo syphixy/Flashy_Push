@@ -11,7 +11,7 @@ struct CardsView: View {
     @Environment(\.managedObjectContext) private var viewContext
    // @FetchRequest(entity: FlashCardData.entity(), sortDescriptors: NSSortDescriptor[key: ])
     
-    let dataController = DataController.shared
+    @ObservedObject var dataController = DataController.shared
 //    @FetchRequest(
 //        entity: FlashCardData.entity(),
 //        sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: false)],
@@ -28,7 +28,9 @@ struct CardsView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                
+//                ForEach(dataController.savedFlash, id: \.self) { flashcard in
+//                    SingleCard(card: flashcard)
+//                }
 //                ForEach(flashCardData, id: \.self) { flashcard in
 //                        //   FlashcardView(flashcard: flashcard)
 ////                        Text(flashcard.term ?? "")
@@ -58,13 +60,14 @@ struct CardsView: View {
             }
             .padding()
         }
-        
+        .navigationBarBackButtonHidden(true)
         .onAppear {
           //  remainingFlashCards = flashCardData
         }
     }
 }
 struct SingleCard: View {
+    @ObservedObject var dataController = DataController.shared
     let card: FlashCardData
     var removal: (() -> Void)? = nil
     var onRemove: ((SwipeDirection) -> Void)? = nil
@@ -86,6 +89,7 @@ struct SingleCard: View {
                 .shadow(radius: 3)
 
             VStack {
+                
                 Text(card.term ?? "")
                     .foregroundColor(.black)
                     .font(.title)
@@ -238,3 +242,15 @@ struct CardsView_Previews: PreviewProvider {
     }
 }
 
+//ForEach(dataController.termdefpairs) { termDefPair in
+//                            TermView(term: termDefPair.term, definition: termDefPair.definition, tag: termDefPair.tag)
+//
+//                        }
+//
+//struct TermAndDefinition: Identifiable {
+//    var id: UUID()
+//    var term: String
+//    var definition: String
+//    var tag: String
+//
+//}

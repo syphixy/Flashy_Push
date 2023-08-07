@@ -2,7 +2,7 @@
 //  FlashCardData+CoreDataClass.swift
 //  Flashy_App
 //
-//  Created by Artem on 2023-07-17.
+//  Created by Artem on 2023-08-06.
 //
 //
 
@@ -13,4 +13,3 @@ import CoreData
 public class FlashCardData: NSManagedObject {
 
 }
-

@@ -15,13 +15,14 @@ struct TermDefinitionView: View {
   //  @State var setNew: SetEntity?
     /*@FetchRequest(entity: FlashSets.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \FlashSets.name , ascending: false)]) var flashSets: FetchedResults<FlashSets>*/
     
+    @ObservedObject var dataController = DataController.shared
     @ObservedObject private var viewModel = TermDefinitionViewModel()
-    @State var name = "" // Separate state for the name
+    @State var term = ""
+    @State var definition = ""
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.dismiss) var dismiss
-    @ObservedObject var dataController = DataController.shared
     @State var showSet = false
-    //@Binding var saveSet: Bool
+    
     @State var isShowingSet = false
     @State private var currentSet: SetEntity?
     //@Binding var redirectToSet: Bool
@@ -30,21 +31,21 @@ struct TermDefinitionView: View {
         ZStack {
             NavigationStack {
                 VStack {
-                    Text("Name")
-                        .padding(.trailing, 220)
-                        .fontWeight(.bold)
-                    TextField("Enter name", text: $name)
-                        .frame(width: 250)
-                        .padding()
-                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray, lineWidth: 1))
+                    
+                    
                     List {
                         
-                        ForEach(viewModel.termdefpairs.indices, id: \.self) { index in
-                            TermView(term: $viewModel.termdefpairs[index].term, definition: $viewModel.termdefpairs[index].definition, tag: $viewModel.termdefpairs[index].tag)
-                           
+                        ForEach(dataController.termdefpairs) { termDefPair in
+                            TermView(termDefPair: termDefPair)
+                            
                         }
+                        
+//                        ForEach(dataController.termdefpairs.indices, id: \.self) { index in
+//                            TermView(term: dataController.termdefpairs[index].term, definition: dataController.termdefpairs[index].definition, tag: dataController.termdefpairs[index].tag)
+//
+//                        }
                         .onDelete { index in
-                            self.viewModel.termdefpairs.remove(at: index.first!)
+                            self.dataController.termdefpairs.remove(at: index.first!)
                         }
                     }
                     .navigationBarItems(trailing: Button(action: {
@@ -52,34 +53,42 @@ struct TermDefinitionView: View {
                          //setNew = dataController.addName(name: name, date: Date(), context: managedObjectContext)
                         // Create new FlashCardData for each term/definition/tag in viewModel.termdefpairs and associate with newSet
                        // let setNew = dataController.addName(name: name, date: Date(), context: managedObjectContext)
-                        
-                        
-                        for testForm in viewModel.termdefpairs {
-                            dataController.add(term: testForm.term, definition: testForm.definition, tag: testForm.tag, date: Date(), name: name)
-
-                                // The addToCards method expects a set of FlashCardData, so  create an NSSet from the array of FlashCardData
-                             //   setNew.addToCards(NSSet(object: newCard))
-                            }
-                        
+//                        let newSet = SetEntity(context: self.managedObjectContext)
+//                                        newSet.id = UUID()
+//                                        newSet.name = self.name
+//                                        newSet.date = Date()
+                        //dataController.addFlashcardSet(name: name, tag: tag, date: Date())
+                        //for testForm in viewModel.termdefpairs {}
+                        for x in dataController.termdefpairs {
+                            dataController.add(term: x.term, definition: x.definition, date: Date())
+                                                
+                        }
                         
                         dataController.save()
-                        name = ""
-//                        let new = FlashCardData(context: managedObjectContext)
-//                        new.term = "test term 45"
-//                        new.definition = "test def"
-//                        new.id = UUID()
-//                        new.date = .now
-//                        
-//                        do {
-//                            try managedObjectContext.save()
-//                        } catch {
-//                            print("error saving new data: \(error)")
-//                        }
-                        
-                        isShowingSet = true
                         dismiss()
+                        //dataController.termdefpairs.removeAll()
+                            //let new = FlashCardData(context: managedObjectContext)
+                            //                        new.term = "test term 45"
+                            //                        new.definition = "test def"
+                            //                        new.id = UUID()
+                            //                        new.date = .now
+                            //
+                            //                        do {
+                            //                            try managedObjectContext.save()
+                            //                        } catch {
+                            //                            print("error saving new data: \(error)")
+                            //                        }
+                                // The addToCards method expects a set of FlashCardData, so  create an NSSet from the array of FlashCardData
+                             //   setNew.addToCards(NSSet(object: newCard))
+                            
+                        
+                        
+                        
                     }) {
                         Text("Save")
+//                        NavigationLink(destination: CardsView(dataController: DataController.shared), isActive: $isShowingSet) {
+//                            EmptyView()
+//                        }
                         /*NavigationLink(destination: SetView(flashCardData: _flashCardData), isActive: $isShowingSet) {
                                     EmptyView()
                         }
@@ -100,15 +109,15 @@ struct TermDefinitionView: View {
                         
                     })
                     
+                    
                     Spacer()
-                    /*ForEach(dataController.savedFlash) { x in
-                        Text(x.term ?? "nothing")
-                        Text(x.definition ?? "nothing")
-                        Text(x.tag ?? "nothing")
-                    }
-                     */
+                
                     Button(action: {
-                        viewModel.addNew()
+                        dataController.addNew()
+//
+                        
+                        isShowingSet = true
+                        dismiss()
                     }) {
                         Image(systemName: "plus")
                             .resizable()
@@ -127,8 +136,6 @@ struct TermDefinitionView: View {
     
     }
 }
-
-
 struct TermDefinitionView_Previews: PreviewProvider {
     static var previews: some View {
         TermDefinitionView()
@@ -136,44 +143,18 @@ struct TermDefinitionView_Previews: PreviewProvider {
 }
 
 struct TermView: View {
-    @Binding var term: String
-    @Binding var definition: String
-    @Binding var tag: String
-    @State private var isTagExpanded = false
+        @ObservedObject var termDefPair: TermAndDefinition
+      //  @State private var isTagExpanded = false
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             
             
-                if isTagExpanded {
-                    VStack(alignment: .leading, spacing: 8) {
-                        Text("Tag")
-                            .font(.headline)
-                        TextField("Enter tag", text: $tag)
-                            .padding()
-                            .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray, lineWidth: 1))
-                    }
-                }
                 
-                Button(action: {
-                    isTagExpanded.toggle()
-                }) {
-                    HStack {
-                        Spacer()
-                        Image(systemName: isTagExpanded ? "minus.circle.fill" : "plus.circle.fill")
-                            .resizable()
-                            .foregroundColor(.blue)
-                            .frame(width: 25, height: 25)
-                        Text(isTagExpanded ? "Hide Tag" : "Add Tag")
-                            .foregroundColor(.blue)
-                            .font(.headline)
-                    }
-                }
-                .padding(.bottom, -25)
             VStack(alignment: .leading, spacing: 8) {
                 Text("Term")
                     .font(.headline)
-                TextField("Enter term", text: $term)
+                TextField("Enter term", text: $termDefPair.term)
                     .padding()
                     .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray, lineWidth: 1))
             }
@@ -181,7 +162,7 @@ struct TermView: View {
             VStack(alignment: .leading, spacing: 8) {
                 Text("Definition")
                     .font(.headline)
-                TextField("Enter definition", text: $definition)
+                TextField("Enter definition", text: $termDefPair.definition)
                     .padding()
                     .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray, lineWidth: 1))
             }
@@ -191,13 +172,22 @@ struct TermView: View {
         .padding()
     }
 }
-
-
-
-struct TermAndDefinition: Identifiable {
-    var id = UUID()
-    var term: String
-    var definition: String
-    var tag: String
+class TermAndDefinition: ObservableObject, Identifiable {
+    let id = UUID()
+    @Published var term: String
+    @Published var definition: String
+  //  @Published var tag: String
+    
+    init(term: String, definition: String) {
+        self.term = term
+        self.definition = definition
+     //   self.tag = tag
+    }
 }
 
+//struct TermAndDefiniton: Identifiable {
+//    let id = UUID()
+//    var term: String
+//    var defintion: String
+//    var tag: String
+//}
