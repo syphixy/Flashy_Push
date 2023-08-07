@@ -95,7 +95,6 @@ class DataController:  ObservableObject {
         newSet.name = name
         newSet.tag = tag
         newSet.date = Date()
-        save()
     }
     func edit(data: FlashCardData, term: String, defintion: String, context: NSManagedObjectContext) {
         data.term = term
@@ -108,6 +107,4 @@ class DataController:  ObservableObject {
 
 
  
-class Refresh: ObservableObject {
-    @Published var needRefresh: Bool = false
-}
+

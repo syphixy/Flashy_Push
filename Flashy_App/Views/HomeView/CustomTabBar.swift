@@ -24,15 +24,18 @@ struct CustomTabBar: View {
 //
 //            }
     
-    @EnvironmentObject var dataController: DataController
+   // @EnvironmentObject var dataController: DataController
 //    @FetchRequest(
 //        entity: FlashCardData.entity(),
 //        sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.name, ascending: false)]
 //     //  predicate: NSPredicate(format: "date > %@", Date().addingTimeInterval(0) as NSDate)
 //    ) var flashCardData: FetchedResults<FlashCardData>
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @EnvironmentObject var dataController: DataController
     @FetchRequest(
         entity: FlashSets.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \FlashSets.date, ascending: false)])
+    
     var sets: FetchedResults<FlashSets>
     
     var body: some View {
@@ -52,7 +55,8 @@ struct CustomTabBar: View {
 //                            Image(systemName: "menucard")
 //                        }.tag(1)
 
-                    NewHomeView(sets: _sets, showIcon: .constant(false))
+                    NewHomeView(sets: _sets,  showIcon: .constant(false))
+                        .environmentObject(DataController.shared)
                         .tabItem {
                             Image(systemName: "house")
                         }.tag(2)

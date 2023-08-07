@@ -26,8 +26,10 @@ struct NewHomeView: View {
     //            sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: false)]
     ////            predicate: NSPredicate(format: "date > %@", Date().addingTimeInterval(1) as NSDate)
     //        ) var flashCardData: FetchedResults<FlashCardData>
-    @ObservedObject var dataController = DataController.shared
     @Environment(\.managedObjectContext) var managedObjectContext
+    @ObservedObject var dataController = DataController.shared
+
+   // @Environment(\.managedObjectContext) var managedObjectContext
     @State var show = false
     @State var showProfile = false
     @State var viewState = CGSize.zero
@@ -40,7 +42,7 @@ struct NewHomeView: View {
     @State private var showFlashcardStack = false
     @State var showSet = false
     @State var redirectToCards = false
-    @ObservedObject var refresh = Refresh()
+    
     /* @FetchRequest(
      entity: FlashCardData.entity(),
      sortDescriptors: [
@@ -72,11 +74,7 @@ struct NewHomeView: View {
                         self.show.toggle()
                     }
                 Spacer()
-                //                    .sheet(isPresented: $showProfile) {
-                //                        ProfileView()
-                //                        //   .offset(y: viewState.height)
-                //                            .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0.1))
-                //                    }
+                //
                 Text("Your sets")
                     .font(.system(size: 30, weight: .bold))
                     .padding(.bottom, 40)
@@ -99,15 +97,14 @@ struct NewHomeView: View {
                                         
                                 }
                                 .padding([.top, .leading, .trailing])
+                                .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 10)
                             }
                         }
                     }
                     .padding(.leading, 10)
                     Spacer()// Additional padding to start
                 }
-                .onChange(of: dataController.dataUpdated) { updated in
-                    // Handle any specific actions if needed, or simply leave it to update the view
-                }
+                
                 
             }
             
@@ -119,6 +116,9 @@ struct NewHomeView: View {
             //
             //        dataController.save()
             //    }
+        }
+        .onChange(of: dataController.dataUpdated) { updated in
+            // Handle any specific actions if needed, or simply leave it to update the view
         }
     }
 }
