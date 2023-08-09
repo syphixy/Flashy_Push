@@ -27,11 +27,11 @@ extension FlashSets {
 // MARK: Generated accessors for cards
 extension FlashSets {
 
-    @objc(addCardsObject:)
-    @NSManaged public func addToCards(_ value: FlashCardData)
-
-    @objc(removeCardsObject:)
-    @NSManaged public func removeFromCards(_ value: FlashCardData)
+//    @objc(addCardsObject:)
+//    @NSManaged public func addToCards(_ value: FlashCardData)
+//
+//    @objc(removeCardsObject:)
+//    @NSManaged public func removeFromCards(_ value: FlashCardData)
 
     @objc(addCards:)
     @NSManaged public func addToCards(_ values: NSSet)
@@ -42,5 +42,13 @@ extension FlashSets {
 }
 
 extension FlashSets : Identifiable {
+    func addToCards(_ value: FlashCardData) {
+            let items = self.mutableSetValue(forKey: "cards") // 'cards' should match the relationship name
+            items.add(value)
+        }
 
+        func removeFromCards(_ value: FlashCardData) {
+            let items = self.mutableSetValue(forKey: "cards")
+            items.remove(value)
+        }
 }

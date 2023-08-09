@@ -95,7 +95,7 @@ struct AddSetView: View {
             .padding(.top, 20)
             .alert(isPresented: $showingAlert) {
                 Alert(
-                    title: Text("Invalid Input"),
+                    title: Text("Invalid Input❌"),
                     message: Text("Please enter a name for the set."),
                     dismissButton: .default(Text("OK"))
                 )

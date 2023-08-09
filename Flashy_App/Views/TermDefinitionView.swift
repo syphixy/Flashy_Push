@@ -6,7 +6,11 @@ import CoreData
 
 struct TermDefinitionView: View {
     // let set: SetView
-
+   // var selectedSet: FlashSets
+    @FetchRequest(
+        entity: FlashSets.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \FlashSets.date, ascending: false)])
+    var sets: FetchedResults<FlashSets>
 //    @FetchRequest(
 //        entity: FlashCardData.entity(),
 //        sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.name, ascending: false)]
@@ -23,11 +27,22 @@ struct TermDefinitionView: View {
     @Environment(\.dismiss) var dismiss
     @State var showSet = false
     
+    
     @State var isShowingSet = false
     @State private var currentSet: SetEntity?
     //@Binding var redirectToSet: Bool
-    
+    func validateTermDefPairs() -> Bool {
+        for pair in dataController.termdefpairs {
+            if pair.term.trimmingCharacters(in: .whitespaces).isEmpty ||
+               pair.definition.trimmingCharacters(in: .whitespaces).isEmpty {
+                return false
+            }
+        }
+        return true
+    }
+@State private var showAlert = false
     var body: some View {
+        
         ZStack {
             NavigationStack {
                 VStack {
@@ -49,64 +64,31 @@ struct TermDefinitionView: View {
                         }
                     }
                     .navigationBarItems(trailing: Button(action: {
-                        // Create new FlashSets
-                         //setNew = dataController.addName(name: name, date: Date(), context: managedObjectContext)
-                        // Create new FlashCardData for each term/definition/tag in viewModel.termdefpairs and associate with newSet
-                       // let setNew = dataController.addName(name: name, date: Date(), context: managedObjectContext)
-//                        let newSet = SetEntity(context: self.managedObjectContext)
-//                                        newSet.id = UUID()
-//                                        newSet.name = self.name
-//                                        newSet.date = Date()
-                        //dataController.addFlashcardSet(name: name, tag: tag, date: Date())
-                        //for testForm in viewModel.termdefpairs {}
-                        for x in dataController.termdefpairs {
-                            dataController.add(term: x.term, definition: x.definition, date: Date())
-                                                
-                        }
                         
-                        dataController.save()
-                        dismiss()
-                        //dataController.termdefpairs.removeAll()
-                            //let new = FlashCardData(context: managedObjectContext)
-                            //                        new.term = "test term 45"
-                            //                        new.definition = "test def"
-                            //                        new.id = UUID()
-                            //                        new.date = .now
-                            //
-                            //                        do {
-                            //                            try managedObjectContext.save()
-                            //                        } catch {
-                            //                            print("error saving new data: \(error)")
-                            //                        }
-                                // The addToCards method expects a set of FlashCardData, so  create an NSSet from the array of FlashCardData
-                             //   setNew.addToCards(NSSet(object: newCard))
+                        if validateTermDefPairs() {
                             
+            let newSet = FlashSets(context: managedObjectContext)
+                            for x in dataController.termdefpairs {
+                               // dataController.add(term: x.term, definition: x.definition, date: Date())
+                                
+                                let newCard = FlashCardData(context: managedObjectContext)
+                                newCard.id = UUID()
+                                newCard.definition = x.definition
+                                newCard.term = x.term
+                                newCard.date = Date()
+                                newSet.addToCards(newCard)
+                            }
+                            dataController.save()
+                            dismiss()
+                        }
+                        else {
+                            showAlert = true
+                        }
+                      
                         
-                        
-                        
+                      
                     }) {
                         Text("Save")
-//                        NavigationLink(destination: CardsView(dataController: DataController.shared), isActive: $isShowingSet) {
-//                            EmptyView()
-//                        }
-                        /*NavigationLink(destination: SetView(flashCardData: _flashCardData), isActive: $isShowingSet) {
-                                    EmptyView()
-                        }
-                         */
-                        //version for FlashSets--->
-                        
-                       /* if let check = setNew.cards?.allObjects as? [FlashCardData]  {
-                        }*/
-                        
-//                            NavigationLink(destination: SetView(flashCardData: _flashCardData), isActive: $isShowingSet) {
-//                                                EmptyView()
-//                            }
-                        // CardsView code below --->
-//                        NavigationLink(destination: CardsView(), isActive: $isShowingSet) {
-//                                            EmptyView()
-//                        }
-                        
-                        
                     })
                     
                     
@@ -114,10 +96,8 @@ struct TermDefinitionView: View {
                 
                     Button(action: {
                         dataController.addNew()
-//
+                     //   isShowingSet = true
                         
-                        isShowingSet = true
-                        dismiss()
                     }) {
                         Image(systemName: "plus")
                             .resizable()
@@ -133,7 +113,13 @@ struct TermDefinitionView: View {
                 
             }
         }
-    
+        .alert(isPresented: $showAlert) {
+            Alert(
+                title: Text("Invalid Input❌"),
+                message: Text("Please enter missing data for term and definition✍️"),
+                dismissButton: .default(Text("OK"))
+            )
+        }
     }
 }
 struct TermDefinitionView_Previews: PreviewProvider {

@@ -18,7 +18,7 @@ import Combine
 
 class DataController:  ObservableObject {
     static let shared = DataController()
-    @Published var termdefpairs: [TermAndDefinition] = []
+    @Published var termdefpairs: [TermAndDefinition] = [TermAndDefinition(term: "", definition: "")]
     @Published var savedFlash: [FlashCardData] = []
     @Published var dataUpdated: Bool = false
 

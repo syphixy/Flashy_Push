@@ -44,10 +44,10 @@ struct CustomTabBar: View {
                 TabView(selection: $selectedTab) {
                     
                     
-                    TermDefinitionView()
-                        .tabItem {
-                            Image(systemName: "plus")
-                        }.tag(0)
+//                    TermDefinitionView()
+//                        .tabItem {
+//                            Image(systemName: "plus")
+//                        }.tag(0)
 //
 //
 //                    CardsView(dataController: DataController.shared)

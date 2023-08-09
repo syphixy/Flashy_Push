@@ -117,9 +117,7 @@ struct NewHomeView: View {
             //        dataController.save()
             //    }
         }
-        .onChange(of: dataController.dataUpdated) { updated in
-            // Handle any specific actions if needed, or simply leave it to update the view
-        }
+        
     }
 }
     
@@ -151,34 +149,34 @@ struct NewHomeView: View {
         }
     }
     
-    struct NewSetView: View {
-        @Binding var showNew: Bool
-        
-        var body: some View {
-            ZStack {
-                
-                HStack {
-                    
-                    VStack {
-                        
-                        Button(action: {self.showNew.toggle()}) {
-                            Image(systemName: "plus")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .foregroundColor(.black)
-                                .frame(width: 50, height: 30)
-                        }
-                        
-                    }
-                    .frame(width: 250, height: 180)
-                    .background(Color("newgray"))
-                    .cornerRadius(20)
-                    .shadow(radius: 2)
-                }
-            }
-            
-        }
-    }
+//    struct NewSetView: View {
+//        @Binding var showNew: Bool
+//
+//        var body: some View {
+//            ZStack {
+//
+//                HStack {
+//
+//                    VStack {
+//
+//                        Button(action: {self.showNew.toggle()}) {
+//                            Image(systemName: "plus")
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fit)
+//                                .foregroundColor(.black)
+//                                .frame(width: 50, height: 30)
+//                        }
+//
+//                    }
+//                    .frame(width: 250, height: 180)
+//                    .background(Color("newgray"))
+//                    .cornerRadius(20)
+//                    .shadow(radius: 2)
+//                }
+//            }
+//
+//        }
+//    }
     
     
     struct AvatarView: View {
@@ -194,18 +192,38 @@ struct NewHomeView: View {
             }
         }
     }
-    struct FlashcardSetView: View {
-        let sets: FlashSets
-        @EnvironmentObject var dataController: DataController
-        var body: some View {
-            ScrollView(.vertical) {
-                ForEach(sets.cards?.allObjects as? [FlashCardData] ?? [], id: \.self) { card in
-                    Text(card.term ?? "Unnamed Card")
-                }
-            }
-            .navigationTitle(sets.name ?? "Unnamed Set")
+struct FlashcardSetView: View {
+    let sets: FlashSets
+    @EnvironmentObject var dataController: DataController
+    @State private var showTermDefinitionView = false
+    @Environment(\.managedObjectContext) var managedObjectContext
+    //@State private var addView = false
+    var body: some View {
+        
+        ZStack {
+            NavigationStack {
+                        
+                            ForEach(sets.cards?.allObjects as? [FlashCardData] ?? [], id: \.self) { card in
+                                Text(card.term ?? "Unnamed Card")
+                                Text(card.definition ?? "Unnamed Card")
+                            }
+                        
+                        .navigationTitle(sets.name ?? "Unnamed Set")
+                        .navigationBarItems(trailing:
+                            Button(action: {
+                                self.showTermDefinitionView.toggle()
+                            }) {
+                                Image(systemName: "plus")
+                            }
+                            .sheet(isPresented: $showTermDefinitionView) {
+                                TermDefinitionView().environment(\.managedObjectContext, managedObjectContext)
+                            }
+                        )
+                    }
+           // .navigationBarBackButtonHidden(true)
         }
     }
+}
     /*import SwiftUI
      import CoreData
      
