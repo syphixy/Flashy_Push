@@ -44,7 +44,7 @@ struct CustomTabBar: View {
                 TabView(selection: $selectedTab) {
                     
                     
-//                    TermDefinitionView()
+//                    TermDefinitionView(sets: _sets)
 //                        .tabItem {
 //                            Image(systemName: "plus")
 //                        }.tag(0)

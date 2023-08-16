@@ -107,15 +107,6 @@ struct NewHomeView: View {
                 
                 
             }
-            
-            //    func addSet() {
-            //        let newSet = SetEntity(context: managedObjectContext)
-            //        newSet.name = "new set name"
-            //        newSet.id = UUID()
-            //        newSet.date = .now
-            //
-            //        dataController.save()
-            //    }
         }
         
     }
@@ -198,15 +189,28 @@ struct FlashcardSetView: View {
     @State private var showTermDefinitionView = false
     @Environment(\.managedObjectContext) var managedObjectContext
     //@State private var addView = false
+    @State private var isTapped = false
     var body: some View {
         
         ZStack {
             NavigationStack {
                         
-                            ForEach(sets.cards?.allObjects as? [FlashCardData] ?? [], id: \.self) { card in
-                                Text(card.term ?? "Unnamed Card")
-                                Text(card.definition ?? "Unnamed Card")
-                            }
+                if let cards = sets.cards?.allObjects as? [FlashCardData] {
+                                        ForEach(cards, id: \.self) { card in
+                                            Text(card.term ?? "Unnamed Card")
+                                            if isTapped {
+                                                Text(card.definition ?? "Unnamed Card")
+                                            }
+                                            
+                                        }
+                                    } else {
+                                        Text("No cards found for this set.")
+                                    }
+                                }
+                                .onAppear {
+                                    print("Debug: FlashSets name: \(sets.name ?? "Unnamed Set")")
+                                    print("Debug: FlashSets cards count: \(sets.cards?.count ?? 0)")
+                                }
                         
                         .navigationTitle(sets.name ?? "Unnamed Set")
                         .navigationBarItems(trailing:
@@ -216,14 +220,20 @@ struct FlashcardSetView: View {
                                 Image(systemName: "plus")
                             }
                             .sheet(isPresented: $showTermDefinitionView) {
-                                TermDefinitionView().environment(\.managedObjectContext, managedObjectContext)
+                                TermDefinitionView(currentSet: sets).environment(\.managedObjectContext, managedObjectContext)
                             }
                         )
                     }
            // .navigationBarBackButtonHidden(true)
         }
     }
-}
+
+    //  CODE FOR USING INDEXING:
+//
+    
+    
+    
+    
     /*import SwiftUI
      import CoreData
      

@@ -2,7 +2,7 @@
 //  FlashCardData+CoreDataProperties.swift
 //  Flashy_App
 //
-//  Created by Artem on 2023-08-06.
+//  Created by Artem on 2023-08-12.
 //
 //
 
@@ -20,9 +20,17 @@ extension FlashCardData {
     @NSManaged public var definition: String?
     @NSManaged public var id: UUID?
     @NSManaged public var name: String?
+    @NSManaged public var number: Int16
     @NSManaged public var term: String?
-    @NSManaged public var set: SetEntity?
+    @NSManaged public var set: FlashSets?
 
+    public var terms: String {
+        term ?? ""
+    }
+    public var definitions: String {
+        definition ?? ""
+    }
+    
 }
 
 extension FlashCardData : Identifiable {

@@ -6,7 +6,8 @@ import CoreData
 
 struct TermDefinitionView: View {
     // let set: SetView
-   // var selectedSet: FlashSets
+   // var flashSets: FlashSets
+    
     @FetchRequest(
         entity: FlashSets.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \FlashSets.date, ascending: false)])
@@ -18,18 +19,17 @@ struct TermDefinitionView: View {
 //    ) var flashCardData: FetchedResults<FlashCardData>
   //  @State var setNew: SetEntity?
     /*@FetchRequest(entity: FlashSets.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \FlashSets.name , ascending: false)]) var flashSets: FetchedResults<FlashSets>*/
-    
+    var currentSet: FlashSets
     @ObservedObject var dataController = DataController.shared
     @ObservedObject private var viewModel = TermDefinitionViewModel()
     @State var term = ""
     @State var definition = ""
+   // @State var number = 0
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.dismiss) var dismiss
     @State var showSet = false
-    
-    
     @State var isShowingSet = false
-    @State private var currentSet: SetEntity?
+   // @State private var currentSet: SetEntity?
     //@Binding var redirectToSet: Bool
     func validateTermDefPairs() -> Bool {
         for pair in dataController.termdefpairs {
@@ -46,15 +46,10 @@ struct TermDefinitionView: View {
         ZStack {
             NavigationStack {
                 VStack {
-                    
-                    
                     List {
-                        
                         ForEach(dataController.termdefpairs) { termDefPair in
                             TermView(termDefPair: termDefPair)
-                            
                         }
-                        
 //                        ForEach(dataController.termdefpairs.indices, id: \.self) { index in
 //                            TermView(term: dataController.termdefpairs[index].term, definition: dataController.termdefpairs[index].definition, tag: dataController.termdefpairs[index].tag)
 //
@@ -66,34 +61,43 @@ struct TermDefinitionView: View {
                     .navigationBarItems(trailing: Button(action: {
                         
                         if validateTermDefPairs() {
-                            
-            let newSet = FlashSets(context: managedObjectContext)
+                            let newSet = FlashSets(context: managedObjectContext)
+                          //  let newSet = FlashSets(context: managedObjectContext)
                             for x in dataController.termdefpairs {
                                // dataController.add(term: x.term, definition: x.definition, date: Date())
-                                
                                 let newCard = FlashCardData(context: managedObjectContext)
                                 newCard.id = UUID()
+                              //  newCard.number = Int16(x.number)
                                 newCard.definition = x.definition
                                 newCard.term = x.term
                                 newCard.date = Date()
-                                newSet.addToCards(newCard)
+                                newCard.set = newSet
+                                currentSet.addToCards(newCard)
+                               // newCard.set = FlashSets(context: managedObjectContext)
+                                //currentSet?.addToCards(newCard)
+                                
+                              //  newCard.set = currentSet
+                               // newCard.set = FlashSets(context: managedObjectContext)
+                                
+                              //  newCard.set = FlashSets(context: managedObjectContext)
+                               // newSet.addToCards(newCard)
+                               // newCard.set = newSet
+                                
+                                //newSet.addToCards(newCard)
                             }
                             dataController.save()
-                            dismiss()
-                        }
+                                                    }
                         else {
                             showAlert = true
                         }
-                      
-                        
-                      
+                        dismiss()
+
                     }) {
                         Text("Save")
                     })
                     
-                    
                     Spacer()
-                
+
                     Button(action: {
                         dataController.addNew()
                      //   isShowingSet = true
@@ -110,7 +114,6 @@ struct TermDefinitionView: View {
                     .clipShape(Circle())
                     .padding()
                 }
-                
             }
         }
         .alert(isPresented: $showAlert) {
@@ -124,9 +127,19 @@ struct TermDefinitionView: View {
 }
 struct TermDefinitionView_Previews: PreviewProvider {
     static var previews: some View {
-        TermDefinitionView()
+        // Create a mock NSManagedObjectContext
+        let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        
+        // Create a mock FlashSets instance
+        let mockSet = FlashSets(context: context)
+        mockSet.name = "Sample Set"
+        mockSet.date = Date()
+
+        return TermDefinitionView(currentSet: mockSet)
+            .environment(\.managedObjectContext, context)
     }
 }
+
 
 struct TermView: View {
         @ObservedObject var termDefPair: TermAndDefinition
@@ -134,9 +147,6 @@ struct TermView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
-            
-            
-                
             VStack(alignment: .leading, spacing: 8) {
                 Text("Term")
                     .font(.headline)
@@ -152,8 +162,6 @@ struct TermView: View {
                     .padding()
                     .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray, lineWidth: 1))
             }
-            
-            
         }
         .padding()
     }
@@ -162,11 +170,14 @@ class TermAndDefinition: ObservableObject, Identifiable {
     let id = UUID()
     @Published var term: String
     @Published var definition: String
+   // @Published var number: Int
+    
   //  @Published var tag: String
     
     init(term: String, definition: String) {
         self.term = term
         self.definition = definition
+      //  self.number = number
      //   self.tag = tag
     }
 }

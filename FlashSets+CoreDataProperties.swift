@@ -2,7 +2,7 @@
 //  FlashSets+CoreDataProperties.swift
 //  Flashy_App
 //
-//  Created by Artem on 2023-08-06.
+//  Created by Artem on 2023-08-12.
 //
 //
 
@@ -22,16 +22,23 @@ extension FlashSets {
     @NSManaged public var tag: String?
     @NSManaged public var cards: NSSet?
 
+//    public var flashcardsArray: [FlashCardData] {
+//        let setsflashcards = cards as? Set<FlashCardData> ?? []
+//        return setsflashcards.sorted {
+//            $0.terms < $1.terms
+//        }
+//     }
 }
+
 
 // MARK: Generated accessors for cards
 extension FlashSets {
 
-//    @objc(addCardsObject:)
-//    @NSManaged public func addToCards(_ value: FlashCardData)
-//
-//    @objc(removeCardsObject:)
-//    @NSManaged public func removeFromCards(_ value: FlashCardData)
+    @objc(addCardsObject:)
+    @NSManaged public func addToCards(_ value: FlashCardData)
+
+    @objc(removeCardsObject:)
+    @NSManaged public func removeFromCards(_ value: FlashCardData)
 
     @objc(addCards:)
     @NSManaged public func addToCards(_ values: NSSet)
@@ -42,13 +49,5 @@ extension FlashSets {
 }
 
 extension FlashSets : Identifiable {
-    func addToCards(_ value: FlashCardData) {
-            let items = self.mutableSetValue(forKey: "cards") // 'cards' should match the relationship name
-            items.add(value)
-        }
 
-        func removeFromCards(_ value: FlashCardData) {
-            let items = self.mutableSetValue(forKey: "cards")
-            items.remove(value)
-        }
 }

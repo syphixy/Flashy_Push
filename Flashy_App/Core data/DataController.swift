@@ -40,7 +40,7 @@ class DataController:  ObservableObject {
         })
         
         container.viewContext.automaticallyMergesChangesFromParent = true
-        fetchRequest()
+        //fetchRequest()
     }
     func addNew() {
         termdefpairs.append(TermAndDefinition(term: "", definition: ""))
@@ -78,15 +78,16 @@ class DataController:  ObservableObject {
         }
     }
 
-    func add(term: String, definition: String, date: Date) {
+    func add(term: String, definition: String, number: Int16, date: Date) {
         let data = FlashCardData(context: self.container.viewContext)
         data.id = UUID()
         data.definition = definition
         data.term = term
+        data.number = number
      //   data.tag = tag
         data.date = date
   //      data.name = name
-        fetchRequest()
+       // fetchRequest()
     }
 
     func addFlashcardSet(name: String, tag: String, date: Date)  { 
