@@ -193,36 +193,21 @@ struct FlashcardSetView: View {
     var body: some View {
         
         ZStack {
-            NavigationStack {
-                        
-                if let cards = sets.cards?.allObjects as? [FlashCardData] {
-                                        ForEach(cards, id: \.self) { card in
-                                            Text(card.term ?? "Unnamed Card")
-                                            if isTapped {
-                                                Text(card.definition ?? "Unnamed Card")
-                                            }
-                                            
-                                        }
-                                    } else {
-                                        Text("No cards found for this set.")
-                                    }
+            let cards = sets.cards?.allObjects as? [FlashCardData] ?? []
+            ForEach(cards, id: \.self) { card in
+                SingleFlashCard(card: card)
+                            .navigationBarItems(trailing:
+                                Button(action: {
+                                    self.showTermDefinitionView.toggle()
+                                }) {
+                                    Image(systemName: "plus")
                                 }
-                                .onAppear {
-                                    print("Debug: FlashSets name: \(sets.name ?? "Unnamed Set")")
-                                    print("Debug: FlashSets cards count: \(sets.cards?.count ?? 0)")
+                                .sheet(isPresented: $showTermDefinitionView) {
+                                    TermDefinitionView(currentSet: sets).environment(\.managedObjectContext, managedObjectContext)
                                 }
-                        
-                        .navigationTitle(sets.name ?? "Unnamed Set")
-                        .navigationBarItems(trailing:
-                            Button(action: {
-                                self.showTermDefinitionView.toggle()
-                            }) {
-                                Image(systemName: "plus")
-                            }
-                            .sheet(isPresented: $showTermDefinitionView) {
-                                TermDefinitionView(currentSet: sets).environment(\.managedObjectContext, managedObjectContext)
-                            }
-                        )
+                            )
+            }
+            
                     }
            // .navigationBarBackButtonHidden(true)
         }

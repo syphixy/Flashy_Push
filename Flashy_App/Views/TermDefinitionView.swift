@@ -22,8 +22,7 @@ struct TermDefinitionView: View {
     var currentSet: FlashSets
     @ObservedObject var dataController = DataController.shared
     @ObservedObject private var viewModel = TermDefinitionViewModel()
-    @State var term = ""
-    @State var definition = ""
+   
    // @State var number = 0
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.dismiss) var dismiss
@@ -61,7 +60,7 @@ struct TermDefinitionView: View {
                     .navigationBarItems(trailing: Button(action: {
                         
                         if validateTermDefPairs() {
-                            let newSet = FlashSets(context: managedObjectContext)
+                           // let newSet = FlashSets(context: managedObjectContext)
                           //  let newSet = FlashSets(context: managedObjectContext)
                             for x in dataController.termdefpairs {
                                // dataController.add(term: x.term, definition: x.definition, date: Date())
@@ -71,7 +70,7 @@ struct TermDefinitionView: View {
                                 newCard.definition = x.definition
                                 newCard.term = x.term
                                 newCard.date = Date()
-                                newCard.set = newSet
+                              //  newCard.set = newSet
                                 currentSet.addToCards(newCard)
                                // newCard.set = FlashSets(context: managedObjectContext)
                                 //currentSet?.addToCards(newCard)
@@ -125,20 +124,20 @@ struct TermDefinitionView: View {
         }
     }
 }
-struct TermDefinitionView_Previews: PreviewProvider {
-    static var previews: some View {
-        // Create a mock NSManagedObjectContext
-        let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-        
-        // Create a mock FlashSets instance
-        let mockSet = FlashSets(context: context)
-        mockSet.name = "Sample Set"
-        mockSet.date = Date()
-
-        return TermDefinitionView(currentSet: mockSet)
-            .environment(\.managedObjectContext, context)
-    }
-}
+//struct TermDefinitionView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        // Create a mock NSManagedObjectContext
+//        let context = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+//
+//        // Create a mock FlashSets instance
+//        let mockSet = FlashSets(context: context)
+//        mockSet.name = "Sample Set"
+//        mockSet.date = Date()
+//
+//        return TermDefinitionView(currentSet: mockSet)
+//            .environment(\.managedObjectContext, context)
+//    }
+//}
 
 
 struct TermView: View {

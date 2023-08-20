@@ -8,9 +8,12 @@
 import SwiftUI
  
  struct SingleFlashCard: View {
+     //let sets: FlashSets
      let card: FlashCardData
      var removal: (() -> Void)? = nil
      var onRemove: ((SwipeDirection) -> Void)? = nil
+     @State var term = ""
+     @State var definition = ""
      @State private var isShown = false
      @State private var offset = CGSize.zero
      @State private var label: String = "Still Learning"  // Define a label string
@@ -18,8 +21,13 @@ import SwiftUI
      @State private var showNegativeIndicator = false
      @State private var showMiddleIndicator = false
      @State private var showEasyIndicator = false
-     
-     
+     @EnvironmentObject var dataController: DataController
+     @State private var showTermDefinitionView = false
+     @Environment(\.managedObjectContext) var managedObjectContext
+     //@State private var addView = false
+     @State private var isTapped = false
+     @State private var currentCardIndex = 0
+     @State private var cards: [FlashCardData] = []
   
      var body: some View {
          ZStack {
@@ -29,17 +37,18 @@ import SwiftUI
                  .shadow(radius: 3)
 
              VStack {
-                 Text(card.term ?? "")
-                     .foregroundColor(.black)
-                     .font(.title)
+                 NavigationStack {
+                             
+                     Text(card.term ?? "Unnamed Card")
+                     Divider()
+                                         if isTapped {
+                                             Text(card.definition ?? "Unnamed Card")
+                                         }
+                                     }
+                                     
+                 
 
                  // Making the answer invisible until tapped
-                 if isShown {
-                     Text(card.definition ?? "")
-                         .foregroundColor(.black)
-                         .font(.title3)
-                         .offset(y: 100)
-                 }
                  
                  if showNegativeIndicator {
                      Text(label) // Display the label
@@ -122,7 +131,7 @@ import SwiftUI
          // makes an effect when swiping the card and it gets back if swipped not too much
          .offset(x: offset.width, y: offset.height) // changes the position of the card by x - direction
          .onTapGesture {
-             isShown.toggle()
+             isTapped.toggle()
          }
          .gesture(
              DragGesture().onChanged { value in
