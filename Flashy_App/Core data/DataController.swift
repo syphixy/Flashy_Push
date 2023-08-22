@@ -97,12 +97,13 @@ class DataController:  ObservableObject {
         newSet.tag = tag
         newSet.date = Date()
     }
-    func edit(data: FlashCardData, term: String, defintion: String, context: NSManagedObjectContext) {
+    func update(data: FlashCardData, term: String, defintion: String, context: NSManagedObjectContext) {
         data.term = term
         data.definition = defintion
       //  data.tag = tag
         save()
     }
+    
 }
 
 

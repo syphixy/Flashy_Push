@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		987030432A925D9A0013FA85 /* FinishView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987030422A925D9A0013FA85 /* FinishView.swift */; };
 		A62F66FE2A2F9F9D002CFB99 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A62F66FC2A2F9F9D002CFB99 /* CoreData.xcdatamodeld */; };
 		A62F67002A2FA004002CFB99 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62F66FF2A2FA004002CFB99 /* DataController.swift */; };
 		A62F67622A5F0130002CFB99 /* SetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62F67612A5F0130002CFB99 /* SetView.swift */; };
@@ -60,6 +61,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		987030422A925D9A0013FA85 /* FinishView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishView.swift; sourceTree = "<group>"; };
 		A628B8A32A7032E800CB4574 /* CoreData 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreData 2.xcdatamodel"; sourceTree = "<group>"; };
 		A62F66FD2A2F9F9D002CFB99 /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 		A62F66FF2A2FA004002CFB99 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 				A6581E8429FE2383004D03B6 /* ProfileView.swift */,
 				A69168F82A6EFB3B003F9599 /* SingleFlashCard.swift */,
 				A6E799412A7FE3D6009D6F7F /* AddSetView.swift */,
+				987030422A925D9A0013FA85 /* FinishView.swift */,
 			);
 			path = HomeView;
 			sourceTree = "<group>";
@@ -411,6 +414,7 @@
 				A6581E7129FE2237004D03B6 /* TermDefinitionViewModel.swift in Sources */,
 				A6E798D42A76C12A009D6F7F /* CardsView.swift in Sources */,
 				A62F67002A2FA004002CFB99 /* DataController.swift in Sources */,
+				987030432A925D9A0013FA85 /* FinishView.swift in Sources */,
 				A6581F0A2A1304E3004D03B6 /* FlashCardViewModel.swift in Sources */,
 				A63609922A8007C8001C865B /* SetEntity+CoreDataProperties.swift in Sources */,
 				A6581F042A13007D004D03B6 /* Flashcard.swift in Sources */,

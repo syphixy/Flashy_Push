@@ -87,7 +87,7 @@ struct NewHomeView: View {
                             NavigationLink(destination: FlashcardSetView(sets: set).environmentObject(dataController)) {
                                 VStack(spacing: 20) {
                                     RoundedRectangle(cornerRadius: 25)
-                                        .fill(Color.blue)
+                                        .fill(Color("newgray"))
                                         .frame(width: 300, height: 200)
                                     
                                     Text("\(set.name ?? "")")
@@ -124,14 +124,16 @@ struct NewHomeView: View {
         var body: some View {
             ZStack() {
                 RoundedRectangle(cornerRadius: 25, style: .continuous)
-                    .fill(
-                        LinearGradient(
-                            gradient: Gradient(colors: [Color.blue, Color.purple]),
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
+                    .fill(Color("newgray"))
+                //                    .fill(
+//                        LinearGradient(
+//                            gradient: Gradient(colors: [Color.blue, Color.purple]),
+//                            startPoint: .topLeading,
+//                            endPoint: .bottomTrailing
+//                        )
+//                    )
                     .frame(width: 300, height: 200)
+                    
                     .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 10)
                     .padding(.leading, 20)
             }
@@ -196,19 +198,20 @@ struct FlashcardSetView: View {
             let cards = sets.cards?.allObjects as? [FlashCardData] ?? []
             ForEach(cards, id: \.self) { card in
                 SingleFlashCard(card: card)
-                            .navigationBarItems(trailing:
-                                Button(action: {
-                                    self.showTermDefinitionView.toggle()
-                                }) {
-                                    Image(systemName: "plus")
-                                }
-                                .sheet(isPresented: $showTermDefinitionView) {
-                                    TermDefinitionView(currentSet: sets).environment(\.managedObjectContext, managedObjectContext)
-                                }
-                            )
+                            
             }
             
                     }
+        .navigationBarItems(trailing:
+            Button(action: {
+                self.showTermDefinitionView.toggle()
+            }) {
+                Image(systemName: "plus")
+            }
+            .sheet(isPresented: $showTermDefinitionView) {
+                TermDefinitionView(currentSet: sets).environment(\.managedObjectContext, managedObjectContext)
+            }
+        )
            // .navigationBarBackButtonHidden(true)
         }
     }
