@@ -19,13 +19,20 @@ struct NewHomeView: View {
         entity: FlashSets.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \FlashSets.date, ascending: false)])
     var sets: FetchedResults<FlashSets>
+    
+    @FetchRequest(
+        entity: FlashCardData.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: false)])
+    var flashCard: FetchedResults<FlashCardData>
+    
     //  let sets: NSFetchRequest<FlashSets> = FlashSets.fetchRequest()
     
-    //    @FetchRequest(
-    //            entity: FlashCardData.entity(),
-    //            sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: false)]
-    ////            predicate: NSPredicate(format: "date > %@", Date().addingTimeInterval(1) as NSDate)
-    //        ) var flashCardData: FetchedResults<FlashCardData>
+//        @FetchRequest(
+//                entity: FlashCardData.entity(),
+//                sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: false)]
+//    //            predicate: NSPredicate(format: "date > %@", Date().addingTimeInterval(1) as NSDate)
+//            ) var flashCardData: FetchedResults<FlashCardData>
+   
     @Environment(\.managedObjectContext) var managedObjectContext
     @ObservedObject var dataController = DataController.shared
 
@@ -54,8 +61,7 @@ struct NewHomeView: View {
             NavigationStack {
                 
                 HStack() {
-                    EditButton()
-                        .padding(.leading, 20)
+                    
                     Spacer()
                     Button(action: {
                         redirectToCards = true
@@ -78,9 +84,7 @@ struct NewHomeView: View {
                 Text("Your sets")
                     .font(.system(size: 30, weight: .bold))
                     .padding(.bottom, 40)
-                
-                
-                
+
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 20) {
                         ForEach(sets) { set in
@@ -187,30 +191,52 @@ struct NewHomeView: View {
     }
 struct FlashcardSetView: View {
     let sets: FlashSets
+  //  let flashCard: FlashCardData
+  //  let flashCard: FlashCardData
     @EnvironmentObject var dataController: DataController
     @State private var showTermDefinitionView = false
     @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.dismiss) var dismiss
     //@State private var addView = false
     @State private var isTapped = false
+    @State private var isEdited = false
     var body: some View {
         
         ZStack {
+            
             let cards = sets.cards?.allObjects as? [FlashCardData] ?? []
             ForEach(cards, id: \.self) { card in
-                SingleFlashCard(card: card)
-                            
+                
+                NavigationLink(destination: EditFlashCardView(dataController: dataController, flashCard: card), isActive: $isEdited) {
+                    Text("Edit cards")
+                    SingleFlashCard(card: card)
+                }
+                
+//                NavigationLink(destination: EditFlashCardView(dataController: dataController, flashCard: card)) {
+//                    SingleFlashCard(card: card)
+//                }
             }
             
                     }
         .navigationBarItems(trailing:
+                                Menu("Options") {
             Button(action: {
-                self.showTermDefinitionView.toggle()
-            }) {
-                Image(systemName: "plus")
+                           showTermDefinitionView = true
+                        }) {
+                            NavigationLink(destination: TermDefinitionView(currentSet: sets), isActive: $showTermDefinitionView) {
+                                Text("Add cards")
+                                
+                            }
+                        }
+                        
+            Button(action: {
+                isEdited = true
+            })
+            {
+                
             }
-            .sheet(isPresented: $showTermDefinitionView) {
-                TermDefinitionView(currentSet: sets).environment(\.managedObjectContext, managedObjectContext)
-            }
+        }
+            
         )
            // .navigationBarBackButtonHidden(true)
         }

@@ -39,6 +39,8 @@ struct TermDefinitionView: View {
         }
         return true
     }
+    var isEditMode: Bool = false
+    var onSave: (() -> Void)? = nil
 @State private var showAlert = false
     var body: some View {
         
@@ -49,10 +51,7 @@ struct TermDefinitionView: View {
                         ForEach(dataController.termdefpairs) { termDefPair in
                             TermView(termDefPair: termDefPair)
                         }
-//                        ForEach(dataController.termdefpairs.indices, id: \.self) { index in
-//                            TermView(term: dataController.termdefpairs[index].term, definition: dataController.termdefpairs[index].definition, tag: dataController.termdefpairs[index].tag)
-//
-//                        }
+                        
                         .onDelete { index in
                             self.dataController.termdefpairs.remove(at: index.first!)
                         }
@@ -60,36 +59,26 @@ struct TermDefinitionView: View {
                     .navigationBarItems(trailing: Button(action: {
                         
                         if validateTermDefPairs() {
-                           // let newSet = FlashSets(context: managedObjectContext)
-                          //  let newSet = FlashSets(context: managedObjectContext)
+                           
                             for x in dataController.termdefpairs {
                                // dataController.add(term: x.term, definition: x.definition, date: Date())
                                 let newCard = FlashCardData(context: managedObjectContext)
                                 newCard.id = UUID()
-                              //  newCard.number = Int16(x.number)
+                             
                                 newCard.definition = x.definition
                                 newCard.term = x.term
                                 newCard.date = Date()
-                              //  newCard.set = newSet
+                              
                                 currentSet.addToCards(newCard)
-                               // newCard.set = FlashSets(context: managedObjectContext)
-                                //currentSet?.addToCards(newCard)
-                                
-                              //  newCard.set = currentSet
-                               // newCard.set = FlashSets(context: managedObjectContext)
-                                
-                              //  newCard.set = FlashSets(context: managedObjectContext)
-                               // newSet.addToCards(newCard)
-                               // newCard.set = newSet
-                                
-                                //newSet.addToCards(newCard)
+                               
                             }
                             dataController.save()
+                            dismiss()
                                                     }
                         else {
                             showAlert = true
                         }
-                        dismiss()
+                        
 
                     }) {
                         Text("Save")
@@ -181,9 +170,3 @@ class TermAndDefinition: ObservableObject, Identifiable {
     }
 }
 
-//struct TermAndDefiniton: Identifiable {
-//    let id = UUID()
-//    var term: String
-//    var defintion: String
-//    var tag: String
-//}

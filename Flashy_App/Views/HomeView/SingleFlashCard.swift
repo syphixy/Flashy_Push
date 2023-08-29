@@ -33,7 +33,7 @@ import SwiftUI
          ZStack {
              RoundedRectangle(cornerRadius: 25, style: .continuous)
                  .fill(Color.white)
-                 .overlay(RoundedRectangle(cornerRadius: 25).stroke(getColor(), lineWidth: 2))  // Here we change the border color based on the swipe direction
+                 .overlay(RoundedRectangle(cornerRadius: 25).stroke(getColor(), lineWidth: 2))// Here we change the border color based on the swipe direction
                  .shadow(radius: 3)
 
              VStack {
