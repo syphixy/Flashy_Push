@@ -21,17 +21,31 @@ struct EditFlashCardView: View {
         self.set = set
         self.cards = set.cards?.allObjects as? [FlashCardData] ?? []
     }
-    
+    private func deleteCards(indexSet: IndexSet) {
+        guard let index = indexSet.first else {
+            return
+        }
+        
+        let cardToDelete = cards[index]
+        managedObjectContext.delete(cardToDelete)
+        
+        do {
+            try managedObjectContext.save() // Save the changes after deletion
+        } catch {
+            print("Error deleting card: \(error)")
+        }
+    }
+
     var body: some View {
         VStack {
             List {
                 ForEach(cards) { card in
-                    EditCardView(term: card.term ?? "", definition: card.definition ?? "")
+                    EditCardView(card: card)
                 }
+                .onDelete(perform: deleteCards)
             }
-            .onAppear {
-                
-            }
+            
+            
             
             Button("Save All") {
                 for card in cards {
@@ -52,29 +66,36 @@ struct EditFlashCardView: View {
 }
 
 struct EditCardView: View {
-   // @ObservedObject var card: FlashCardData
-    @State var term = ""
-    @State var definition = ""
+    @ObservedObject var card: FlashCardData
+
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             VStack(alignment: .leading, spacing: 8) {
                 Text("Term")
                     .font(.headline)
-                TextField("Enter term", text: $term)
-                    .padding()
-                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray, lineWidth: 1))
+                TextField("Enter term", text: Binding(
+                    get: { card.term ?? "" },
+                    set: { newValue in card.term = newValue }
+                ))
+                .padding()
+                .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray, lineWidth: 1))
             }
             
             VStack(alignment: .leading, spacing: 8) {
                 Text("Definition")
                     .font(.headline)
-                TextField("Enter definition", text: $definition)
-                    .padding()
-                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray, lineWidth: 1))
+                TextField("Enter definition", text: Binding(
+                    get: { card.definition ?? "" },
+                    set: { newValue in card.definition = newValue }
+                ))
+                .padding()
+                .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray, lineWidth: 1))
             }
         }
         .padding()
     }
 }
+
+
 
 

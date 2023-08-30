@@ -191,7 +191,7 @@ struct NewHomeView: View {
     }
 struct FlashcardSetView: View {
     let sets: FlashSets
-    @EnvironmentObject var dataController: DataController
+    @ObservedObject var dataController = DataController.shared
     @State private var showTermDefinitionView = false
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.dismiss) var dismiss
