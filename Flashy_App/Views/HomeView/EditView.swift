@@ -7,53 +7,74 @@
 
 import SwiftUI
 
-
-    
 struct EditFlashCardView: View {
     @ObservedObject var dataController = DataController.shared
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) var managedObjectContext
     
-    // Create a separate property to hold the selected flash card
-    var card: FlashCardData
+    // Create separate properties to hold the selected set and its cards
+    var set: FlashSets
+    var cards: [FlashCardData]
     
-    @State private var term: String
-    @State private var definition: String
-    
-    init(dataController: DataController, flashCard: FlashCardData) {
+    init(dataController: DataController, set: FlashSets) {
         self.dataController = dataController
-        self.card = flashCard
-        self._term = State(initialValue: flashCard.term ?? "")
-        self._definition = State(initialValue: flashCard.definition ?? "")
+        self.set = set
+        self.cards = set.cards?.allObjects as? [FlashCardData] ?? []
     }
     
     var body: some View {
         VStack {
-            ScrollView {
-                TextField("Term", text: $term)
-                    .padding()
-                TextField("Definition", text: $definition)
-                    .padding()
+            List {
+                ForEach(cards) { card in
+                    EditCardView(term: card.term ?? "", definition: card.definition ?? "")
+                }
             }
-            .navigationBarTitle("Edit Flashcard", displayMode: .inline)
+            .onAppear {
+                
+            }
             
-            Button("Save") {
-                dataController.update(
-                    data: card,
-                    term: term,
-                    defintion: definition,
-                    date: Date(),
-                    context: managedObjectContext
-                )
+            Button("Save All") {
+                for card in cards {
+                    dataController.update(
+                        data: card,
+                        term: card.term ?? "",
+                        defintion: card.definition ?? "",
+                        date: Date(),
+                        context: managedObjectContext
+                    )
+                }
                 presentationMode.wrappedValue.dismiss()
             }
             .padding()
         }
+        .navigationBarTitle("Edit Flashcards", displayMode: .inline)
+    }
+}
+
+struct EditCardView: View {
+   // @ObservedObject var card: FlashCardData
+    @State var term = ""
+    @State var definition = ""
+    var body: some View {
+        VStack(alignment: .leading, spacing: 20) {
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Term")
+                    .font(.headline)
+                TextField("Enter term", text: $term)
+                    .padding()
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray, lineWidth: 1))
+            }
+            
+            VStack(alignment: .leading, spacing: 8) {
+                Text("Definition")
+                    .font(.headline)
+                TextField("Enter definition", text: $definition)
+                    .padding()
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.gray, lineWidth: 1))
+            }
+        }
+        .padding()
     }
 }
 
 
-
-
-
-//        

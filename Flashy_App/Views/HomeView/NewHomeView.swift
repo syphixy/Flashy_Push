@@ -191,56 +191,53 @@ struct NewHomeView: View {
     }
 struct FlashcardSetView: View {
     let sets: FlashSets
-  //  let flashCard: FlashCardData
-  //  let flashCard: FlashCardData
     @EnvironmentObject var dataController: DataController
     @State private var showTermDefinitionView = false
     @Environment(\.managedObjectContext) var managedObjectContext
     @Environment(\.dismiss) var dismiss
-    //@State private var addView = false
     @State private var isTapped = false
     @State private var isEdited = false
+    @State private var selectedCards: [FlashCardData] = [] // Keep track of selected cards
+    
     var body: some View {
-        
         ZStack {
-            
             let cards = sets.cards?.allObjects as? [FlashCardData] ?? []
+            
             ForEach(cards, id: \.self) { card in
-                
-                NavigationLink(destination: EditFlashCardView(dataController: dataController, flashCard: card), isActive: $isEdited) {
-                    Text("Edit cards")
-                    SingleFlashCard(card: card)
+                SingleFlashCard(card: card)
+                    .onTapGesture {
+                        if let index = selectedCards.firstIndex(of: card) {
+                            selectedCards.remove(at: index)
+                        } else {
+                            selectedCards.append(card)
+                        }
+                    }
+            }
+            
+            NavigationLink(destination: EditFlashCardView(dataController: dataController, set: sets), isActive: $isEdited) {
+                EmptyView()
+            }
+        }
+        .navigationBarItems(trailing:
+            Menu("Options") {
+                Button(action: {
+                    showTermDefinitionView = true
+                }) {
+                    NavigationLink(destination: TermDefinitionView(currentSet: sets), isActive: $showTermDefinitionView) {
+                        Text("Add cards")
+                    }
                 }
                 
-//                NavigationLink(destination: EditFlashCardView(dataController: dataController, flashCard: card)) {
-//                    SingleFlashCard(card: card)
-//                }
+                Button(action: {
+                    isEdited = true
+                }) {
+                    Text("Edit cards")
+                }
             }
-            
-                    }
-        .navigationBarItems(trailing:
-                                Menu("Options") {
-            Button(action: {
-                           showTermDefinitionView = true
-                        }) {
-                            NavigationLink(destination: TermDefinitionView(currentSet: sets), isActive: $showTermDefinitionView) {
-                                Text("Add cards")
-                                
-                            }
-                        }
-                        
-            Button(action: {
-                isEdited = true
-            })
-            {
-                
-            }
-        }
-            
         )
-           // .navigationBarBackButtonHidden(true)
-        }
     }
+}
+
 
     //  CODE FOR USING INDEXING:
 //

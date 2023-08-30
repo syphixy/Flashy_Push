@@ -16,7 +16,7 @@ import SwiftUI
      @State var definition = ""
      @State private var isShown = false
      @State private var offset = CGSize.zero
-     @State private var label: String = "Still Learning"  // Define a label string
+     @State private var label: String = "Still Learning"  //Define a label string
      @State private var showPositiveIndicator = false
      @State private var showNegativeIndicator = false
      @State private var showMiddleIndicator = false

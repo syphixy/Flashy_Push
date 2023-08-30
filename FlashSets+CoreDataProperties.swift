@@ -34,6 +34,10 @@ extension FlashSets {
 // MARK: Generated accessors for cards
 extension FlashSets {
 
+    var cardsArray: [FlashCardData] {
+            let cardsArray = cards?.allObjects as? [FlashCardData] ?? []
+            return cardsArray
+        }
     @objc(addCardsObject:)
     @NSManaged public func addToCards(_ value: FlashCardData)
 
