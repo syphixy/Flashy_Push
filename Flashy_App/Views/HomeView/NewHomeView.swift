@@ -27,16 +27,16 @@ struct NewHomeView: View {
     
     //  let sets: NSFetchRequest<FlashSets> = FlashSets.fetchRequest()
     
-//        @FetchRequest(
-//                entity: FlashCardData.entity(),
-//                sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: false)]
-//    //            predicate: NSPredicate(format: "date > %@", Date().addingTimeInterval(1) as NSDate)
-//            ) var flashCardData: FetchedResults<FlashCardData>
-   
+    //        @FetchRequest(
+    //                entity: FlashCardData.entity(),
+    //                sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: false)]
+    //    //            predicate: NSPredicate(format: "date > %@", Date().addingTimeInterval(1) as NSDate)
+    //            ) var flashCardData: FetchedResults<FlashCardData>
+    
     @Environment(\.managedObjectContext) var managedObjectContext
     @ObservedObject var dataController = DataController.shared
-
-   // @Environment(\.managedObjectContext) var managedObjectContext
+    
+    // @Environment(\.managedObjectContext) var managedObjectContext
     @State var show = false
     @State var showProfile = false
     @State var viewState = CGSize.zero
@@ -45,17 +45,19 @@ struct NewHomeView: View {
     @Binding var showIcon: Bool
     @State var view = CGSize.zero
     @State var showNew = false
-    @State var readySet = false
     @State private var showFlashcardStack = false
-    @State var showSet = false
-    @State var redirectToCards = false
+    @State var showSet = false // showing set
+    @State var redirectToCards = false // redirecting to the cards view
+    @State private var query = "" // state for search bar
+    private func searchPredicate(query: String) -> NSPredicate? {
+        if query.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            return nil
+        }
+        return NSPredicate(format: "%K BEGINSWITH[cd] %@", #keyPath(FlashSets.name), query)
+    }
+    @Environment(\.isSearching)
+    private var isSearching: Bool
     
-    /* @FetchRequest(
-     entity: FlashCardData.entity(),
-     sortDescriptors: [
-     ]
-     private var flahCardData: FetchedResults<FlashCardData>
-     */
     var body: some View {
         ZStack {
             NavigationStack {
@@ -74,17 +76,18 @@ struct NewHomeView: View {
                     }
                     
                 }
-                SearchbarView()
-                    .padding(.bottom, 50)
-                    .onTapGesture {
-                        self.show.toggle()
-                    }
+                //                SearchbarView()
+                //                    .padding(.bottom, 50)
+                //                    .onTapGesture {
+                //                        self.show.toggle()
+                //                    }
+                
                 Spacer()
                 //
                 Text("Your sets")
                     .font(.system(size: 30, weight: .bold))
                     .padding(.bottom, 40)
-
+                
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 20) {
                         ForEach(sets) { set in
@@ -98,7 +101,7 @@ struct NewHomeView: View {
                                         .frame(minWidth: 0)
                                         .padding()
                                         .foregroundColor(.black)
-                                        
+                                    
                                 }
                                 .padding([.top, .leading, .trailing])
                                 .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 10)
@@ -108,13 +111,21 @@ struct NewHomeView: View {
                     .padding(.leading, 10)
                     Spacer()// Additional padding to start
                 }
+//                if isSearching {
+//
+//                }
                 
-                
+            }
+            .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search sets")
+            .onChange(of: query) { newValue in
+                sets.nsPredicate = searchPredicate(query: newValue)
             }
         }
         
     }
+    
 }
+    
     
     struct NewHomeView_Previews: PreviewProvider {
         static var previews: some View {
@@ -130,14 +141,14 @@ struct NewHomeView: View {
                 RoundedRectangle(cornerRadius: 25, style: .continuous)
                     .fill(Color("newgray"))
                 //                    .fill(
-//                        LinearGradient(
-//                            gradient: Gradient(colors: [Color.blue, Color.purple]),
-//                            startPoint: .topLeading,
-//                            endPoint: .bottomTrailing
-//                        )
-//                    )
+                //                        LinearGradient(
+                //                            gradient: Gradient(colors: [Color.blue, Color.purple]),
+                //                            startPoint: .topLeading,
+                //                            endPoint: .bottomTrailing
+                //                        )
+                //                    )
                     .frame(width: 300, height: 200)
-                    
+                
                     .shadow(color: .black.opacity(0.2), radius: 10, x: 0, y: 10)
                     .padding(.leading, 20)
             }
@@ -146,34 +157,34 @@ struct NewHomeView: View {
         }
     }
     
-//    struct NewSetView: View {
-//        @Binding var showNew: Bool
-//
-//        var body: some View {
-//            ZStack {
-//
-//                HStack {
-//
-//                    VStack {
-//
-//                        Button(action: {self.showNew.toggle()}) {
-//                            Image(systemName: "plus")
-//                                .resizable()
-//                                .aspectRatio(contentMode: .fit)
-//                                .foregroundColor(.black)
-//                                .frame(width: 50, height: 30)
-//                        }
-//
-//                    }
-//                    .frame(width: 250, height: 180)
-//                    .background(Color("newgray"))
-//                    .cornerRadius(20)
-//                    .shadow(radius: 2)
-//                }
-//            }
-//
-//        }
-//    }
+    //    struct NewSetView: View {
+    //        @Binding var showNew: Bool
+    //
+    //        var body: some View {
+    //            ZStack {
+    //
+    //                HStack {
+    //
+    //                    VStack {
+    //
+    //                        Button(action: {self.showNew.toggle()}) {
+    //                            Image(systemName: "plus")
+    //                                .resizable()
+    //                                .aspectRatio(contentMode: .fit)
+    //                                .foregroundColor(.black)
+    //                                .frame(width: 50, height: 30)
+    //                        }
+    //
+    //                    }
+    //                    .frame(width: 250, height: 180)
+    //                    .background(Color("newgray"))
+    //                    .cornerRadius(20)
+    //                    .shadow(radius: 2)
+    //                }
+    //            }
+    //
+    //        }
+    //    }
     
     
     struct AvatarView: View {
@@ -189,37 +200,37 @@ struct NewHomeView: View {
             }
         }
     }
-struct FlashcardSetView: View {
-    let sets: FlashSets
-    @ObservedObject var dataController = DataController.shared
-    @State private var showTermDefinitionView = false
-    @Environment(\.managedObjectContext) var managedObjectContext
-    @Environment(\.dismiss) var dismiss
-    @State private var isTapped = false
-    @State private var isEdited = false
-    @State private var selectedCards: [FlashCardData] = [] // Keep track of selected cards
-    
-    var body: some View {
-        ZStack {
-            let cards = sets.cards?.allObjects as? [FlashCardData] ?? []
-            
-            ForEach(cards, id: \.self) { card in
-                SingleFlashCard(card: card)
-                    .onTapGesture {
-                        if let index = selectedCards.firstIndex(of: card) {
-                            selectedCards.remove(at: index)
-                        } else {
-                            selectedCards.append(card)
+    struct FlashcardSetView: View {
+        let sets: FlashSets
+        @ObservedObject var dataController = DataController.shared
+        @State private var showTermDefinitionView = false
+        @Environment(\.managedObjectContext) var managedObjectContext
+        @Environment(\.dismiss) var dismiss
+        @State private var isTapped = false
+        @State private var isEdited = false
+        @State private var selectedCards: [FlashCardData] = [] // Keep track of selected cards
+        
+        var body: some View {
+            ZStack {
+                let cards = sets.cards?.allObjects as? [FlashCardData] ?? []
+                
+                ForEach(cards, id: \.self) { card in
+                    SingleFlashCard(card: card)
+                        .onTapGesture {
+                            if let index = selectedCards.firstIndex(of: card) {
+                                selectedCards.remove(at: index)
+                            } else {
+                                selectedCards.append(card)
+                            }
                         }
-                    }
+                }
+                
+                NavigationLink(destination: EditFlashCardView(dataController: dataController, set: sets), isActive: $isEdited) {
+                    EmptyView()
+                }
             }
-            
-            NavigationLink(destination: EditFlashCardView(dataController: dataController, set: sets), isActive: $isEdited) {
-                EmptyView()
-            }
-        }
-        .navigationBarItems(trailing:
-            Menu("Options") {
+            .navigationBarItems(trailing:
+                                    Menu("Options") {
                 Button(action: {
                     showTermDefinitionView = true
                 }) {
@@ -234,182 +245,11 @@ struct FlashcardSetView: View {
                     Text("Edit cards")
                 }
             }
-        )
+            )
+        }
     }
-}
 
 
-    //  CODE FOR USING INDEXING:
-//
     
-    
-    
-    
-    /*import SwiftUI
-     import CoreData
-     
-     struct NewHomeView: View {
-     
-     @Environment (\.managedObjectContext) var managedObjectContext
-     @ObservedObject var dataController = DataController()
-     @State var show = false
-     @State var showProfile = false
-     @State var viewState = CGSize.zero
-     @State private var searchText = ""
-     @State var search = false
-     @Binding var showIcon: Bool
-     @State var view = CGSize.zero
-     @State var showNew = false
-     @State var readySet = false
-     @State var selectedTab: Tab = .house
-     
-     
-     var body: some View {
-     ZStack {
-     VStack {
-     UpNavView(showProfile: $showProfile)
-     .padding(.bottom, 30)
-     SearchbarView()
-     .padding(.bottom, 50)
-     .onTapGesture {
-     self.show.toggle()
-     }
-     .sheet(isPresented: $showProfile) {
-     ProfileView()
-     
-     //   .offset(y: viewState.height)
-     .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0.1))
-     }
-     Text("Your sets")
-     .font(.system(size: 30, weight: .bold))
-     Spacer()
-     
-     
-     
-     
-     ScrollView(.horizontal, showsIndicators: false) {
-     HStack(spacing: 20) {
-     
-     
-     
-     ForEach(dataController.savedFlash, id: \.self) { flashCard in
-     //   ReadySetView(flashCard: flashCard)
-     }
-     //   ReadySetView(showNew: .constant(false), readySet: $readySet)
-     
-     
-     }
-     
-     .onTapGesture {
-     self.show.toggle()
-     }
-     .sheet(isPresented: $showNew) {
-     TermDefinitionView(showNew: $showNew)
-     //   .offset(y: viewState.height)
-     
-     //       .animation(.spring(response: 0.5, dampingFraction: 0.6, blendDuration: 0.1)) - was depreciated in IOS 15
-     }
-     }
-     VStack {
-     // Content of each tab
-     switch selectedTab {
-     case .dice:
-     Text("Your sets")
-     .font(.system(size: 30, weight: .bold))
-     .offset(y: -120)
-     case .plus:
-     NewSetView(showNew: $showNew)
-     .padding(.leading, 20)
-     case .house:
-     ForEach(dataController.savedFlash, id: \.self) { flashCard in
-     // ReadySetView(flashCard: flashCard)
-     }
-     }
-     
-     // Tab bar
-     CustomTabBar(selectedTab: $selectedTab)
-     }
-     }
-     }
-     }
-     }
-     
-     struct NewHomeView_Previews: PreviewProvider {
-     static var previews: some View {
-     NewHomeView(showIcon: .constant(false), showNew: false)
-     }
-     }
-     
-     struct NewSetView: View {
-     @Binding var showNew: Bool
-     
-     var body: some View {
-     ZStack {
-     
-     HStack {
-     
-     VStack {
-     
-     Button(action: {self.showNew.toggle()}) {
-     Image(systemName: "plus")
-     .resizable()
-     .aspectRatio(contentMode: .fit)
-     .foregroundColor(.black)
-     .frame(width: 50, height: 30)
-     }
-     
-     }
-     .frame(width: 250, height: 180)
-     .background(Color("newgray"))
-     .cornerRadius(20)
-     .shadow(radius: 2)
-     }
-     }
-     
-     }
-     }
-     struct ReadySetView: View {
-     @Binding var showNew: Bool
-     @Binding var readySet: Bool
-     var flashCard: FlashCardData
-     var body: some View {
-     ZStack {
-     
-     HStack {
-     
-     VStack {
-     
-     Button(action: {self.readySet.toggle()}) {
-     Image(systemName: "plus")
-     .resizable()
-     .aspectRatio(contentMode: .fit)
-     .foregroundColor(.black)
-     .frame(width: 50, height: 30)
-     }
-     
-     }
-     .frame(width: 250, height: 180)
-     .background(Color("newgray"))
-     .cornerRadius(20)
-     .shadow(radius: 2)
-     }
-     }
-     
-     }
-     }
-     struct AvatarView: View {
-     @Binding var showProfile: Bool
-     @State var viewState = CGSize.zero
-     var body: some View {
-     Button(action: {self.showProfile.toggle()}) {
-     Image(systemName: "person.crop.circle")
-     .renderingMode(.original)
-     .resizable()
-     .frame(width: 30, height: 30)
-     .foregroundColor(.black)
-     }
-     }
-     }
-     */
     
 

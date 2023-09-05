@@ -75,11 +75,12 @@ struct TermDefinitionView: View {
                             dataController.save()
                             dismiss()
                                                     }
+                        
                         else {
                             showAlert = true
                         }
                         
-
+                        
                     }) {
                         Text("Save")
                     })

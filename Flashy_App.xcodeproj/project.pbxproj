@@ -7,10 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9845C58A2A9D7999000339E5 /* EditFlashCardSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9845C5892A9D7999000339E5 /* EditFlashCardSetView.swift */; };
 		987030432A925D9A0013FA85 /* FinishView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987030422A925D9A0013FA85 /* FinishView.swift */; };
 		987030452A957CFB0013FA85 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987030442A957CFB0013FA85 /* EditView.swift */; };
-		987030472A9588200013FA85 /* EditFlashCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987030462A9588200013FA85 /* EditFlashCard.swift */; };
 		A62F66FE2A2F9F9D002CFB99 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A62F66FC2A2F9F9D002CFB99 /* CoreData.xcdatamodeld */; };
 		A62F67002A2FA004002CFB99 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62F66FF2A2FA004002CFB99 /* DataController.swift */; };
 		A62F67622A5F0130002CFB99 /* SetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62F67612A5F0130002CFB99 /* SetView.swift */; };
@@ -64,10 +62,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9845C5892A9D7999000339E5 /* EditFlashCardSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFlashCardSetView.swift; sourceTree = "<group>"; };
 		987030422A925D9A0013FA85 /* FinishView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishView.swift; sourceTree = "<group>"; };
 		987030442A957CFB0013FA85 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
-		987030462A9588200013FA85 /* EditFlashCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditFlashCard.swift; sourceTree = "<group>"; };
 		A628B8A32A7032E800CB4574 /* CoreData 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreData 2.xcdatamodel"; sourceTree = "<group>"; };
 		A62F66FD2A2F9F9D002CFB99 /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 		A62F66FF2A2FA004002CFB99 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
@@ -248,8 +244,6 @@
 				A6E799412A7FE3D6009D6F7F /* AddSetView.swift */,
 				987030422A925D9A0013FA85 /* FinishView.swift */,
 				987030442A957CFB0013FA85 /* EditView.swift */,
-				987030462A9588200013FA85 /* EditFlashCard.swift */,
-				9845C5892A9D7999000339E5 /* EditFlashCardSetView.swift */,
 			);
 			path = HomeView;
 			sourceTree = "<group>";
@@ -409,14 +403,12 @@
 				A63609912A8007C8001C865B /* SetEntity+CoreDataClass.swift in Sources */,
 				A69168F92A6EFB3B003F9599 /* SingleFlashCard.swift in Sources */,
 				A6581E3E29FE2184004D03B6 /* ContentView.swift in Sources */,
-				987030472A9588200013FA85 /* EditFlashCard.swift in Sources */,
 				A6581E8329FE2370004D03B6 /* SearchbarView.swift in Sources */,
 				A6E799422A7FE3D6009D6F7F /* AddSetView.swift in Sources */,
 				A6E4DF702A88502D006E28F3 /* FlashSets+CoreDataProperties.swift in Sources */,
 				A6E4DF6D2A88502D006E28F3 /* FlashCardData+CoreDataClass.swift in Sources */,
 				A62F66FE2A2F9F9D002CFB99 /* CoreData.xcdatamodeld in Sources */,
 				A6E4DF6F2A88502D006E28F3 /* FlashSets+CoreDataClass.swift in Sources */,
-				9845C58A2A9D7999000339E5 /* EditFlashCardSetView.swift in Sources */,
 				A6578E7F2A65F70C0095F89B /* Sign Up.swift in Sources */,
 				A6581F062A130093004D03B6 /* FlashCardView.swift in Sources */,
 				A6581E3C29FE2184004D03B6 /* Flashy_AppApp.swift in Sources */,

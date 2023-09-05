@@ -21,6 +21,7 @@ struct EditFlashCardView: View {
         self.set = set
         self.cards = set.cards?.allObjects as? [FlashCardData] ?? []
     }
+    @State var showingAlert = false
     private func deleteCards(indexSet: IndexSet) {
         guard let index = indexSet.first else {
             return
@@ -37,33 +38,44 @@ struct EditFlashCardView: View {
     }
 
     var body: some View {
-        VStack {
-            List {
-                ForEach(cards) { card in
-                    EditCardView(card: card)
+            VStack {
+                List {
+                    ForEach(cards) { card in
+                        EditCardView(card: card)
+                    }
+                    .onDelete(perform: deleteCards)
                 }
-                .onDelete(perform: deleteCards)
-            }
-            
-            
-            
-            Button("Save All") {
-                for card in cards {
-                    dataController.update(
-                        data: card,
-                        term: card.term ?? "",
-                        defintion: card.definition ?? "",
-                        date: Date(),
-                        context: managedObjectContext
-                    )
+
+                Button(action: {
+                    if cards.isEmpty {
+                        showingAlert = true
+                    } else {
+                        for card in cards {
+                            dataController.update(
+                                data: card,
+                                term: card.term ?? "",
+                                defintion: card.definition ?? "",
+                                date: Date(),
+                                context: managedObjectContext
+                            )
+                        }
+                        presentationMode.wrappedValue.dismiss()
+                    }
+                }) {
+                    Text("Save changes")
                 }
-                presentationMode.wrappedValue.dismiss()
+                .padding()
             }
-            .padding()
+            .navigationBarTitle("Edit Flashcards", displayMode: .inline)
+            .alert(isPresented: $showingAlert) {
+                Alert(
+                    title: Text("At least 1 card should be created"),
+                    message: Text("Please create a card."),
+                    dismissButton: .default(Text("OK"))
+                )
+            }
         }
-        .navigationBarTitle("Edit Flashcards", displayMode: .inline)
     }
-}
 
 struct EditCardView: View {
     @ObservedObject var card: FlashCardData
