@@ -126,8 +126,9 @@ import SwiftUI
                  }
              }
          }
-         .frame(width: 300, height: 550)
+         .frame(width: 300, height: 450)
          .rotationEffect(.degrees(Double(offset.width / 10)))
+         .offset(y: -30)
          // makes an effect when swiping the card and it gets back if swipped not too much
          .offset(x: offset.width, y: offset.height) // changes the position of the card by x - direction
          .onTapGesture {

@@ -211,7 +211,25 @@ struct NewHomeView: View {
         @State private var selectedCards: [FlashCardData] = [] // Keep track of selected cards
         
         var body: some View {
+            
             ZStack {
+                VStack {
+                    HStack {
+                    
+                    Button(action: {
+                        // Handle button action
+                    }) {
+                        Text("🤬")
+                    }
+                    .padding(.trailing, 20)
+                    Button(action: {
+                        // Handle button action
+                    }) {
+                        Text("🔁")
+                    }
+                }
+                    .offset(y: -50)
+                    
                 let cards = sets.cards?.allObjects as? [FlashCardData] ?? []
                 
                 ForEach(cards, id: \.self) { card in
@@ -225,9 +243,12 @@ struct NewHomeView: View {
                         }
                 }
                 
+                
+                
                 NavigationLink(destination: EditFlashCardView(dataController: dataController, set: sets), isActive: $isEdited) {
                     EmptyView()
                 }
+            }
             }
             .navigationBarItems(trailing:
                                     Menu("Options") {
@@ -246,9 +267,30 @@ struct NewHomeView: View {
                 }
             }
             )
+            HStack {
+                Button(action: {
+                    
+                })
+                {
+                    Text("👍")
+                }
+                .padding(.trailing, 40)
+                Button(action: {
+                    
+                })
+                {
+                    Text("🤔")
+                }
+            }
         }
     }
 
+//struct FlashcardSetView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        let previewSet = FlashSets() // Create a sample FlashSets instance for the preview
+//        return FlashcardSetView(sets: previewSet)
+//    }
+//}
 
     
     
