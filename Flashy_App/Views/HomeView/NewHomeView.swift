@@ -209,53 +209,48 @@ struct NewHomeView: View {
         @State private var isTapped = false
         @State private var isEdited = false
         @State private var selectedCards: [FlashCardData] = [] // Keep track of selected cards
+        @State var allSwiped = false
         
         var body: some View {
-            
-            ZStack {
-                VStack {
-                    HStack {
+            NavigationView {
+                ZStack {
                     
-                    Button(action: {
-                        // Handle button action
-                    }) {
-                        Text("🤬")
-                    }
-                    .padding(.trailing, 20)
-                    Button(action: {
-                        // Handle button action
-                    }) {
-                        Text("🔁")
-                    }
-                }
-                    .offset(y: -50)
                     
-                let cards = sets.cards?.allObjects as? [FlashCardData] ?? []
-                
-                ForEach(cards, id: \.self) { card in
-                    SingleFlashCard(card: card)
-                        .onTapGesture {
-                            if let index = selectedCards.firstIndex(of: card) {
-                                selectedCards.remove(at: index)
-                            } else {
-                                selectedCards.append(card)
+                    
+                    let cards = sets.cards?.allObjects as? [FlashCardData] ?? []
+                    
+                    ForEach(cards, id: \.self) { card in
+                        SingleFlashCard(card: card)
+                            .onTapGesture {
+                                if let index = selectedCards.firstIndex(of: card) {
+                                    selectedCards.remove(at: index)
+                                } else {
+                                    selectedCards.append(card)
+                                }
+                                allSwiped = selectedCards.count == 0
+                                allSwiped = true
                             }
+                    }
+                    if (sets.cards?.count == 0) {
+                        NavigationLink(destination: EndView(), isActive: $allSwiped) {
+                            EmptyView()
                         }
+                    }
+                    
+                    
+                    
+                    NavigationLink(destination: EditFlashCardView(dataController: dataController, set: sets), isActive: $isEdited) {
+                        EmptyView()
+                    }
+                    
                 }
-                
-                
-                
-                NavigationLink(destination: EditFlashCardView(dataController: dataController, set: sets), isActive: $isEdited) {
-                    EmptyView()
-                }
-            }
             }
             .navigationBarItems(trailing:
                                     Menu("Options") {
                 Button(action: {
                     showTermDefinitionView = true
                 }) {
-                    NavigationLink(destination: TermDefinitionView(currentSet: sets), isActive: $showTermDefinitionView) {
+                    NavigationLink(destination: TermDefinitionView(currentSet: sets), isActive:         $showTermDefinitionView) {
                         Text("Add cards")
                     }
                 }
@@ -269,19 +264,49 @@ struct NewHomeView: View {
             )
             HStack {
                 Button(action: {
-                    
-                })
-                {
+                    // Handle button action
+                }) {
                     Text("👍")
+                        .frame(width: 70, height: 50)
+                        .background(Color("Easy"))
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
                 }
-                .padding(.trailing, 40)
+                .padding(.trailing, 20)
+                
                 Button(action: {
-                    
-                })
-                {
+                    // Handle button action
+                }) {
                     Text("🤔")
+                        .frame(width: 70, height: 50)
+                        .background(Color("Think"))
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
                 }
+                .padding(.trailing, 20)
+                
+                Button(action: {
+                    // Handle button action
+                }) {
+                    Text("🤬")
+                        .frame(width: 70, height: 50)
+                        .background(Color("Hard"))
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                }
+                .padding(.trailing, 20)
+                
+                Button(action: {
+                    // Handle button action
+                }) {
+                    Image(systemName: "repeat.circle.fill")
+                        .frame(width: 70, height: 50)
+                        .foregroundColor(.white)
+                        .background(Color.red)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                }
+                
+                
             }
+            
+
         }
     }
 
