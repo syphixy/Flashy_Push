@@ -39,6 +39,9 @@ struct TermDefinitionView: View {
         }
         return true
     }
+     func resetData() {
+            dataController.termdefpairs.removeAll()
+        }
     var isEditMode: Bool = false
     var onSave: (() -> Void)? = nil
 @State private var showAlert = false
@@ -105,6 +108,10 @@ struct TermDefinitionView: View {
                 }
             }
         }
+        .onAppear {
+                    // Reset the data when the view appears
+                    resetData()
+                }
         .alert(isPresented: $showAlert) {
             Alert(
                 title: Text("Invalid Input❌"),

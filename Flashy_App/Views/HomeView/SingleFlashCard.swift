@@ -28,6 +28,7 @@ import SwiftUI
      @State private var isTapped = false
      @State private var currentCardIndex = 0
      @State private var cards: [FlashCardData] = []
+     
   
      var body: some View {
          ZStack {

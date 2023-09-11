@@ -54,12 +54,15 @@ struct CustomTabBar: View {
 //                        .tabItem {
 //                            Image(systemName: "menucard")
 //                        }.tag(1)
-
+                    AddSetView(dataController: DataController.shared)
+                        .tabItem {
+                            Image(systemName: "plus")
+                        }.tag(1)
                     NewHomeView(sets: _sets,  showIcon: .constant(false))
                         .environmentObject(DataController.shared)
                         .tabItem {
                             Image(systemName: "house")
-                        }.tag(2)
+                        }.tag(0)
                 }
 //                ForEach(Tab.allCases, id: \.rawValue) { tab in
 //                    Spacer()

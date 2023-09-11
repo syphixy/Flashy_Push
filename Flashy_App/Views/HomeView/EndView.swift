@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct EndView: View {
+    
     var body: some View {
         VStack {
             
