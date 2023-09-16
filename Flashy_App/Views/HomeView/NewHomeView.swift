@@ -132,124 +132,134 @@ struct NewHomeView: View {
         }
     }
 
-    struct FlashcardSetView: View {
-        let sets: FlashSets
-        
-        @ObservedObject var dataController = DataController.shared
-        @State private var showTermDefinitionView = false
-        @Environment(\.managedObjectContext) var managedObjectContext
-        @Environment(\.dismiss) var dismiss
-        @State private var isTapped = false
-        @State private var isEdited = false
-        @State private var selectedCards: [FlashCardData] = [] // Keep track of selected cards
-        @State var allSwiped = false
-        @State private var showEndView = false
-        @State private var offset = CGSize.zero
-        @State var isLearned = false
-        @State var isThink = false
-        @State var isHard = false
-        @State var isRepeat = false
-        var body: some View {
-            NavigationView {
-                ZStack {
-                   
-                    let cards = sets.cards?.allObjects as? [FlashCardData] ?? []
-                    
-                    ForEach(cards, id: \.self) { card in
-                                        if !card.isSwiped {
-                                            SingleFlashCard(card: card,
-                                            isLearned: $isLearned,
-                                                            isThink: $isThink,
-                                                            isHard: $isHard,
-                                                            isRepeat: $isRepeat)
-                                                .toolbar(.hidden, for: .tabBar)
-                                                .onTapGesture {
-                                                    card.isSwiped.toggle()
-                                                }
-                                        }
+struct FlashcardSetView: View {
+    let sets: FlashSets
+    
+    @ObservedObject var dataController = DataController.shared
+    @State private var showTermDefinitionView = false
+    @Environment(\.managedObjectContext) var managedObjectContext
+    @Environment(\.dismiss) var dismiss
+    @State private var isTapped = false
+    @State private var isEdited = false
+    @State private var selectedCards: [FlashCardData] = [] // Keep track of selected cards
+    @State var allSwiped = false
+    @State private var showEndView = false
+    @State private var offset = CGSize.zero
+    @State var isLearned = false
+    @State var isThink = false
+    @State var isHard = false
+    @State var isRepeat = false
+    @State private var currentCardIndex = 0
+        @State private var cards: [FlashCardData] = []
+    private func removeCard() {
+            if currentCardIndex < cards.count - 1 {
+                currentCardIndex += 1
+            } else {
+                // Handle the case when all cards are finished
+            }
+        }
+    var body: some View {
+        NavigationView {
+            ZStack {
+               
+                let cards = sets.cards?.allObjects as? [FlashCardData] ?? []
+                
+                ForEach(cards, id: \.self) { card in
+                                    if !card.isSwiped {
+                                        SingleFlashCard(card: cards[currentCardIndex],
+                                                        removal: removeCard, // Pass a closure to remove the card
+                                                        isLearned: $isLearned,
+                                                        isThink: $isThink,
+                                                        isHard: $isHard,
+                                                        isRepeat: $isRepeat)
+                                            .toolbar(.hidden, for: .tabBar)
+                                            .onTapGesture {
+                                                card.isSwiped.toggle()
+                                            }
                                     }
-                    
-                    
-                    NavigationLink(destination: EditFlashCardView(dataController: dataController, set: sets), isActive: $isEdited) {
-                        EmptyView()
-                    }
-                    
+                                }
+                
+                
+                NavigationLink(destination: EditFlashCardView(dataController: dataController, set: sets), isActive: $isEdited) {
+                    EmptyView()
                 }
                 
             }
-            .navigationBarItems(trailing:
-                                    Menu("Options") {
-                Button(action: {
-                    showTermDefinitionView = true
-                }) {
-                    NavigationLink(destination: TermDefinitionView(currentSet: sets), isActive:         $showTermDefinitionView) {
-                        Text("Add cards")
-                    }
-                }
-                
-                Button(action: {
-                    isEdited = true
-                }) {
-                    Text("Edit cards")
-                }
-            }
-            )
-            
-            HStack {
-                Button(action: {
-                    // Handle button action
-                  //  isTapped.toggle()
-                    self.isLearned.toggle()
-                }) {
-                    Text("👍")
-                        .frame(width: 70, height: 50)
-                        .background(Color("Easy"))
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                }
-                
-                .padding(.trailing, 20)
-                
-                Button(action: {
-                    // Handle button action
-                    self.isThink.toggle()
-                }) {
-                    Text("🤔")
-                        .frame(width: 70, height: 50)
-                        .background(Color("Think"))
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                }
-                .padding(.trailing, 20)
-                
-                Button(action: {
-                    // Handle button action
-                    self.isHard.toggle()
-                }) {
-                    Text("🤬")
-                        .frame(width: 70, height: 50)
-                        .background(Color("Hard"))
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                }
-                .padding(.trailing, 20)
-                
-                Button(action: {
-                    // Handle button action
-                    self.isRepeat.toggle()
-                }) {
-                    Image(systemName: "repeat.circle.fill")
-                        .frame(width: 70, height: 50)
-                        .foregroundColor(.white)
-                        .background(Color.red)
-                        .clipShape(RoundedRectangle(cornerRadius: 8))
-                }
-                
-                
-            }
-            .sheet(isPresented: $showEndView) {
-                        EndView()
-                    }
             
         }
+        .navigationBarItems(trailing:
+                                Menu("Options") {
+            Button(action: {
+                showTermDefinitionView = true
+            }) {
+                NavigationLink(destination: TermDefinitionView(currentSet: sets), isActive:         $showTermDefinitionView) {
+                    Text("Add cards")
+                }
+            }
+            
+            Button(action: {
+                isEdited = true
+            }) {
+                Text("Edit cards")
+            }
+        }
+        )
+        
+        HStack {
+            Button(action: {
+                // Handle button action
+              //  isTapped.toggle()
+                self.isLearned.toggle()
+            }) {
+                Text("👍")
+                    .frame(width: 70, height: 50)
+                    .background(Color("Easy"))
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+            }
+            
+            .padding(.trailing, 20)
+            
+            Button(action: {
+                // Handle button action
+                self.isThink.toggle()
+            }) {
+                Text("🤔")
+                    .frame(width: 70, height: 50)
+                    .background(Color("Think"))
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+            }
+            .padding(.trailing, 20)
+            
+            Button(action: {
+                // Handle button action
+                self.isHard.toggle()
+            }) {
+                Text("🤬")
+                    .frame(width: 70, height: 50)
+                    .background(Color("Hard"))
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+            }
+            .padding(.trailing, 20)
+            
+            Button(action: {
+                // Handle button action
+                self.isRepeat.toggle()
+            }) {
+                Image(systemName: "repeat.circle.fill")
+                    .frame(width: 70, height: 50)
+                    .foregroundColor(.white)
+                    .background(Color.red)
+                    .clipShape(RoundedRectangle(cornerRadius: 8))
+            }
+            
+            
+        }
+        .sheet(isPresented: $showEndView) {
+                    EndView()
+                }
+        
     }
+}
 
 //struct FlashcardSetView_Previews: PreviewProvider {
 //    static var previews: some View {
