@@ -24,13 +24,10 @@ struct NewHomeView: View {
         entity: FlashCardData.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: false)])
     var flashCard: FetchedResults<FlashCardData>
-    
-    
-    
+
     @Environment(\.managedObjectContext) var managedObjectContext
     @ObservedObject var dataController = DataController.shared
-    
-    
+ 
     @State var show = false
     @State var showProfile = false
     @State var viewState = CGSize.zero
@@ -134,11 +131,7 @@ struct NewHomeView: View {
             NewHomeView(showIcon: .constant(false))
         }
     }
-    
-    
-    
-    
-    
+
     struct FlashcardSetView: View {
         let sets: FlashSets
         
@@ -150,28 +143,39 @@ struct NewHomeView: View {
         @State private var isEdited = false
         @State private var selectedCards: [FlashCardData] = [] // Keep track of selected cards
         @State var allSwiped = false
-        
+        @State private var showEndView = false
+        @State private var offset = CGSize.zero
+        @State var isLearned = false
+        @State var isThink = false
+        @State var isHard = false
+        @State var isRepeat = false
         var body: some View {
             NavigationView {
                 ZStack {
                    
                     let cards = sets.cards?.allObjects as? [FlashCardData] ?? []
                     
-                    ForEach(0..<(sets.cards?.count ?? 0), id: \.self) { card in
-                        SingleFlashCard(card: cards[card])
-                            .toolbar(.hidden, for: .tabBar)
-                    }
-                    if (sets.cards?.count == 0) {
-                        NavigationLink(destination: EndView(), isActive: $allSwiped) {
-                            EmptyView()
-                        }
-                    }
+                    ForEach(cards, id: \.self) { card in
+                                        if !card.isSwiped {
+                                            SingleFlashCard(card: card,
+                                            isLearned: $isLearned,
+                                                            isThink: $isThink,
+                                                            isHard: $isHard,
+                                                            isRepeat: $isRepeat)
+                                                .toolbar(.hidden, for: .tabBar)
+                                                .onTapGesture {
+                                                    card.isSwiped.toggle()
+                                                }
+                                        }
+                                    }
+                    
                     
                     NavigationLink(destination: EditFlashCardView(dataController: dataController, set: sets), isActive: $isEdited) {
                         EmptyView()
                     }
                     
                 }
+                
             }
             .navigationBarItems(trailing:
                                     Menu("Options") {
@@ -190,19 +194,24 @@ struct NewHomeView: View {
                 }
             }
             )
+            
             HStack {
                 Button(action: {
                     // Handle button action
+                  //  isTapped.toggle()
+                    self.isLearned.toggle()
                 }) {
                     Text("👍")
                         .frame(width: 70, height: 50)
                         .background(Color("Easy"))
                         .clipShape(RoundedRectangle(cornerRadius: 8))
                 }
+                
                 .padding(.trailing, 20)
                 
                 Button(action: {
                     // Handle button action
+                    self.isThink.toggle()
                 }) {
                     Text("🤔")
                         .frame(width: 70, height: 50)
@@ -213,6 +222,7 @@ struct NewHomeView: View {
                 
                 Button(action: {
                     // Handle button action
+                    self.isHard.toggle()
                 }) {
                     Text("🤬")
                         .frame(width: 70, height: 50)
@@ -223,6 +233,7 @@ struct NewHomeView: View {
                 
                 Button(action: {
                     // Handle button action
+                    self.isRepeat.toggle()
                 }) {
                     Image(systemName: "repeat.circle.fill")
                         .frame(width: 70, height: 50)
@@ -233,8 +244,10 @@ struct NewHomeView: View {
                 
                 
             }
+            .sheet(isPresented: $showEndView) {
+                        EndView()
+                    }
             
-
         }
     }
 
