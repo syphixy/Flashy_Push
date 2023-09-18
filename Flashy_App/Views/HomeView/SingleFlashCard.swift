@@ -5,13 +5,20 @@
 //  Created by Artem on 2023-07-24.
 //
 
+//
+//  SingleFlashCard.swift
+//  Flashy_App
+//
+//  Created by Artem on 2023-07-24.
+//
+
 import SwiftUI
  
  struct SingleFlashCard: View {
      //let sets: FlashSets
      let card: FlashCardData
      var removal: (() -> Void)? = nil
-     var onRemove: ((SwipeDirection) -> Void)? = nil
+     
      @State var term = ""
      @State var definition = ""
      @State private var isShown = false
@@ -37,11 +44,7 @@ import SwiftUI
          ZStack {
              RoundedRectangle(cornerRadius: 25, style: .continuous)
                  .fill(Color.white)
-                 .offset(x: isLearned ? 500 : 0) // Apply the slide effect
-                                 .opacity(isFadingOut ? 0 : 1)
-                                 .offset(x: isThink ? 500 : 0)
-                                 .offset(x: isHard ? 500 : 0)
-                                 .offset(x: isRepeat ? 500 : 0)
+                 
                  .overlay(RoundedRectangle(cornerRadius: 25).stroke(getColor(), lineWidth: 2))// Here we change the border color based on the swipe direction
                  .shadow(radius: 3)
 
@@ -56,8 +59,9 @@ import SwiftUI
                                                  .offset(y: 100)
                                          }
                             }
+                 
              }
-             
+            
          }
          .frame(width: 300, height: 500)
          .gesture(
@@ -144,6 +148,82 @@ import SwiftUI
          FlashCardView(card: Flashcard(question: "Sample Question", answer: "Sample Answer"))
      }
  }
+// Making the answer invisible until tapped
+
+//                 if showNegativeIndicator {
+//                     Text(label) // Display the label
+//                         .foregroundColor(.gray)
+//                         .font(.title2)
+//                     .padding(.top, 20)
+//                 }
+//                 else if showPositiveIndicator{
+//                     Text("Learnt") // Display the label
+//                         .foregroundColor(.gray)
+//                         .font(.title2)
+//                     .padding(.top, 20)
+//                 }
+//                 else if showMiddleIndicator{
+//                     Text("Good, repeat once more") // Display the label
+//                         .foregroundColor(.gray)
+//                         .font(.title2)
+//                     .padding(.top, 20)
+//                 }
+//                 else if showEasyIndicator{
+//                     Text("Easy") // Display the label
+//                         .foregroundColor(.gray)
+//                         .font(.title2)
+//                     .padding(.top, 20)
+//                 }
+//             }
+//             .padding()
+//             .multilineTextAlignment(.center)
+//
+//             // Display positive indicator
+//             if showPositiveIndicator {
+//                 VStack {
+//                     Spacer()
+//                     HStack {
+//                         Image(systemName: "checkmark")
+//                             .foregroundColor(.green)
+//                             .font(.system(size: 40))
+//                         Spacer()
+//                     }
+//                 }
+//             }
+//
+//             // Display negative indicator
+//             if showNegativeIndicator {
+//                 VStack {
+//                     Spacer()
+//                     HStack {
+//                         Spacer()
+//                         Image(systemName: "xmark")
+//                             .foregroundColor(.red)
+//                             .font(.system(size: 40))
+//                     }
+//                 }
+//             }
+//             if showMiddleIndicator {
+//                 VStack {
+//                     Spacer()
+//                     HStack {
+//                         Image(systemName: "light.beacon.min")
+//                             .foregroundColor(.green)
+//                             .font(.system(size: 40))
+//                         Spacer()
+//                     }
+//                 }
+//             }
+//             if showEasyIndicator {
+//                 VStack {
+//                     Spacer()
+//                     HStack {
+//                         Image(systemName: "light.beacon.max")
+//                             .foregroundColor(.green)
+//                             .font(.system(size: 40))
+//                         Spacer()
+//                     }
+//                 }
 // Making the answer invisible until tapped
 
 //                 if showNegativeIndicator {

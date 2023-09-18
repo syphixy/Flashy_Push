@@ -13,6 +13,12 @@
 import SwiftUI
 import CoreData
 
+// enum
+//enum CardStatus: Int {
+//    case learned = 1
+//    case hard = 2
+//}
+
 struct NewHomeView: View {
     
     @FetchRequest(
@@ -132,6 +138,11 @@ struct NewHomeView: View {
         }
     }
 
+// Step 1  - add int var to your card entity in core data
+// Step 2 - when you create cards assign with default of 0
+// Step 3 - when they press button card.X = 2, card.x  = 3 etc.
+// Step 4 - At the end get a filtered copy of the array by doing cards.filter { $0.X == 4 }
+
 struct FlashcardSetView: View {
     let sets: FlashSets
     
@@ -145,39 +156,76 @@ struct FlashcardSetView: View {
     @State var allSwiped = false
     @State private var showEndView = false
     @State private var offset = CGSize.zero
-    @State var isLearned = false
-    @State var isThink = false
-    @State var isHard = false
-    @State var isRepeat = false
+    @State private var currentlySelectedCard: FlashCardData?
+    @State var isLearned = false //1
+    @State var isThink = false  //2
+    @State var isHard = false   // 3
+    @State var isRepeat = false // 4
     @State private var currentCardIndex = 0
-        @State private var cards: [FlashCardData] = []
-    private func removeCard() {
-            if currentCardIndex < cards.count - 1 {
-                currentCardIndex += 1
-            } else {
-                // Handle the case when all cards are finished
-            }
+    var removal: (()-> Void)? = nil
+    @State private var cards: [FlashCardData] = []
+    private func removeCard(cardAction: () -> Void) {
+        guard let cards = sets.cards?.allObjects as? [FlashCardData] else {
+            return
         }
+
+        if currentCardIndex < cards.count {
+            // Update the status of the current card (e.g., mark as learned)
+            cards[currentCardIndex].isSwiped = true
+
+            // Move to the next card
+            currentCardIndex += 1
+
+            // Handle the case when all cards are finished
+            if currentCardIndex >= cards.count {
+                // Handle all cards finished
+            }
+
+            // Call the cardAction closure
+            cardAction()
+        }
+    }
+
+
+
     var body: some View {
         NavigationView {
             ZStack {
                
-                let cards = sets.cards?.allObjects as? [FlashCardData] ?? []
+//                let cards = sets.cards?.allObjects as? [FlashCardData] ?? []
                 
                 ForEach(cards, id: \.self) { card in
-                                    if !card.isSwiped {
-                                        SingleFlashCard(card: cards[currentCardIndex],
-                                                        removal: removeCard, // Pass a closure to remove the card
+                                        
+                    
+                                        SingleFlashCard(card: card,
+                                                         // Pass a closure to remove the card
+                                                        
                                                         isLearned: $isLearned,
                                                         isThink: $isThink,
                                                         isHard: $isHard,
                                                         isRepeat: $isRepeat)
+                    
+//
+//                    {
+//                                            withAnimation {
+//                                                removeCard(at: card)
+//                                            }
+//                                        }
+
+                                
+                                        .offset(x: isLearned ? 500 : 0)
+                    
+                                        .onAppear {
+                                            currentlySelectedCard = card
+                                        }
+                    
                                             .toolbar(.hidden, for: .tabBar)
-                                            .onTapGesture {
-                                                card.isSwiped.toggle()
-                                            }
-                                    }
+//                                            .onTapGesture {
+//                                                card.isSwiped.toggle()
+//                                            }
+                                    
                                 }
+                
                 
                 
                 NavigationLink(destination: EditFlashCardView(dataController: dataController, set: sets), isActive: $isEdited) {
@@ -210,6 +258,9 @@ struct FlashcardSetView: View {
                 // Handle button action
               //  isTapped.toggle()
                 self.isLearned.toggle()
+               
+                currentlySelectedCard?.cardStatus = 1
+                             
             }) {
                 Text("👍")
                     .frame(width: 70, height: 50)
@@ -222,6 +273,7 @@ struct FlashcardSetView: View {
             Button(action: {
                 // Handle button action
                 self.isThink.toggle()
+                currentlySelectedCard?.cardStatus = 2
             }) {
                 Text("🤔")
                     .frame(width: 70, height: 50)
@@ -233,6 +285,7 @@ struct FlashcardSetView: View {
             Button(action: {
                 // Handle button action
                 self.isHard.toggle()
+                currentlySelectedCard?.cardStatus = 3
             }) {
                 Text("🤬")
                     .frame(width: 70, height: 50)
@@ -244,6 +297,7 @@ struct FlashcardSetView: View {
             Button(action: {
                 // Handle button action
                 self.isRepeat.toggle()
+                currentlySelectedCard?.cardStatus = 4
             }) {
                 Image(systemName: "repeat.circle.fill")
                     .frame(width: 70, height: 50)
@@ -257,7 +311,13 @@ struct FlashcardSetView: View {
         .sheet(isPresented: $showEndView) {
                     EndView()
                 }
+        .onAppear {
+            cards = sets.cards?.allObjects as? [FlashCardData] ?? []
+        }
         
+    }
+    func removeCard(at index: Int) {
+        cards.remove(at: index)
     }
 }
 
