@@ -164,27 +164,32 @@ struct FlashcardSetView: View {
     @State private var currentCardIndex = 0
     var removal: (()-> Void)? = nil
     @State private var cards: [FlashCardData] = []
-    private func removeCard(cardAction: () -> Void) {
-        guard let cards = sets.cards?.allObjects as? [FlashCardData] else {
-            return
-        }
-
-        if currentCardIndex < cards.count {
-            // Update the status of the current card (e.g., mark as learned)
-            cards[currentCardIndex].isSwiped = true
-
-            // Move to the next card
-            currentCardIndex += 1
-
-            // Handle the case when all cards are finished
-            if currentCardIndex >= cards.count {
-                // Handle all cards finished
-            }
-
-            // Call the cardAction closure
-            cardAction()
+    func removeCard(_ card: FlashCardData) {
+        if let index = cards.firstIndex(of: card) {
+            cards.remove(at: index)
         }
     }
+//    private func removeCard(cardAction: () -> Void) {
+//        guard let cards = sets.cards?.allObjects as? [FlashCardData] else {
+//            return
+//        }
+//
+//        if currentCardIndex < cards.count {
+//            // Update the status of the current card (e.g., mark as learned)
+//            cards[currentCardIndex].isSwiped = true
+//
+//            // Move to the next card
+//            currentCardIndex += 1
+//
+//            // Handle the case when all cards are finished
+//            if currentCardIndex >= cards.count {
+//                // Handle all cards finished
+//            }
+//
+//            // Call the cardAction closure
+//            cardAction()
+//        }
+//    }
 
 
 
@@ -197,25 +202,20 @@ struct FlashcardSetView: View {
                 ForEach(cards, id: \.self) { card in
                                         
                     
-                                        SingleFlashCard(card: card,
-                                                         // Pass a closure to remove the card
-                                                        
-                                                        isLearned: $isLearned,
-                                                        isThink: $isThink,
-                                                        isHard: $isHard,
-                                                        isRepeat: $isRepeat)
+                    SingleFlashCard(card: card,
+                                    removal: {
+                        // Handle card removal here
+                        removeCard(card)
+                    }, isLearned: $isLearned,
+                                    isThink: $isThink,
+                                    isHard: $isHard,
+                                    isRepeat: $isRepeat)
+                    //.offset(x: isLearned ? 500 : 0)
+                    .opacity(isLearned ? 0 : 1)
+                                            
+                                        
                     
-//
-//                    {
-//                                            withAnimation {
-//                                                removeCard(at: card)
-//                                            }
-//                                        }
-
-                                
-                                        .offset(x: isLearned ? 500 : 0)
-                    
-                                        .onAppear {
+                                .onAppear {
                                             currentlySelectedCard = card
                                         }
                     
@@ -225,6 +225,7 @@ struct FlashcardSetView: View {
 //                                            }
                                     
                                 }
+                
                 
                 
                 
@@ -316,9 +317,7 @@ struct FlashcardSetView: View {
         }
         
     }
-    func removeCard(at index: Int) {
-        cards.remove(at: index)
-    }
+    
 }
 
 //struct FlashcardSetView_Previews: PreviewProvider {
