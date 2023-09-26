@@ -34,7 +34,6 @@ import SwiftUI
      //@State private var addView = false
      @State private var isTapped = false
      @State private var currentCardIndex = 0
-     @State private var cards: [FlashCardData] = []
      @Binding var isLearned: Bool
      @Binding var isThink: Bool
      @Binding var isHard: Bool
@@ -42,10 +41,11 @@ import SwiftUI
      @State private var isFadingOut = false
      var body: some View {
          ZStack {
+             
              RoundedRectangle(cornerRadius: 25, style: .continuous)
                  .fill(Color.white)
-                 
-                 .overlay(RoundedRectangle(cornerRadius: 25).stroke(getColor(), lineWidth: 2))// Here we change the border color based on the swipe direction
+                 //.offset(x: isLearned ? 500 : 0)
+                 //.overlay(RoundedRectangle(cornerRadius: 25).stroke(getColor(), lineWidth: 2))// Here we change the border color based on the swipe direction
                  .shadow(radius: 3)
 
              VStack {
@@ -58,68 +58,30 @@ import SwiftUI
                                              Text(card.definition ?? "Unnamed Card")
                                                  .offset(y: 100)
                                          }
-                            }
+                 }
+                
                  
              }
+             
             
          }
          .frame(width: 300, height: 500)
-         .gesture(
-                     DragGesture()
-                         .onChanged { value in
-                             isFadingOut = true
-                             offset = value.translation
-                         }
-                         .onEnded { value in
-                             if offset.width > 100 {
-                                 // Card is swiped to the right, remove it from the stack
-                                 removal?()
-                             } else {
-                                 // Card is not swiped far enough, reset the position
-                                 isFadingOut = false
-                                 offset = .zero
-                             }
-                         }
-                 )
-         .animation(.easeOut(duration: 0.3))
-//         .rotationEffect(.degrees(Double(offset.width / 10)))
-//         .offset(y: -30)
-//         // makes an effect when swiping the card and it gets back if swipped not too much
-//         .offset(x: offset.width, y: offset.height) // changes the position of the card by x - direction
-         .onTapGesture {
-             isTapped.toggle()
-             
-         }
-//         .gesture(
-//             DragGesture().onChanged { value in
-//                 offset = value.translation
-//                 showPositiveIndicator = offset.width > 50
-//                 showNegativeIndicator = offset.width < -50
-//                 showMiddleIndicator = offset.height > 50
-//                 showEasyIndicator = offset.height < -50
-//             }
-//             .onEnded { value in
-//                 if abs(offset.width) > 100 {
-//                     withAnimation {
-//                         offset.width = value.translation.width > 0 ? 1000 : -1000
-//                         onRemove?(value.translation.width > 0 ? .right : .left)
-//                     }
-//                 } else if abs(offset.height) > 100 {
-//                     withAnimation {
-//                         offset.height = value.translation.height > 0 ? 1000 : -1000
-//                         onRemove?(value.translation.height > 0 ? .up : .down)
-//                     }
-//                 } else {
-//                     offset = .zero
-//                     showPositiveIndicator = false
-//                     showNegativeIndicator = false
-//                     showMiddleIndicator = false
-//                     showEasyIndicator = false
+//         .offset(x: isLearned ? 500 : 0)
+         
+//         .onAppear {
+//             withAnimation {
+//                 if isLearned  {
+//                     removal?()
+//
 //                 }
 //             }
-//
-//         )
+//         }
+         .animation(.easeOut(duration: 0.3))
+         .onTapGesture {
+             isTapped.toggle()
+         }
      }
+     
      
      func getColor() -> Color {
          if offset.width > 0 {
@@ -300,3 +262,43 @@ import SwiftUI
 //                         Spacer()
 //                     }
 //                 }
+// for StackOverflow:
+//struct SingleFlashCard: View {
+//    let card: FlashCardData
+//    var removal: (() -> Void)? = nil
+//    
+//    @State var term = ""
+//    @State var definition = ""
+//    @Binding var isLearned: Bool
+//    @Binding var isThink: Bool
+//    @Binding var isHard: Bool
+//    @Binding var isRepeat: Bool
+//    
+//    var body: some View {
+//        ZStack {
+//            RoundedRectangle(cornerRadius: 25, style: .continuous)
+//                .fill(Color.white)
+//            //.offset(x: isLearned ? 500 : 0)
+//            //.overlay(RoundedRectangle(cornerRadius: 25).stroke(getColor(), lineWidth: 2))// Here we change the border color based on the swipe direction
+//                .shadow(radius: 3)
+//            
+//            VStack {
+//                NavigationStack {
+//                    
+//                    Text(card.term ?? "Unnamed Card")
+//                        .offset(y: -100)
+//                    Divider()
+//                    if isTapped {
+//                        Text(card.definition ?? "Unnamed Card")
+//                            .offset(y: 100)
+//                    }
+//                }
+//                
+//                
+//            }
+//            
+//            
+//        }
+//        .frame(width: 300, height: 500)
+//    }
+//}
