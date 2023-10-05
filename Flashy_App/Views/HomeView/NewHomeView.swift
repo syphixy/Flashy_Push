@@ -18,17 +18,16 @@ import CoreData
 //    case learned = 1
 //    case hard = 2
 //}
-
+enum StudyPhase {
+    case initial
+    case hard
+}
 struct NewHomeView: View {
     
     @FetchRequest(
         entity: FlashSets.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \FlashSets.date, ascending: false)])
     var sets: FetchedResults<FlashSets>
-    
-    
-    
-    
     @Environment(\.managedObjectContext) var managedObjectContext
     @ObservedObject var dataController = DataController.shared
     
@@ -146,6 +145,12 @@ struct FlashcardSetView: View {
     //    @FetchRequest(entity: FlashSets.entity(),
     //                  sortDescriptors: [NSSortDescriptor(keyPath: \FlashSets.date, ascending: false)])
     
+    @FetchRequest(
+        entity: FlashSets.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \FlashSets.date, ascending: false)],
+        predicate: NSPredicate(format: "isInSet == %d", true) // Fetch cards with category 1
+    )
+    var isInCurrentSet: FetchedResults<FlashCardData>
     
     @FetchRequest(
         entity: FlashCardData.entity(),
@@ -177,32 +182,37 @@ struct FlashcardSetView: View {
     @State var isThink = false  //2
     @State var isHard = false   // 3
     @State var isRepeat = false // 4
+    @State private var studyPhase: StudyPhase = .initial
+    @State  var currentCardIndex = 0
     
     var body: some View {
         NavigationView {
             ZStack {
-                ForEach(set.cardsArray, id: \.self) { card in
-                    //                    if let unwrappedCard = card {
-                    //                        //Text(unwrappedCard.name)
-                    //                    }
-                            VStack {
-                                Text(set.cardsArray.count.description)
-                                SingleFlashCard(card: card,
-                                                removal: {
-                                    withAnimation {
-                                        removeCard(card)
-                                    }
-                                    print("Removing card with animation")
-                                }, isLearned: $isLearned,
-                                                isThink: $isThink,
-                                                isHard: $isHard,
-                                                isRepeat: $isRepeat)
-                                .transition(.asymmetric(insertion: .opacity, removal: .opacity))
-                            }
-                            .onAppear {
-                                currentlySelectedCard = card
-                            }
+                if studyPhase == .initial {
+                    ForEach(set.cardsArray, id: \.self) { card in
+                        //                    if let unwrappedCard = card {
+                        //                        //Text(unwrappedCard.name)
+                        //                    }
+                                VStack {
+                                    Text(set.cardsArray.count.description)
+                                    SingleFlashCard(cards: set.cardsArray,
+                                                    removal: {
+                                        withAnimation(.easeInOut) {
+                                            removeCurrentCard()
+                                        }
+                                        print("Removing card with animation")
+                                    }, currentCardIndex: $currentCardIndex, isLearned: $isLearned,
+                                                    isThink: $isThink,
+                                                    isHard: $isHard,
+                                                    isRepeat: $isRepeat)
+                                    .transition(.asymmetric(insertion: .opacity, removal: .opacity))
+                                }
+                                .onAppear {
+                                    currentlySelectedCard = card
+                                }
+                    }
                 }
+                
                 NavigationLink(destination: EditFlashCardView(dataController: dataController, set: set), isActive: $isEdited) {
                     EmptyView()
                 }
@@ -232,7 +242,7 @@ struct FlashcardSetView: View {
                 currentlySelectedCard?.cardStatus = 1
                 //removeCard(currentlySelectedCard)
                 self.isLearned.toggle()
-                
+                removeCurrentCard()
                 
                 print("Button IsLearned toggled()")
             }) {
@@ -297,6 +307,14 @@ struct FlashcardSetView: View {
     func removingCard(_ card: FlashCardData?) {
         if let cardremove = card { }
     }
+    private func removeCurrentCard() {
+            if currentCardIndex < set.cardsArray.count - 1 {
+                currentCardIndex += 1 // Move to the next card
+                currentlySelectedCard = set.cardsArray[currentCardIndex] // Update currentlySelectedCard
+            } else {
+                studyPhase = .hard // Transition to the next study phase if all cards are studied
+            }
+        }
 //    func removeMethod(at index: Int) {
 //        set.cardsArray.remove(at: index)
 //    }

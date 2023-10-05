@@ -21,6 +21,7 @@ extension FlashSets {
     @NSManaged public var name: String?
     @NSManaged public var tag: String?
     @NSManaged public var cards: NSSet?
+    @NSManaged public var isInSet: Bool
 
 //    public var flashcardsArray: [FlashCardData] {
 //        let setsflashcards = cards as? Set<FlashCardData> ?? []
