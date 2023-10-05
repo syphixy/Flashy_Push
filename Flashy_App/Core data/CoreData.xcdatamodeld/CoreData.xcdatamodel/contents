@@ -10,13 +10,13 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="number" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="term" optional="YES" attributeType="String"/>
-        <relationship name="set" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FlashSets" inverseName="cards" inverseEntity="FlashSets"/>
+        <relationship name="flashCardSet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="FlashSets" inverseName="cards" inverseEntity="FlashSets"/>
     </entity>
     <entity name="FlashSets" representedClassName="FlashSets" syncable="YES">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <attribute name="tag" optional="YES" attributeType="String"/>
-        <relationship name="cards" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FlashCardData" inverseName="set" inverseEntity="FlashCardData"/>
+        <relationship name="cards" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="FlashCardData" inverseName="flashCardSet" inverseEntity="FlashCardData"/>
     </entity>
 </model>

@@ -27,10 +27,7 @@ struct NewHomeView: View {
     var sets: FetchedResults<FlashSets>
     
     
-    @FetchRequest(
-        entity: FlashCardData.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: false)])
-    var flashCard: FetchedResults<FlashCardData>
+    
     
     @Environment(\.managedObjectContext) var managedObjectContext
     @ObservedObject var dataController = DataController.shared
@@ -148,6 +145,22 @@ struct NewHomeView_Previews: PreviewProvider {
 struct FlashcardSetView: View {
     //    @FetchRequest(entity: FlashSets.entity(),
     //                  sortDescriptors: [NSSortDescriptor(keyPath: \FlashSets.date, ascending: false)])
+    
+    
+    @FetchRequest(
+        entity: FlashCardData.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: false)],
+        predicate: NSPredicate(format: "cardStatus == %d", 1) // Fetch cards with category 1
+    )
+    var categoryOneCards: FetchedResults<FlashCardData>
+    
+    @FetchRequest(
+        entity: FlashCardData.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: false)],
+        predicate: NSPredicate(format: "cardStatus == %d", 2) // Fetch cards with category 2
+    )
+    var categoryTwoCards: FetchedResults<FlashCardData>
+    
     var set: FlashSets
     @ObservedObject var dataController = DataController.shared
     @Environment(\.managedObjectContext) var managedObjectContext
@@ -155,7 +168,7 @@ struct FlashcardSetView: View {
     @Environment(\.dismiss) var dismiss
     @State private var isTapped = false
     @State private var isEdited = false
-    @State private var selectedCards: [FlashCardData] = [] // Keep track of selected cards
+    //@State private var selectedCards: [FlashCardData] = [] // Keep track of selected cards
     @State var allSwiped = false
     @State private var showEndView = false
     @State private var offset = CGSize.zero
@@ -168,18 +181,14 @@ struct FlashcardSetView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                
                 ForEach(set.cardsArray, id: \.self) { card in
                     //                    if let unwrappedCard = card {
                     //                        //Text(unwrappedCard.name)
                     //                    }
-                    
-                    
                             VStack {
                                 Text(set.cardsArray.count.description)
                                 SingleFlashCard(card: card,
                                                 removal: {
-                                    
                                     withAnimation {
                                         removeCard(card)
                                     }
@@ -193,10 +202,7 @@ struct FlashcardSetView: View {
                             .onAppear {
                                 currentlySelectedCard = card
                             }
-                        
-                    
                 }
-                
                 NavigationLink(destination: EditFlashCardView(dataController: dataController, set: set), isActive: $isEdited) {
                     EmptyView()
                 }
@@ -223,22 +229,10 @@ struct FlashcardSetView: View {
         
         HStack {
             Button(action: {
-                // Handle button action
-                //self.isLearned.toggle()
-                //removal?()
-                
-                //                        if let index = displayedCards.firstIndex(where: { $0.id == currentlySelectedCard?.id }) {
-                //                            removalLogic(at: index)
-                //                            print("Card removed")
-                //                        }
-                
                 currentlySelectedCard?.cardStatus = 1
-                removeCard(currentlySelectedCard)
-                print("Card removed animation")
-                //                // Toggle the isDisplayed property
-                //                if let index = displayedCards.firstIndex(where: { $0.id == currentlySelectedCard?.id }) {
-                //                    displayedCards[index].isDisplayed.toggle()
-                //                }
+                //removeCard(currentlySelectedCard)
+                self.isLearned.toggle()
+                
                 
                 print("Button IsLearned toggled()")
             }) {
@@ -299,6 +293,9 @@ struct FlashcardSetView: View {
             set.removeFromCards(cardToRemove)
             dataController.save()
         }
+    }
+    func removingCard(_ card: FlashCardData?) {
+        if let cardremove = card { }
     }
 //    func removeMethod(at index: Int) {
 //        set.cardsArray.remove(at: index)

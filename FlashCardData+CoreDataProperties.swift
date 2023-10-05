@@ -22,7 +22,7 @@ extension FlashCardData {
     @NSManaged public var name: String?
     @NSManaged public var number: Int16
     @NSManaged public var term: String?
-    @NSManaged public var set: FlashSets?
+    @NSManaged public var flashCardSet: FlashSets?
     @NSManaged public var isSwiped: Bool
     @NSManaged public var cardStatus: Int16
     @NSManaged public var isDisplayed: Bool
