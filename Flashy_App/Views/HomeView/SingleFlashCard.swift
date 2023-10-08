@@ -44,7 +44,7 @@ struct SingleFlashCard: View {
                 }
             }
         }
-        .frame(width: 300, height: 500)
+        .frame(width: 300, height: 580)
         .animation(.easeOut(duration: 0.3))
         .onTapGesture {
             isTapped.toggle()
