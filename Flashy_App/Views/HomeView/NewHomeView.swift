@@ -320,7 +320,7 @@ struct FlashcardSetView: View {
                 currentCardIndex += 1 // Move to the next card
                 currentlySelectedCard = set.cardsArray[currentCardIndex] // Update currentlySelectedCard
             } else {
-                if set.cardsArray.isEmpty {
+                if let lastCard = set.cardsArray.last {
                     // All cards in the set have been studied
                     toEndView = true // Transition to the EndView
                 } else {

@@ -20,13 +20,18 @@ struct EndView: View {
                  Text("Set finished👍")
                     .bold()
                     .font(.system(size: 36))
+                    .padding(.bottom, 40)
                 // Display the number of cards in each category
-                Text("Statistics:")
+               
                         Text("Total cards studied: \(set.cardsArray.count)")
                         Text("Category 1 cards studied: \(set.cardsArray.filter { $0.cardStatus == 1 }.count )")
+                            .padding(.bottom, 20)
                         Text("Category 2 cards studied: \(set.cardsArray.filter { $0.cardStatus == 2 }.count  )")
+                            .padding(.bottom, 20)
                         Text("Category 3 cards studied: \(set.cardsArray.filter { $0.cardStatus == 3 }.count )")
+                            .padding(.bottom, 20)
                         Text("Category 4 cards studied: \(set.cardsArray.filter { $0.cardStatus == 4 }.count )")
+                            .padding(.bottom, 20)
                 
                 VStack {
                     CheckboxView(isSelected: $isSelected)
@@ -56,7 +61,7 @@ struct EndView: View {
                 }
             }
         }
-        //.navigationBarBackButtonHidden(true)
+        .navigationBarBackButtonHidden(true)
     }
 }
 struct CategoryRow: View {
