@@ -10,53 +10,48 @@ import SwiftUI
 struct EndView: View {
     var set: FlashSets
     @ObservedObject var dataController = DataController.shared
-    @FetchRequest(
-        entity: FlashCardData.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: false)],
-        predicate: NSPredicate(format: "cardStatus == %d", 1) // Fetch cards with category 1
-    )
-    var categoryOneCards: FetchedResults<FlashCardData>
-    @FetchRequest(
-        entity: FlashCardData.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: false)],
-        predicate: NSPredicate(format: "cardStatus == %d", 2) // Fetch cards with category 2
-    )
-    var categoryTwoCards: FetchedResults<FlashCardData>
-    @FetchRequest(
-        entity: FlashCardData.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: false)],
-        predicate: NSPredicate(format: "cardStatus == %d", 3) // Fetch cards with category 3
-    )
-    var categoryThreeCards: FetchedResults<FlashCardData>
-    @FetchRequest(
-        entity: FlashCardData.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: false)],
-        predicate: NSPredicate(format: "cardStatus == %d", 4) // Fetch cards with category 4
-    )
-    var categoryFourCards: FetchedResults<FlashCardData>
-    @State private var ContinueFlashying = false
     
+    @State private var ContinueFlashying = false
+    @State var isSelected = false
     var body: some View {
         NavigationStack {
             VStack {
                 
                  Text("Set finished👍")
                     .bold()
-                    
+                    .font(.system(size: 36))
                 // Display the number of cards in each category
-                            Text("Category 1 (👍): \(categoryOneCards.count / 2)  cards")
-                            Text("Category 2 (🤔): \(categoryTwoCards.count / 2) cards")
-                            Text("Category 3 (🤬): \(categoryThreeCards.count / 2) cards")
-                            Text("Category 4 (🔄): \(categoryFourCards.count / 2) cards")
+                Text("Statistics:")
+                        Text("Total cards studied: \(set.cardsArray.count)")
+                        Text("Category 1 cards studied: \(set.cardsArray.filter { $0.cardStatus == 1 }.count )")
+                        Text("Category 2 cards studied: \(set.cardsArray.filter { $0.cardStatus == 2 }.count  )")
+                        Text("Category 3 cards studied: \(set.cardsArray.filter { $0.cardStatus == 3 }.count )")
+                        Text("Category 4 cards studied: \(set.cardsArray.filter { $0.cardStatus == 4 }.count )")
+                
+                VStack {
+                    CheckboxView(isSelected: $isSelected)
+                    CheckboxView(isSelected: $isSelected)
+                    CheckboxView(isSelected: $isSelected)
+                    CheckboxView(isSelected: $isSelected)
+                    
+                        Button(action: {
+                            
+                        })
+                        {
+                            Text("Continue studying")
+                        }
+                    
+                }
                 Button(action: {
                     ContinueFlashying = true
                     
                     
                 })
                 {
+                    
                     Text("Start again")
                 }
-                NavigationLink(destination: FlashcardSetView(categoryThreeCards: _categoryThreeCards, set: set), isActive: $ContinueFlashying) {
+                NavigationLink(destination: FlashcardSetView(set: set), isActive: $ContinueFlashying) {
                     EmptyView()
                 }
             }
@@ -64,9 +59,37 @@ struct EndView: View {
         //.navigationBarBackButtonHidden(true)
     }
 }
+struct CategoryRow: View {
+    let categoryName: String
+    let category: Int
+    @Binding var isSelected: Bool
 
+    var body: some View {
+        HStack {
+            Text(categoryName)
+
+            Spacer()
+
+            CheckboxView(isSelected: $isSelected)
+        }
+    }
+}
+
+struct CheckboxView: View {
+    @Binding var isSelected: Bool
+
+    var body: some View {
+        Button(action: {
+            isSelected.toggle()
+        }) {
+            Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
+                .foregroundColor(isSelected ? .green : .secondary)
+        }
+    }
+}
 //struct EndView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        EndView(set: set)
 //    }
 //}
+

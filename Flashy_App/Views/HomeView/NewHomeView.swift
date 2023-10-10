@@ -167,7 +167,7 @@ struct FlashcardSetView: View {
     @State var isThink = false  //2
     @State var isHard = false   // 3
     @State var isRepeat = false // 4
-    @State private var studyPhase: StudyPhase = .initial
+    @State var studyPhase: StudyPhase = .initial
     @State var currentCardIndex = 0
     @State private var toEndView = false
     
@@ -179,10 +179,9 @@ struct FlashcardSetView: View {
                 EmptyView()
             }
                 .isDetailLink(false)
-                Text("Card list is empty😕")
-                    .offset(y: -50)
-               
-                
+                Text("Card list is empty🙅‍♂️")
+                    .padding(.top, -50)
+                if studyPhase == .initial {
                     ForEach(set.cardsArray, id: \.self) { card in
                         //                    if let unwrappedCard = card {
                         //                        //Text(unwrappedCard.name)
@@ -210,31 +209,31 @@ struct FlashcardSetView: View {
                                     
                                 }
                     }
-                
-                
-//                    ForEach(categoryThreeCards, id: \.self) { card in
-//                        //                    if let unwrappedCard = card {
-//                        //                        //Text(unwrappedCard.name)
-//                        //                    }
-//                                VStack {
-//                                    Text(set.cardsArray.count.description)
-//                                    SingleFlashCard(cards: set.cardsArray,
-//                                                    removal: {
-//                                        withAnimation(.easeInOut) {
-//                                            removeCurrentCard()
-//                                        }
-//                                        print("Removing card with animation")
-//                                    }, currentCardIndex: $currentCardIndex, isLearned: $isLearned,
-//                                                    isThink: $isThink,
-//                                                    isHard: $isHard,
-//                                                    isRepeat: $isRepeat)
-//                                    .transition(.asymmetric(insertion: .opacity, removal: .opacity))
-//                                }
-//                                .onAppear {
-//                                    currentlySelectedCard = card
-//                            }
-//                    }
-                
+                }
+                if studyPhase == .hard {
+                    ForEach(categoryThreeCards, id: \.self) { card in
+                        //                    if let unwrappedCard = card {
+                        //                        //Text(unwrappedCard.name)
+                        //                    }
+                                VStack {
+                                    Text(set.cardsArray.count.description)
+                                    SingleFlashCard(cards: set.cardsArray,
+                                                    removal: {
+                                        withAnimation(.easeInOut) {
+                                            removeCurrentCard()
+                                        }
+                                        print("Removing card with animation")
+                                    }, currentCardIndex: $currentCardIndex, isLearned: $isLearned,
+                                                    isThink: $isThink,
+                                                    isHard: $isHard,
+                                                    isRepeat: $isRepeat)
+                                    .transition(.asymmetric(insertion: .opacity, removal: .opacity))
+                                }
+                                .onAppear {
+                                    currentlySelectedCard = card
+                            }
+                    }
+                }
                 NavigationLink(destination: EditFlashCardView(dataController: dataController, set: set), isActive: $isEdited) {
                     EmptyView()
                 }
@@ -314,7 +313,6 @@ struct FlashcardSetView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 8))
             }
         }
-        
     }
     private func removeCurrentCard() {
         if studyPhase == .initial {
