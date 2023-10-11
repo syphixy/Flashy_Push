@@ -58,7 +58,7 @@ struct CustomTabBar: View {
 //                        .tabItem {
 //                            Image(systemName: "plus")
 //                        }.tag(1)
-                    NewHomeView(sets: _sets,  showIcon: .constant(false))
+                    NewHomeView(sets: _sets)
                         .environmentObject(DataController.shared)
                         .tabItem {
                             Image(systemName: "house")

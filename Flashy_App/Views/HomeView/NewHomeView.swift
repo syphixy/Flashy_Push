@@ -36,7 +36,7 @@ struct NewHomeView: View {
     @State var viewState = CGSize.zero
     @State private var searchText = ""
     @State var search = false
-    @Binding var showIcon: Bool
+    //@Binding var showIcon: Bool
     @State var view = CGSize.zero
     @State var showNew = false
     @State private var showFlashcardStack = false
@@ -118,6 +118,7 @@ struct NewHomeView: View {
                 //                }
                 
             }
+        
             .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search sets")
             .onChange(of: query) { newValue in
                 sets.nsPredicate = searchPredicate(query: newValue)
@@ -131,7 +132,7 @@ struct NewHomeView: View {
 
 struct NewHomeView_Previews: PreviewProvider {
     static var previews: some View {
-        NewHomeView(showIcon: .constant(false))
+        NewHomeView()
     }
 }
 
