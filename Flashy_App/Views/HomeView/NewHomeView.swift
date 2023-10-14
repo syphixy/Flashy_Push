@@ -86,7 +86,7 @@ struct NewHomeView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 20) {
                         ForEach(sets) { oneSet in
-                            NavigationLink(destination: FlashcardSetView(set: oneSet).environmentObject(dataController)) {
+                            NavigationLink(destination: FlashcardSetView(set: oneSet, selectedCardStatuses: []).environmentObject(dataController)) {
                                 VStack(spacing: 20) {
                                     RoundedRectangle(cornerRadius: 25)
                                     //  .fill(Color("newgray"))
@@ -118,7 +118,7 @@ struct NewHomeView: View {
                 //                }
                 
             }
-        
+            
             .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search sets")
             .onChange(of: query) { newValue in
                 sets.nsPredicate = searchPredicate(query: newValue)
@@ -171,7 +171,7 @@ struct FlashcardSetView: View {
     @State var studyPhase: StudyPhase = .initial
     @State var currentCardIndex = 0
     @State private var toEndView = false
-    
+    var selectedCardStatuses: [Int]
     
     var body: some View {
         NavigationView {
@@ -242,7 +242,7 @@ struct FlashcardSetView: View {
             }
             
         }
-        
+        .navigationBarBackButtonHidden(true)
         .navigationBarItems(trailing:
                                 Menu("Options") {
             Button(action: {

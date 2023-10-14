@@ -10,55 +10,48 @@ import SwiftUI
 struct EndView: View {
     var set: FlashSets
     @ObservedObject var dataController = DataController.shared
-    
-    @State private var ContinueFlashying = false
-    @State var isSelected = false
+
+    @State private var continueFlashying = false
     @State private var returnHome = false
+    @State private var selectedCategories: [Bool] = [false, false, false, false]
     
+    var selectedCardStatuses: [Int] {
+        return selectedCategories.enumerated().compactMap { $0.element ? $0.offset + 1 : nil }
+    }
+
     var body: some View {
         NavigationStack {
             VStack {
                 Text("Set finished👍")
                     .bold()
                     .font(.system(size: 36))
-                    .padding(.bottom, 40)
-                
+                    .padding()
+
                 // Display the number of cards in each category
                 List {
-                   
-                    
                     ForEach(1...4, id: \.self) { category in
-                        CategoryRow(categoryName: "Category \(category) cards studied: \(set.cardsArray.filter { $0.cardStatus == category }.count)", category: category, isSelected: $isSelected)
-                        
+                        CategoryRow(categoryName: "Category \(category) cards studied: \(set.cardsArray.filter { $0.cardStatus == category }.count)", category: category, isSelected: $selectedCategories[category - 1])
                     }
                 }
-                
                 VStack {
-                    
-                    
                     Button(action: {
-                        // Handle continue button click
+                        continueFlashying = true
                     }) {
                         Text("Continue studying")
                     }
                 }
-                
+
                 Button(action: {
-                    ContinueFlashying = true
+                    // Handle the "Start again" button
                 }) {
                     Text("Start again")
                 }
-                
                 Button(action: {
                     returnHome = true
                 }) {
-                    NavigationLink(destination: NewHomeView(), isActive: $returnHome) {
-                        EmptyView()
-                    }
-                    Text("Return home")
+                    // Return home button
                 }
-                
-                NavigationLink(destination: FlashcardSetView(set: set), isActive: $ContinueFlashying) {
+                NavigationLink(destination: FlashcardSetView(set: set, selectedCardStatuses: selectedCardStatuses), isActive: $continueFlashying) {
                     EmptyView()
                 }
             }
@@ -66,6 +59,7 @@ struct EndView: View {
         .navigationBarBackButtonHidden(true)
     }
 }
+
 
 struct CategoryRow: View {
     let categoryName: String
@@ -95,6 +89,7 @@ struct CheckboxView: View {
         }
     }
 }
+
 
 //struct EndView_Previews: PreviewProvider {
 //    static var previews: some View {

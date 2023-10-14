@@ -11,12 +11,13 @@ import SwiftUI
 struct Flashy_AppApp: App {
     
     @StateObject var dataController = DataController.shared
-    
+   
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environment(\.managedObjectContext, dataController.container.viewContext)
                 .environmentObject(dataController)
+                
         }
     }
 }
