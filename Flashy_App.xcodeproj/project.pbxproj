@@ -10,6 +10,7 @@
 		987030432A925D9A0013FA85 /* FinishView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987030422A925D9A0013FA85 /* FinishView.swift */; };
 		987030452A957CFB0013FA85 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987030442A957CFB0013FA85 /* EditView.swift */; };
 		9872B85F2AACE83200CC16B9 /* EndView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9872B85E2AACE83200CC16B9 /* EndView.swift */; };
+		98B111BD2ADCA5210093C1CF /* CategorySelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98B111BC2ADCA5210093C1CF /* CategorySelection.swift */; };
 		A62F66FE2A2F9F9D002CFB99 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A62F66FC2A2F9F9D002CFB99 /* CoreData.xcdatamodeld */; };
 		A62F67002A2FA004002CFB99 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62F66FF2A2FA004002CFB99 /* DataController.swift */; };
 		A62F67622A5F0130002CFB99 /* SetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62F67612A5F0130002CFB99 /* SetView.swift */; };
@@ -66,6 +67,7 @@
 		987030422A925D9A0013FA85 /* FinishView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishView.swift; sourceTree = "<group>"; };
 		987030442A957CFB0013FA85 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		9872B85E2AACE83200CC16B9 /* EndView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndView.swift; sourceTree = "<group>"; };
+		98B111BC2ADCA5210093C1CF /* CategorySelection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategorySelection.swift; sourceTree = "<group>"; };
 		A628B8A32A7032E800CB4574 /* CoreData 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "CoreData 2.xcdatamodel"; sourceTree = "<group>"; };
 		A62F66FD2A2F9F9D002CFB99 /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 		A62F66FF2A2FA004002CFB99 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				A6581E7029FE2237004D03B6 /* TermDefinitionViewModel.swift */,
+				98B111BC2ADCA5210093C1CF /* CategorySelection.swift */,
 			);
 			path = "View Models";
 			sourceTree = "<group>";
@@ -425,6 +428,7 @@
 				A6581F0A2A1304E3004D03B6 /* FlashCardViewModel.swift in Sources */,
 				A63609922A8007C8001C865B /* SetEntity+CoreDataProperties.swift in Sources */,
 				A6581F042A13007D004D03B6 /* Flashcard.swift in Sources */,
+				98B111BD2ADCA5210093C1CF /* CategorySelection.swift in Sources */,
 				A6E4DF6E2A88502D006E28F3 /* FlashCardData+CoreDataProperties.swift in Sources */,
 				A6581E7C29FE22C8004D03B6 /* CustomTabBar.swift in Sources */,
 				A6581E6D29FE2207004D03B6 /* NewHomeView.swift in Sources */,

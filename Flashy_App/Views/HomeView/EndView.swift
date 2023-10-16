@@ -13,10 +13,15 @@ struct EndView: View {
 
     @State private var continueFlashying = false
     @State private var returnHome = false
-    @State private var selectedCategories: [Bool] = [false, false, false, false]
-    
+    @State private var selectedCategories: [CategorySelection] = [
+        CategorySelection(category: 1, isSelected: false),
+        CategorySelection(category: 2, isSelected: false),
+        CategorySelection(category: 3, isSelected: false),
+        CategorySelection(category: 4, isSelected: false)
+    ]
+
     var selectedCardStatuses: [Int] {
-        return selectedCategories.enumerated().compactMap { $0.element ? $0.offset + 1 : nil }
+        return selectedCategories.filter { $0.isSelected }.map { $0.category }
     }
 
     var body: some View {
@@ -30,7 +35,7 @@ struct EndView: View {
                 // Display the number of cards in each category
                 List {
                     ForEach(1...4, id: \.self) { category in
-                        CategoryRow(categoryName: "Category \(category) cards studied: \(set.cardsArray.filter { $0.cardStatus == category }.count)", category: category, isSelected: $selectedCategories[category - 1])
+                        CategoryRow(categoryName: "Category \(category) cards studied: \(set.cardsArray.filter { $0.cardStatus == category }.count)", category: category, isSelected: $selectedCategories[category - 1].isSelected)
                     }
                 }
                 VStack {
@@ -38,28 +43,27 @@ struct EndView: View {
                         continueFlashying = true
                     }) {
                         Text("Continue studying")
+                        NavigationLink(destination: FlashcardSetView(set: set, selectedCardStatuses: selectedCardStatuses), isActive: $continueFlashying) {
+                            EmptyView()
+                        }
                     }
-                }
 
-                Button(action: {
-                    // Handle the "Start again" button
-                }) {
-                    Text("Start again")
-                }
-                Button(action: {
-                    returnHome = true
-                }) {
-                    // Return home button
-                }
-                NavigationLink(destination: FlashcardSetView(set: set, selectedCardStatuses: selectedCardStatuses), isActive: $continueFlashying) {
-                    EmptyView()
+                    Button(action: {
+                        // Handle the "Start again" button
+                    }) {
+                        Text("Start again")
+                    }
+                    Button(action: {
+                        returnHome = true
+                    }) {
+                        // Return home button
+                    }
                 }
             }
         }
         .navigationBarBackButtonHidden(true)
     }
 }
-
 
 struct CategoryRow: View {
     let categoryName: String
@@ -89,6 +93,14 @@ struct CheckboxView: View {
         }
     }
 }
+
+struct CategorySelection {
+    var category: Int
+    var isSelected: Bool
+}
+
+
+
 
 
 //struct EndView_Previews: PreviewProvider {

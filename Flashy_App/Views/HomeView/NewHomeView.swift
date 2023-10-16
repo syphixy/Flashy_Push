@@ -197,7 +197,7 @@ struct FlashcardSetView: View {
                                             removeCurrentCard()
                                         }
                                         print("Removing card with animation")
-                                    }, currentCardIndex: $currentCardIndex, isLearned: $isLearned,
+                                    }, set: set, currentCardIndex: $currentCardIndex, isLearned: $isLearned,
                                                     isThink: $isThink,
                                                     isHard: $isHard,
                                                     isRepeat: $isRepeat)
@@ -207,8 +207,7 @@ struct FlashcardSetView: View {
                                 .onAppear {
                                     currentlySelectedCard = card
                                     // Automatically transition to the EndView when all cards are studied
-                                    
-                                }
+                        }
                     }
                 }
                 if studyPhase == .hard {
@@ -224,7 +223,7 @@ struct FlashcardSetView: View {
                                             removeCurrentCard()
                                         }
                                         print("Removing card with animation")
-                                    }, currentCardIndex: $currentCardIndex, isLearned: $isLearned,
+                                    }, set: set, currentCardIndex: $currentCardIndex, isLearned: $isLearned,
                                                     isThink: $isThink,
                                                     isHard: $isHard,
                                                     isRepeat: $isRepeat)
@@ -240,7 +239,6 @@ struct FlashcardSetView: View {
                 }
                 .toolbar(.hidden, for: .tabBar)
             }
-            
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(trailing:
@@ -248,7 +246,7 @@ struct FlashcardSetView: View {
             Button(action: {
                 showTermDefinitionView = true
             }) {
-                NavigationLink(destination: TermDefinitionView(currentSet: set), isActive:         $showTermDefinitionView) {
+                NavigationLink(destination: TermDefinitionView(currentSet: set), isActive: $showTermDefinitionView) {
                     Text("Add cards")
                 }
             }

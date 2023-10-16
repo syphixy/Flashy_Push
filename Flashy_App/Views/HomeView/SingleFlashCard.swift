@@ -17,7 +17,7 @@ import SwiftUI
 struct SingleFlashCard: View {
     let cards: [FlashCardData]
     var removal: (() -> Void)? = nil
-    
+    var set: FlashSets
     @State private var isTapped = false
     @Binding var currentCardIndex: Int
     @Binding var isLearned: Bool
@@ -33,7 +33,8 @@ struct SingleFlashCard: View {
 
             VStack {
                 NavigationStack {
-                    Text(cards[currentCardIndex].term ?? "Unnamed Card")
+                    Text(currentCardIndex < set.cardsArray.count ? (set.cardsArray[currentCardIndex].term ?? "Unnamed Card") : "No more cards")
+
                         .offset(y: -100)
                     Divider()
                     
