@@ -9,7 +9,12 @@ import SwiftUI
 struct EndView: View {
     var set: FlashSets
     @ObservedObject var dataController = DataController.shared
-    
+    @FetchRequest(
+            entity: FlashCardData.entity(),
+            sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: false)],
+            predicate: NSPredicate(format: "cardStatus IN %@", [1, 2, 3, 4]) // Fetch cards with selected categories
+        )
+        var selectedCategoryCards: FetchedResults<FlashCardData>
     @State private var continueFlashying = false
     @State private var returnHome = false
     @State private var selectedCategories: [CategorySelection] = [
@@ -21,6 +26,7 @@ struct EndView: View {
     var selectedCardStatuses: [Int] {
         return selectedCategories.filter { $0.isSelected }.map { $0.category }
     }
+    @State private var showAlert = false
     var body: some View {
         NavigationStack {
             VStack {
@@ -37,7 +43,11 @@ struct EndView: View {
                 }
                 NavigationStack {
                     Button(action: {
-                        continueFlashying = true
+                        if hasSelectedCategories() {
+                                                    continueFlashying = true
+                                                } else {
+                                                    showAlert = true
+                                                }
                     }) {
                         Text("Continue studying")
                         NavigationLink(destination: FlashcardSetView(set: set, selectedCardStatuses: selectedCardStatuses), isActive: $continueFlashying) {
@@ -58,7 +68,18 @@ struct EndView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
+        .alert(isPresented: $showAlert) {
+                    Alert(
+                        title: Text("No cards selected"),
+                        message: Text("Please select at least one category with cards to continue studying."),
+                        dismissButton: .default(Text("OK"))
+                    )
+                }
+        
     }
+    private func hasSelectedCategories() -> Bool {
+            return selectedCategories.contains { $0.isSelected }
+        }
 }
 
 struct CategoryRow: View {

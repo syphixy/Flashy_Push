@@ -86,7 +86,7 @@ struct NewHomeView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 20) {
                         ForEach(sets) { oneSet in
-                            NavigationLink(destination: FlashcardSetView(set: oneSet, selectedCardStatuses: []).environmentObject(dataController)) {
+                            NavigationLink(destination: FlashcardSetView(set: oneSet, selectedCardStatuses: [1,2,3,4]).environmentObject(dataController)) {
                                 VStack(spacing: 20) {
                                     RoundedRectangle(cornerRadius: 25)
                                     //  .fill(Color("newgray"))
@@ -152,6 +152,12 @@ struct FlashcardSetView: View {
     )
     var categoryThreeCards: FetchedResults<FlashCardData>
     
+    @FetchRequest(
+            entity: FlashCardData.entity(),
+            sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: false)],
+            predicate: NSPredicate(format: "cardStatus IN %@", [1, 2, 3, 4]) // Fetch cards with selected categories
+        )
+        var selectedCategoryCards: FetchedResults<FlashCardData>
     var set: FlashSets
     @ObservedObject var dataController = DataController.shared
     @Environment(\.managedObjectContext) var managedObjectContext

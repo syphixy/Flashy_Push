@@ -21,17 +21,17 @@ class DataController:  ObservableObject {
     @Published var termdefpairs: [TermAndDefinition] = [TermAndDefinition(term: "", definition: "")]
     @Published var savedFlash: [FlashCardData] = []
     @Published var dataUpdated: Bool = false
-
-   
+    
+    
     let container: NSPersistentContainer
-
+    
     init(inMemory: Bool = false) {
         container = NSPersistentContainer(name: "CoreData")
         
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         }
-       // super.init()
+        // super.init()
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo)")
@@ -44,30 +44,20 @@ class DataController:  ObservableObject {
     }
     func addNew() {
         termdefpairs.append(TermAndDefinition(term: "", definition: ""))
-//        func add(term: String, definition: String, tag: String, date: Date, name: String) {
-//            let data = FlashCardData(context: self.container.viewContext)
-//            data.id = UUID()
-//            data.definition = definition
-//            data.term = term
-//            data.tag = tag
-//            data.date = date
-//            data.name = name
-//            fetchRequest()
-//        }
     }
     func fetchRequest() {
         let request: NSFetchRequest<FlashCardData> = FlashCardData.fetchRequest()
-                let sort = NSSortDescriptor(keyPath: \FlashCardData.date, ascending: false)
-                request.sortDescriptors = [sort]
-
-                do {
-                    self.savedFlash = try container.viewContext.fetch(request)
-                } catch {
-                    print("Failed to fetch FlashCardData: \(error)")
-                }
+        let sort = NSSortDescriptor(keyPath: \FlashCardData.date, ascending: false)
+        request.sortDescriptors = [sort]
+        
+        do {
+            self.savedFlash = try container.viewContext.fetch(request)
+        } catch {
+            print("Failed to fetch FlashCardData: \(error)")
+        }
     }
     
-
+    
     func save() {
         do {
             try container.viewContext.save()
@@ -77,20 +67,20 @@ class DataController:  ObservableObject {
             print("We could not save the data...")
         }
     }
-
+    
     func add(term: String, definition: String, number: Int16, date: Date) {
         let data = FlashCardData(context: self.container.viewContext)
         data.id = UUID()
         data.definition = definition
         data.term = term
         data.number = number
-     //   data.tag = tag
+        //   data.tag = tag
         data.date = date
-  //      data.name = name
-       // fetchRequest()
+        //      data.name = name
+        // fetchRequest()
     }
-
-    func addFlashcardSet(name: String, tag: String, date: Date)  { 
+    
+    func addFlashcardSet(name: String, tag: String, date: Date)  {
         let newSet = FlashSets(context: self.container.viewContext)
         newSet.id = UUID()
         newSet.name = name
