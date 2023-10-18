@@ -6,11 +6,10 @@
 //
 
 import SwiftUI
-
 struct EndView: View {
     var set: FlashSets
     @ObservedObject var dataController = DataController.shared
-
+    
     @State private var continueFlashying = false
     @State private var returnHome = false
     @State private var selectedCategories: [CategorySelection] = [
@@ -19,11 +18,9 @@ struct EndView: View {
         CategorySelection(category: 3, isSelected: false),
         CategorySelection(category: 4, isSelected: false)
     ]
-
     var selectedCardStatuses: [Int] {
         return selectedCategories.filter { $0.isSelected }.map { $0.category }
     }
-
     var body: some View {
         NavigationStack {
             VStack {
@@ -31,14 +28,14 @@ struct EndView: View {
                     .bold()
                     .font(.system(size: 36))
                     .padding()
-
+                
                 // Display the number of cards in each category
                 List {
                     ForEach(1...4, id: \.self) { category in
                         CategoryRow(categoryName: "Category \(category) cards studied: \(set.cardsArray.filter { $0.cardStatus == category }.count)", category: category, isSelected: $selectedCategories[category - 1].isSelected)
                     }
                 }
-                VStack {
+                NavigationStack {
                     Button(action: {
                         continueFlashying = true
                     }) {
@@ -47,7 +44,6 @@ struct EndView: View {
                             EmptyView()
                         }
                     }
-
                     Button(action: {
                         // Handle the "Start again" button
                     }) {
@@ -67,23 +63,22 @@ struct EndView: View {
 
 struct CategoryRow: View {
     let categoryName: String
-    let category: Int
+    var category: Int
     @Binding var isSelected: Bool
-
+    
     var body: some View {
         HStack {
             Text(categoryName)
-
+            
             Spacer()
-
+            
             CheckboxView(isSelected: $isSelected)
         }
     }
 }
-
 struct CheckboxView: View {
     @Binding var isSelected: Bool
-
+    
     var body: some View {
         Button(action: {
             isSelected.toggle()
@@ -93,19 +88,12 @@ struct CheckboxView: View {
         }
     }
 }
-
 struct CategorySelection {
     var category: Int
     var isSelected: Bool
 }
-
-
-
-
-
 //struct EndView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        EndView(set: set)
 //    }
 //}
-

@@ -39,7 +39,7 @@ struct SingleFlashCard: View {
                     Divider()
                     
                     if isTapped {
-                        Text(cards[currentCardIndex].definition ?? "Unnamed Card")
+                        Text(currentCardIndex < set.cardsArray.count ? (set.cardsArray[currentCardIndex].definition ?? "Unnamed Card") : "No more cards")
                             .offset(y: 100)
                     }
                 }
@@ -222,13 +222,13 @@ struct SingleFlashCard: View {
 //                         Spacer()
 //                     }
 //                 }
-// for StackOverflow:
+//for StackOverflow:
 //struct SingleFlashCard: View {
-//    let card: FlashCardData
+//    let cards: [FlashCardData]
 //    var removal: (() -> Void)? = nil
-//    
-//    @State var term = ""
-//    @State var definition = ""
+//    var set: FlashSets
+//    @State private var isTapped = false
+//    @Binding var currentCardIndex: Int
 //    @Binding var isLearned: Bool
 //    @Binding var isThink: Bool
 //    @Binding var isHard: Bool
@@ -244,12 +244,13 @@ struct SingleFlashCard: View {
 //            
 //            VStack {
 //                NavigationStack {
-//                    
-//                    Text(card.term ?? "Unnamed Card")
+//                    Text(currentCardIndex < set.cardsArray.count ? (set.cardsArray[currentCardIndex].term ?? "Unnamed Card") : "No more cards")
+//
 //                        .offset(y: -100)
 //                    Divider()
+//                    
 //                    if isTapped {
-//                        Text(card.definition ?? "Unnamed Card")
+//                        Text(currentCardIndex < set.cardsArray.count ? (set.cardsArray[currentCardIndex].definition ?? "Unnamed Card") : "No more cards")
 //                            .offset(y: 100)
 //                    }
 //                }

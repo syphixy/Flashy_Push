@@ -177,8 +177,8 @@ struct FlashcardSetView: View {
         NavigationView {
             ZStack {
                 NavigationLink(destination: EndView(set: set), isActive: $toEndView) {
-                EmptyView()
-            }
+                    EmptyView()
+                }
                 .isDetailLink(false)
                 Text("Card list is empty🙅‍♂️")
                     .padding(.top, -50)
@@ -187,26 +187,26 @@ struct FlashcardSetView: View {
                         //                    if let unwrappedCard = card {
                         //                        //Text(unwrappedCard.name)
                         //                    }
-                                VStack {
-                                    Text("Cards studied: \(currentCardIndex)")
-                                                            .font(.headline)
-                                                            .offset(y: -20)
-                                    SingleFlashCard(cards: set.cardsArray,
-                                                    removal: {
-                                        withAnimation(.easeInOut) {
-                                            removeCurrentCard()
-                                        }
-                                        print("Removing card with animation")
-                                    }, set: set, currentCardIndex: $currentCardIndex, isLearned: $isLearned,
-                                                    isThink: $isThink,
-                                                    isHard: $isHard,
-                                                    isRepeat: $isRepeat)
-                                    .offset(y: -20)
-                                    .transition(.asymmetric(insertion: .opacity, removal: .opacity))
+                        VStack {
+                            Text("Cards studied: \(currentCardIndex)")
+                                .font(.headline)
+                                .offset(y: -20)
+                            SingleFlashCard(cards: set.cardsArray,
+                                            removal: {
+                                withAnimation(.easeInOut) {
+                                    removeCurrentCard()
                                 }
-                                .onAppear {
-                                    currentlySelectedCard = card
-                                    // Automatically transition to the EndView when all cards are studied
+                                print("Removing card with animation")
+                            }, set: set, currentCardIndex: $currentCardIndex, isLearned: $isLearned,
+                                            isThink: $isThink,
+                                            isHard: $isHard,
+                                            isRepeat: $isRepeat)
+                            .offset(y: -20)
+                            .transition(.asymmetric(insertion: .opacity, removal: .opacity))
+                        }
+                        .onAppear {
+                            currentlySelectedCard = card
+                            // Automatically transition to the EndView when all cards are studied
                         }
                     }
                 }
@@ -215,23 +215,23 @@ struct FlashcardSetView: View {
                         //                    if let unwrappedCard = card {
                         //                        //Text(unwrappedCard.name)
                         //                    }
-                                VStack {
-                                    Text(set.cardsArray.count.description)
-                                    SingleFlashCard(cards: set.cardsArray,
-                                                    removal: {
-                                        withAnimation(.easeInOut) {
-                                            removeCurrentCard()
-                                        }
-                                        print("Removing card with animation")
-                                    }, set: set, currentCardIndex: $currentCardIndex, isLearned: $isLearned,
-                                                    isThink: $isThink,
-                                                    isHard: $isHard,
-                                                    isRepeat: $isRepeat)
-                                    .transition(.asymmetric(insertion: .opacity, removal: .opacity))
+                        VStack {
+                            Text(set.cardsArray.count.description)
+                            SingleFlashCard(cards: set.cardsArray,
+                                            removal: {
+                                withAnimation(.easeInOut) {
+                                    removeCurrentCard()
                                 }
-                                .onAppear {
-                                    currentlySelectedCard = card
-                            }
+                                print("Removing card with animation")
+                            }, set: set, currentCardIndex: $currentCardIndex, isLearned: $isLearned,
+                                            isThink: $isThink,
+                                            isHard: $isHard,
+                                            isRepeat: $isRepeat)
+                            .transition(.asymmetric(insertion: .opacity, removal: .opacity))
+                        }
+                        .onAppear {
+                            currentlySelectedCard = card
+                        }
                     }
                 }
                 NavigationLink(destination: EditFlashCardView(dataController: dataController, set: set), isActive: $isEdited) {
@@ -340,11 +340,11 @@ struct FlashcardSetView: View {
             }
         }
     }
-
-
-//    func removeMethod(at index: Int) {
-//        set.cardsArray.remove(at: index)
-//    }
+    
+    
+    //    func removeMethod(at index: Int) {
+    //        set.cardsArray.remove(at: index)
+    //    }
 }
 // For StackOveflow question
 //struct FlashcardSetView: View {
