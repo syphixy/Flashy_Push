@@ -111,7 +111,7 @@ struct CheckboxView: View {
 }
 struct CategorySelection {
     var category: Int
-    var isSelected: Bool
+    var isSelected = false
 }
 //struct EndView_Previews: PreviewProvider {
 //    static var previews: some View {

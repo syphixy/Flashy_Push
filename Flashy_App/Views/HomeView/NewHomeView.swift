@@ -193,27 +193,30 @@ struct FlashcardSetView: View {
                         //                    if let unwrappedCard = card {
                         //                        //Text(unwrappedCard.name)
                         //                    }
-                        VStack {
-                            Text("Cards studied: \(currentCardIndex)")
-                                .font(.headline)
+                        if selectedCardStatuses.contains(Int(card.cardStatus)) {
+                            VStack {
+                                Text("Cards studied: \(currentCardIndex)")
+                                    .font(.headline)
+                                    .offset(y: -20)
+                                SingleFlashCard(cards: set.cardsArray,
+                                                removal: {
+                                    withAnimation(.easeInOut) {
+                                        removeCurrentCard()
+                                    }
+                                    print("Removing card with animation")
+                                }, set: set, currentCardIndex: $currentCardIndex, isLearned: $isLearned,
+                                                isThink: $isThink,
+                                                isHard: $isHard,
+                                                isRepeat: $isRepeat)
                                 .offset(y: -20)
-                            SingleFlashCard(cards: set.cardsArray,
-                                            removal: {
-                                withAnimation(.easeInOut) {
-                                    removeCurrentCard()
-                                }
-                                print("Removing card with animation")
-                            }, set: set, currentCardIndex: $currentCardIndex, isLearned: $isLearned,
-                                            isThink: $isThink,
-                                            isHard: $isHard,
-                                            isRepeat: $isRepeat)
-                            .offset(y: -20)
-                            .transition(.asymmetric(insertion: .opacity, removal: .opacity))
+                                .transition(.asymmetric(insertion: .opacity, removal: .opacity))
+                            }
+                            .onAppear {
+                                currentlySelectedCard = card
+                                // Automatically transition to the EndView when all cards are studied
+                            }
                         }
-                        .onAppear {
-                            currentlySelectedCard = card
-                            // Automatically transition to the EndView when all cards are studied
-                        }
+                        
                     }
                 }
                 if studyPhase == .hard {
