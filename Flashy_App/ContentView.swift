@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
 //    @State private var selectedTab: Tab = .house
-    @State private var selectedTab = 2
+    @State  var selectedTab = 2
     @State var saveSet = false
     
     //

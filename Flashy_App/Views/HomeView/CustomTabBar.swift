@@ -64,6 +64,7 @@ struct CustomTabBar: View {
                             Image(systemName: "house")
                         }.tag(0)
                 }
+                
 //                ForEach(Tab.allCases, id: \.rawValue) { tab in
 //                    Spacer()
 //                    Image(systemName: selectedTab == tab ? fillImage : tab.rawValue)

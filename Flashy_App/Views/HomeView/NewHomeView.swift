@@ -250,7 +250,12 @@ struct FlashcardSetView: View {
             }
         }
         .navigationBarBackButtonHidden(true)
-        .navigationBarItems(trailing:
+        .navigationBarItems(leading: Button(action: {
+            dismiss()
+        })
+                            {
+            Text("Return 🏠")
+        }, trailing:
                                 Menu("Options") {
             Button(action: {
                 showTermDefinitionView = true
