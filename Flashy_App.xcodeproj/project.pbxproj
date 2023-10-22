@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9845D6292AE56A4F002678F5 /* Release.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9845D6282AE56A4F002678F5 /* Release.swift */; };
 		987030432A925D9A0013FA85 /* FinishView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987030422A925D9A0013FA85 /* FinishView.swift */; };
 		987030452A957CFB0013FA85 /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987030442A957CFB0013FA85 /* EditView.swift */; };
 		9872B85F2AACE83200CC16B9 /* EndView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9872B85E2AACE83200CC16B9 /* EndView.swift */; };
@@ -64,6 +65,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9845D6282AE56A4F002678F5 /* Release.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Release.swift; sourceTree = "<group>"; };
 		987030422A925D9A0013FA85 /* FinishView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FinishView.swift; sourceTree = "<group>"; };
 		987030442A957CFB0013FA85 /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		9872B85E2AACE83200CC16B9 /* EndView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndView.swift; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 				987030422A925D9A0013FA85 /* FinishView.swift */,
 				987030442A957CFB0013FA85 /* EditView.swift */,
 				9872B85E2AACE83200CC16B9 /* EndView.swift */,
+				9845D6282AE56A4F002678F5 /* Release.swift */,
 			);
 			path = HomeView;
 			sourceTree = "<group>";
@@ -422,6 +425,7 @@
 				A6581E7E29FE22EA004D03B6 /* DiceView.swift in Sources */,
 				A6581F0C2A144EED004D03B6 /* FlashCardsView.swift in Sources */,
 				A6581E7129FE2237004D03B6 /* TermDefinitionViewModel.swift in Sources */,
+				9845D6292AE56A4F002678F5 /* Release.swift in Sources */,
 				A6E798D42A76C12A009D6F7F /* CardsView.swift in Sources */,
 				A62F67002A2FA004002CFB99 /* DataController.swift in Sources */,
 				987030432A925D9A0013FA85 /* FinishView.swift in Sources */,

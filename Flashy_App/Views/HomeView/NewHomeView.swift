@@ -123,6 +123,7 @@ struct NewHomeView: View {
             .onChange(of: query) { newValue in
                 sets.nsPredicate = searchPredicate(query: newValue)
             }
+            .navigationBarBackButtonHidden(true)
         }
         
     }
@@ -178,14 +179,14 @@ struct FlashcardSetView: View {
     @State var currentCardIndex = 0
     @State private var toEndView = false
     var selectedCardStatuses: [Int]
-    
+    @Environment(\.presentationMode) var presentationMode
     var body: some View {
         NavigationView {
             ZStack {
-                NavigationLink(destination: EndView(set: set), isActive: $toEndView) {
-                    EmptyView()
-                }
-                .isDetailLink(false)
+//                NavigationLink(destination: EndView(set: set), isActive: $toEndView) {
+//                    EmptyView()
+//                }
+                //.isDetailLink(false)
                 Text("Card list is empty🙅‍♂️")
                     .padding(.top, -50)
                 if studyPhase == .initial {
@@ -249,9 +250,13 @@ struct FlashcardSetView: View {
                 .toolbar(.hidden, for: .tabBar)
             }
         }
+        .fullScreenCover(isPresented: $toEndView) {
+            EndView(set: set)
+        }
         .navigationBarBackButtonHidden(true)
         .navigationBarItems(leading: Button(action: {
-            dismiss()
+            presentationMode.wrappedValue
+                .dismiss()
         })
                             {
             Text("Return 🏠")

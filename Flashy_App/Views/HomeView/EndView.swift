@@ -27,6 +27,8 @@ struct EndView: View {
         return selectedCategories.filter { $0.isSelected }.map { $0.category }
     }
     @State private var showAlert = false
+    @State private var restartSet = false
+    @Environment(\.presentationMode) var presentationMode
     var body: some View {
         NavigationStack {
             VStack {
@@ -56,14 +58,29 @@ struct EndView: View {
                     }
                     Button(action: {
                         // Handle the "Start again" button
+                        restartSet = true
+                        
                     }) {
                         Text("Start again")
                     }
                     Button(action: {
                         returnHome = true
+//                        presentationMode.wrappedValue
+//                            .dismiss()
                     }) {
                         // Return home button
+                        Text("Return Home")
+                        
                     }
+                    .fullScreenCover(isPresented: $returnHome) {
+                        NewHomeView()
+                    }
+                    NavigationLink(destination: FlashcardSetView(set: set, selectedCardStatuses: []), isActive: $restartSet) {
+                        EmptyView()
+                    }
+//                    NavigationLink(destination: NewHomeView(), isActive: $returnHome) {
+//                        EmptyView()
+//                    }
                 }
             }
         }
