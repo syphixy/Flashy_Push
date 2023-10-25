@@ -77,9 +77,7 @@ struct NewHomeView: View {
                     }
                     
                 }
-                
                 Spacer()
-                
                 Text("Your sets")
                     .font(.system(size: 30, weight: .bold))
                     .padding(.bottom, 40)
@@ -119,7 +117,6 @@ struct NewHomeView: View {
                 //                }
                 
             }
-            
             .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search sets")
             .onChange(of: query) { newValue in
                 sets.nsPredicate = searchPredicate(query: newValue)
@@ -130,8 +127,6 @@ struct NewHomeView: View {
     }
     
 }
-
-
 struct NewHomeView_Previews: PreviewProvider {
     static var previews: some View {
         NewHomeView()
@@ -192,7 +187,7 @@ struct FlashcardSetView: View {
     @State var studyPhase: StudyPhase = .initial
     @State var currentCardIndex = 0
     @State private var toEndView = false
-    var selectedCardStatuses: [Int] = []
+    //@Binding var selectedCardStatuses = [Int]
     @Environment(\.presentationMode) var presentationMode
     var body: some View {
         NavigationView {
@@ -236,7 +231,7 @@ struct FlashcardSetView: View {
                     }
                 }
                 if studyPhase == .hard {
-                    ForEach(categoryThreeCards, id: \.self) { card in
+                    ForEach(set.cardsArray, id: \.self) { card in
                         //                    if let unwrappedCard = card {
                         //                        //Text(unwrappedCard.name)
                         //                    }
@@ -291,7 +286,6 @@ struct FlashcardSetView: View {
             }
         }
         )
-        
         HStack {
             Button(action: {
                 currentlySelectedCard?.cardStatus = 1
@@ -356,7 +350,7 @@ struct FlashcardSetView: View {
                 currentCardIndex += 1 // Move to the next card
                 currentlySelectedCard = set.cardsArray[currentCardIndex] // Update currentlySelectedCard
             } else {
-                if let lastCard = set.cardsArray.last {
+                if set.cardsArray.last != nil {
                     // All cards in the set have been studied
                     toEndView = true // Transition to the EndView
                 } else {

@@ -94,6 +94,253 @@
                   endingLineNumber = "23"
                   offsetFromSymbolStart = "220">
                </Location>
+               <Location
+                  uuid = "C8F45156-2402-4748-B618-5092D4E214A5 - 98bb957b4cf1dfc6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Flashy_App.SingleFlashCard.isLearned.getter : Swift.Bool"
+                  moduleName = "Flashy_App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/artemsnisarenko/Desktop/Desktop%20-%20Artem%E2%80%99s%20MacBook%20Pro/Flashy_Push/Flashy_App/Views/HomeView/SingleFlashCard.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  uuid = "C8F45156-2402-4748-B618-5092D4E214A5 - ddc051b923ccf0cb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Flashy_App.SingleFlashCard.isLearned.setter : Swift.Bool"
+                  moduleName = "Flashy_App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/artemsnisarenko/Desktop/Desktop%20-%20Artem%E2%80%99s%20MacBook%20Pro/Flashy_Push/Flashy_App/Views/HomeView/SingleFlashCard.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "23"
+                  endingLineNumber = "23"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  uuid = "C8F45156-2402-4748-B618-5092D4E214A5 - c103c3152e11f2fa"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Flashy_App.SingleFlashCard.isLearned.modify : Swift.Bool"
+                  moduleName = "Flashy_App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/artemsnisarenko/Desktop/Desktop%20-%20Artem%E2%80%99s%20MacBook%20Pro/Flashy_Push/Flashy_App/Views/HomeView/SingleFlashCard.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "23"
+                  endingLineNumber = "23"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  uuid = "C8F45156-2402-4748-B618-5092D4E214A5 - 91aa4f96ee50e908"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Flashy_App.SingleFlashCard.isLearned.modify : Swift.Bool with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "Flashy_App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/artemsnisarenko/Desktop/Desktop%20-%20Artem%E2%80%99s%20MacBook%20Pro/Flashy_Push/%3Ccompiler-generated%3E"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "40">
+               </Location>
+               <Location
+                  uuid = "C8F45156-2402-4748-B618-5092D4E214A5 - 5aae6476bf31760a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Flashy_App.SingleFlashCard.$isLearned.getter : SwiftUI.Binding&lt;Swift.Bool&gt;"
+                  moduleName = "Flashy_App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/artemsnisarenko/Desktop/Desktop%20-%20Artem%E2%80%99s%20MacBook%20Pro/Flashy_Push/Flashy_App/Views/HomeView/SingleFlashCard.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "20">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D670630B-E253-41AD-8F80-74C04CC7E3DB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Flashy_App/Views/HomeView/NewHomeView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "220"
+            endingLineNumber = "220"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "D670630B-E253-41AD-8F80-74C04CC7E3DB - 64475a7530a8c57"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in closure #1 (Flashy_App.FlashCardData) -&gt; &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0 in closure #1 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, Swift.Optional&lt;SwiftUI.ForEach&lt;SwiftUI.FetchedResults&lt;Flashy_App.FlashCardData&gt;, Flashy_App.FlashCardData, &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0&gt;&gt;, Swift.Optional&lt;SwiftUI.ForEach&lt;SwiftUI.FetchedResults&lt;Flashy_App.FlashCardData&gt;, Flashy_App.FlashCardData, &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.toolbar(_: SwiftUI.Visibility, for: SwiftUI.ToolbarPlacement...) -&gt; some&gt;&gt;.0)&gt; in closure #1 () -&gt; SwiftUI.ZStack&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, Swift.Optional&lt;SwiftUI.ForEach&lt;SwiftUI.FetchedResults&lt;Flashy_App.FlashCardData&gt;, Flashy_App.FlashCardData, &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0&gt;&gt;, Swift.Optional&lt;SwiftUI.ForEach&lt;SwiftUI.FetchedResults&lt;Flashy_App.FlashCardData&gt;, Flashy_App.FlashCardData, &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.toolbar(_: SwiftUI.Visibility, for: SwiftUI.ToolbarPlacement...) -&gt; some&gt;&gt;.0)&gt;&gt; in Flashy_App.FlashcardSetView.body.getter : some"
+                  moduleName = "Flashy_App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/artemsnisarenko/Desktop/Flashy_Push/Flashy_App/Views/HomeView/NewHomeView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "225"
+                  endingLineNumber = "225"
+                  offsetFromSymbolStart = "232">
+               </Location>
+               <Location
+                  uuid = "D670630B-E253-41AD-8F80-74C04CC7E3DB - a3e26eb9f32ec861"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in closure #1 (Flashy_App.FlashCardData) -&gt; &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0 in closure #1 () -&gt; SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, Swift.Optional&lt;SwiftUI.ForEach&lt;Swift.Array&lt;Flashy_App.FlashCardData&gt;, Flashy_App.FlashCardData, &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0&gt;&gt;, Swift.Optional&lt;SwiftUI.ForEach&lt;SwiftUI.FetchedResults&lt;Flashy_App.FlashCardData&gt;, Flashy_App.FlashCardData, &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.toolbar(_: SwiftUI.Visibility, for: SwiftUI.ToolbarPlacement...) -&gt; some&gt;&gt;.0)&gt; in closure #1 () -&gt; SwiftUI.ZStack&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0, Swift.Optional&lt;SwiftUI.ForEach&lt;Swift.Array&lt;Flashy_App.FlashCardData&gt;, Flashy_App.FlashCardData, &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0&gt;&gt;, Swift.Optional&lt;SwiftUI.ForEach&lt;SwiftUI.FetchedResults&lt;Flashy_App.FlashCardData&gt;, Flashy_App.FlashCardData, &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.toolbar(_: SwiftUI.Visibility, for: SwiftUI.ToolbarPlacement...) -&gt; some&gt;&gt;.0)&gt;&gt; in Flashy_App.FlashcardSetView.body.getter : some"
+                  moduleName = "Flashy_App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/artemsnisarenko/Desktop/Flashy_Push/Flashy_App/Views/HomeView/NewHomeView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "225"
+                  endingLineNumber = "225"
+                  offsetFromSymbolStart = "232">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "98949EEC-607A-4887-B08F-A1A0EC3E70E0"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Flashy_App/Views/HomeView/NewHomeView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "219"
+            endingLineNumber = "219"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "720EBA24-DA5B-49C0-9879-5107C7B418A9"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Flashy_App/Views/HomeView/NewHomeView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "178"
+            endingLineNumber = "178"
+            landmarkName = "FlashcardSetView"
+            landmarkType = "14">
+            <Locations>
+               <Location
+                  uuid = "720EBA24-DA5B-49C0-9879-5107C7B418A9 - be8f1bafc96a22d6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "property wrapper backing initializer of Flashy_App.FlashcardSetView.isLearned : Swift.Bool"
+                  moduleName = "Flashy_App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/artemsnisarenko/Desktop/Desktop%20-%20Artem%E2%80%99s%20MacBook%20Pro/Flashy_Push/Flashy_App/Views/HomeView/NewHomeView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  uuid = "720EBA24-DA5B-49C0-9879-5107C7B418A9 - dcf3cd79873656b8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Flashy_App.FlashcardSetView.isLearned.getter : Swift.Bool"
+                  moduleName = "Flashy_App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/artemsnisarenko/Desktop/Desktop%20-%20Artem%E2%80%99s%20MacBook%20Pro/Flashy_Push/Flashy_App/Views/HomeView/NewHomeView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  uuid = "720EBA24-DA5B-49C0-9879-5107C7B418A9 - 702e2287285997f3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Flashy_App.FlashcardSetView.isLearned.setter : Swift.Bool"
+                  moduleName = "Flashy_App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/artemsnisarenko/Desktop/Desktop%20-%20Artem%E2%80%99s%20MacBook%20Pro/Flashy_Push/Flashy_App/Views/HomeView/NewHomeView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "181"
+                  endingLineNumber = "181"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  uuid = "720EBA24-DA5B-49C0-9879-5107C7B418A9 - 9ae802ed2c9695c2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Flashy_App.FlashcardSetView.isLearned.modify : Swift.Bool"
+                  moduleName = "Flashy_App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/artemsnisarenko/Desktop/Desktop%20-%20Artem%E2%80%99s%20MacBook%20Pro/Flashy_Push/Flashy_App/Views/HomeView/NewHomeView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "181"
+                  endingLineNumber = "181"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  uuid = "720EBA24-DA5B-49C0-9879-5107C7B418A9 - a1201d7f24038f82"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Flashy_App.FlashcardSetView.isLearned.modify : Swift.Bool with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "Flashy_App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/artemsnisarenko/Desktop/Desktop%20-%20Artem%E2%80%99s%20MacBook%20Pro/Flashy_Push/%3Ccompiler-generated%3E"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "40">
+               </Location>
+               <Location
+                  uuid = "720EBA24-DA5B-49C0-9879-5107C7B418A9 - 80e248001ea4e844"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Flashy_App.FlashcardSetView.$isLearned.getter : SwiftUI.Binding&lt;Swift.Bool&gt;"
+                  moduleName = "Flashy_App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/artemsnisarenko/Desktop/Desktop%20-%20Artem%E2%80%99s%20MacBook%20Pro/Flashy_Push/Flashy_App/Views/HomeView/NewHomeView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "20">
+               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>

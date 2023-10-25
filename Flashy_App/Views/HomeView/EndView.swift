@@ -4,17 +4,15 @@
 //
 //  Created by Artem Snisarenko on 2023-09-09.
 //
-
 import SwiftUI
 struct EndView: View {
     var set: FlashSets
     @ObservedObject var dataController = DataController.shared
-//    @FetchRequest(
-//            entity: FlashCardData.entity(),
-//            sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: false)],
-//            predicate: NSPredicate(format: "cardStatus IN %@", [1, 2, 3, 4]) // Fetch cards with selected categories
-//        )
-//        var selectedCategoryCards: FetchedResults<FlashCardData>
+    
+    
+    
+    
+    
     @State private var continueFlashying = false
     @State private var returnHome = false
     @State private var selectedCategories: [CategorySelection] = [
@@ -48,6 +46,7 @@ struct EndView: View {
                     Button(action: {
                         if hasSelectedCategories() {
                                                     continueFlashying = true
+                            //FlashCardSetView.studyPhase = .initial
                                                 } else {
                                                     showAlert = true
                                                 }
