@@ -69,6 +69,7 @@ struct NewHomeView: View {
                         redirectToCards = true
                     }) {
                         Text("+")
+                    
                     }
                     .padding(.trailing, 20)
                     .sheet(isPresented: $redirectToCards) {
@@ -86,7 +87,7 @@ struct NewHomeView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 20) {
                         ForEach(sets) { oneSet in
-                            NavigationLink(destination: FlashcardSetView(set: oneSet, selectedCardStatuses: [1,2,3,4]).environmentObject(dataController)) {
+                            NavigationLink(destination: FlashcardSetView(set: oneSet).environmentObject(dataController)) {
                                 VStack(spacing: 20) {
                                     RoundedRectangle(cornerRadius: 25)
                                     //  .fill(Color("newgray"))
@@ -156,9 +157,22 @@ struct FlashcardSetView: View {
     @FetchRequest(
             entity: FlashCardData.entity(),
             sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: false)],
-            predicate: NSPredicate(format: "cardStatus IN %@", [1, 2, 3, 4]) // Fetch cards with selected categories
+            predicate: NSPredicate(format: "cardStatus IN %@", []) // Fetch cards with selected categories
         )
         var selectedCategoryCards: FetchedResults<FlashCardData>
+    
+    init(withPredicate predicate: NSPredicate, cardset: FlashSets) {
+        _selectedCategoryCards = FetchRequest(entity: FlashCardData.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: false)], predicate: predicate, animation: .default)
+        self.set = cardset
+    }
+    
+    init(set: FlashSets) {
+        self.set = set
+        
+        
+    
+    }
+    
     var set: FlashSets
     @ObservedObject var dataController = DataController.shared
     @Environment(\.managedObjectContext) var managedObjectContext
@@ -178,7 +192,7 @@ struct FlashcardSetView: View {
     @State var studyPhase: StudyPhase = .initial
     @State var currentCardIndex = 0
     @State private var toEndView = false
-    var selectedCardStatuses: [Int]
+    var selectedCardStatuses: [Int] = []
     @Environment(\.presentationMode) var presentationMode
     var body: some View {
         NavigationView {
@@ -190,11 +204,11 @@ struct FlashcardSetView: View {
                 Text("Card list is empty🙅‍♂️")
                     .padding(.top, -50)
                 if studyPhase == .initial {
-                    ForEach(set.cardsArray, id: \.self) { card in
+                    ForEach(selectedCategoryCards, id: \.self) { card in
                         //                    if let unwrappedCard = card {
                         //                        //Text(unwrappedCard.name)
                         //                    }
-                        if selectedCardStatuses.contains(Int(card.cardStatus)) {
+                        //if selectedCardStatuses.contains(Int(card.cardStatus)) {
                             VStack {
                                 Text("Cards studied: \(currentCardIndex)")
                                     .font(.headline)
@@ -215,8 +229,9 @@ struct FlashcardSetView: View {
                             .onAppear {
                                 currentlySelectedCard = card
                                 // Automatically transition to the EndView when all cards are studied
+                                print("Appeared with \(selectedCategoryCards.count) cards")
                             }
-                        }
+                       // }
                         
                     }
                 }
@@ -259,7 +274,7 @@ struct FlashcardSetView: View {
                 .dismiss()
         })
                             {
-            Text("Return 🏠")
+            Text("< Return ")
         }, trailing:
                                 Menu("Options") {
             Button(action: {
@@ -331,6 +346,9 @@ struct FlashcardSetView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 8))
             }
         }
+        .onAppear {
+            print("appeared with  cards")
+        }
     }
     private func removeCurrentCard() {
         if studyPhase == .initial {
@@ -359,8 +377,6 @@ struct FlashcardSetView: View {
             }
         }
     }
-    
-    
     //    func removeMethod(at index: Int) {
     //        set.cardsArray.remove(at: index)
     //    }

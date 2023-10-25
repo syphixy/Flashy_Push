@@ -97,5 +97,53 @@
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "EDCD8969-DC0E-418D-A60C-DDE819530958"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Flashy_App/Views/HomeView/EndView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
+            landmarkName = "selectedCategories"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "EDCD8969-DC0E-418D-A60C-DDE819530958 - 72f85e1ed0a6e16a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "property wrapper backing initializer of Flashy_App.EndView.selectedCategories : Swift.Array&lt;Flashy_App.CategorySelection&gt;"
+                  moduleName = "Flashy_App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/artemsnisarenko/Desktop/Flashy_Push/Flashy_App/Views/HomeView/EndView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "20"
+                  endingLineNumber = "20"
+                  offsetFromSymbolStart = "28">
+               </Location>
+               <Location
+                  uuid = "EDCD8969-DC0E-418D-A60C-DDE819530958 - 51aca272da3d72b2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Flashy_App.EndView.init(set: Flashy_App.FlashSets, dataController: Flashy_App.DataController, selectedCategoryCards: SwiftUI.FetchRequest&lt;Flashy_App.FlashCardData&gt;, presentationMode: SwiftUI.Environment&lt;SwiftUI.Binding&lt;SwiftUI.PresentationMode&gt;&gt;) -&gt; Flashy_App.EndView"
+                  moduleName = "Flashy_App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/artemsnisarenko/Desktop/Flashy_Push/Flashy_App/Views/HomeView/EndView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "20"
+                  endingLineNumber = "20"
+                  offsetFromSymbolStart = "300">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

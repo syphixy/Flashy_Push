@@ -9,12 +9,12 @@ import SwiftUI
 struct EndView: View {
     var set: FlashSets
     @ObservedObject var dataController = DataController.shared
-    @FetchRequest(
-            entity: FlashCardData.entity(),
-            sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: false)],
-            predicate: NSPredicate(format: "cardStatus IN %@", [1, 2, 3, 4]) // Fetch cards with selected categories
-        )
-        var selectedCategoryCards: FetchedResults<FlashCardData>
+//    @FetchRequest(
+//            entity: FlashCardData.entity(),
+//            sortDescriptors: [NSSortDescriptor(keyPath: \FlashCardData.date, ascending: false)],
+//            predicate: NSPredicate(format: "cardStatus IN %@", [1, 2, 3, 4]) // Fetch cards with selected categories
+//        )
+//        var selectedCategoryCards: FetchedResults<FlashCardData>
     @State private var continueFlashying = false
     @State private var returnHome = false
     @State private var selectedCategories: [CategorySelection] = [
@@ -31,6 +31,7 @@ struct EndView: View {
     @Environment(\.presentationMode) var presentationMode
     var body: some View {
         NavigationStack {
+            
             VStack {
                 Text("Set finished👍")
                     .bold()
@@ -52,7 +53,8 @@ struct EndView: View {
                                                 }
                     }) {
                         Text("Continue studying")
-                        NavigationLink(destination: FlashcardSetView(set: set, selectedCardStatuses: selectedCardStatuses), isActive: $continueFlashying) {
+                            .underline()
+                        NavigationLink(destination: FlashcardSetView(withPredicate: NSPredicate(format: "cardStatus IN %@", selectedCardStatuses), cardset: set), isActive: $continueFlashying) {
                             EmptyView()
                         }
                     }
@@ -62,6 +64,10 @@ struct EndView: View {
                         
                     }) {
                         Text("Start again")
+                            .underline()
+                    }
+                    NavigationLink(destination: FlashcardSetView(set: set), isActive: $restartSet) {
+                        EmptyView()
                     }
                     Button(action: {
                         returnHome = true
@@ -70,14 +76,14 @@ struct EndView: View {
                     }) {
                         // Return home button
                         Text("Return Home")
+                            .underline()
                         
                     }
                     .fullScreenCover(isPresented: $returnHome) {
                         NewHomeView()
                     }
-                    NavigationLink(destination: FlashcardSetView(set: set, selectedCardStatuses: []), isActive: $restartSet) {
-                        EmptyView()
-                    }
+                
+                    
 //                    NavigationLink(destination: NewHomeView(), isActive: $returnHome) {
 //                        EmptyView()
 //                    }
@@ -95,10 +101,9 @@ struct EndView: View {
         
     }
     private func hasSelectedCategories() -> Bool {
-            return selectedCategories.contains { $0.isSelected }
+        return selectedCategories.contains { $0.isSelected } || selectedCategories.isEmpty
         }
 }
-
 struct CategoryRow: View {
     let categoryName: String
     var category: Int
@@ -116,7 +121,6 @@ struct CategoryRow: View {
 }
 struct CheckboxView: View {
     @Binding var isSelected: Bool
-    
     var body: some View {
         Button(action: {
             isSelected.toggle()
